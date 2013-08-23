@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class RegisterType extends AbstractType {
+class Register extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('username', "text", array("constraints" => array(new Assert\NotBlank(), new Assert\MinLength(5)), "attr" => array("placeholder" => "name")));

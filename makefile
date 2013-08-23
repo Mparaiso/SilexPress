@@ -12,4 +12,8 @@ deploy:
 	git commit -am"deploy"
 	git push heroku master
 
+server:
+
+	php -S localhost:3000 -t web web\index.php
+
 .PHONY: github
