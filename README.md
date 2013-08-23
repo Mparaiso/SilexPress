@@ -1,4 +1,4 @@
-#Silex Blog
+# SilexPress!
 
 ## A blog engine powered with Silex and MongoDB in php
 Check out the silex framework , by Fabien Potencier, author of Symfony,Twig,Simso,Pimple ...

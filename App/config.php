@@ -203,9 +203,9 @@ $app['filter.mustbeadmin']=$app->protect(
 );
 
 # using symfony reverse proxy
-Request::trustProxyData();
+#Request::trustProxyData();
 
-$app['silexblog.url']=function(){
+$app['silexblog.url']=function($app){
   return $app['url_generator']->generate('index.index');
 };
 
