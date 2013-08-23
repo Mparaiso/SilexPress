@@ -2,7 +2,7 @@
 /**
  * Silex Blog 
  * @author M.Paraiso
- * @copyright 2012
+ * @copyright 2012-2013
  */
 define('ROOT',dirname(__DIR__));
 
