@@ -10,7 +10,7 @@ use App\Controller\CommentController;
 use App\Controller\IndexController;
 use App\Controller\UserController;
 use App\Model\Manager\SessionManager;
-use Monolog\Handler\MongoDBHandler;
+use Mparaiso\SilexPress\Admin\Media\MediaServiceProvider;
 use Net\Mpmedia\SilexExtension\Provider\GravatarServiceProvider;
 use Silex\Application;
 use Silex\Provider\FormServiceProvider;
@@ -73,13 +73,13 @@ class Config implements ServiceProviderInterface
         $app->register(new ValidatorServiceProvider());
         # monolog
         $app->register(new MonologServiceProvider(), array(
-                'monolog.logfile' => ROOT . '/temp/' . date("Y:m:d") . '.log',
+                'monolog.logfile' => ROOT . '/temp/' . date("Y-m-d") . '.log',
                 'monolog.name' => 'mongoblog',
-                'monolog.handler' => $app->share(
+                /*'monolog.handler' => $app->share(
                     function (Application $app) {
                         return new MongoDBHandler($app['config.mongo'], $app['config.database'], "log");
                     }
-                ),
+                ),*/
             )
         );
         /** Security
@@ -129,7 +129,10 @@ class Config implements ServiceProviderInterface
             )
         );
         # cache
-        $app->register(new HttpCacheServiceProvider(), array('http_cache.cache_dir' => ROOT . '/temp/http'));
+        $app->register(new HttpCacheServiceProvider(),
+            array('http_cache.cache_dir' => ROOT . '/temp/http',
+                'http_cache.esi' => null)
+        );
         # Gravatar
         $app->register(new GravatarServiceProvider());
         # CUSTOM SERVICES
@@ -221,6 +224,12 @@ class Config implements ServiceProviderInterface
         /** allowed tags for content rendering in the view **/
         $app['silexblog.config.allowedTags'] = '<a>,<b>,<u>,<small>,<strong>,<li>,<ol>,<ul>,<img>,<h3>,<h4>,<h5>,<h6>,<p>';
 
+        /**
+         * 3rd party service configurations
+         */
+        $app->register(new MediaServiceProvider, array(
+            "sp.media.vars.upload_dir" => __DIR__ . "/../upload"
+        ));
 
     }
 

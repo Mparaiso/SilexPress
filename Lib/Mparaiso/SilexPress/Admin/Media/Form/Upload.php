@@ -1,6 +1,6 @@
 <?php
 
-namespace Mparaiso\SilexPress\Admin\Media;
+namespace Mparaiso\SilexPress\Admin\Media\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -10,7 +10,7 @@ class Upload extends \Symfony\Component\Form\AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        $builder->add("file","file");
+        $builder->add("file", "file", array("required" => true));
     }
 
 
