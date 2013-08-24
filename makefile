@@ -16,4 +16,8 @@ server:
 
 	php -S localhost:3000 -t web web\index.php
 
+test:
+
+	phpunit
+
 .PHONY: github

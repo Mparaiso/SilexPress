@@ -10,7 +10,8 @@ use App\Controller\CommentController;
 use App\Controller\IndexController;
 use App\Controller\UserController;
 use App\Model\Manager\SessionManager;
-use Mparaiso\SilexPress\Admin\Media\MediaServiceProvider;
+use Mparaiso\SilexPress\Provider\CoreServiceProvider;
+use Mparaiso\SilexPress\Provider\MediaServiceProvider;
 use Net\Mpmedia\SilexExtension\Provider\GravatarServiceProvider;
 use Silex\Application;
 use Silex\Provider\FormServiceProvider;
@@ -227,6 +228,7 @@ class Config implements ServiceProviderInterface
         /**
          * 3rd party service configurations
          */
+        $app->register(new CoreServiceProvider);
         $app->register(new MediaServiceProvider, array(
             "sp.media.vars.upload_dir" => __DIR__ . "/../upload"
         ));
