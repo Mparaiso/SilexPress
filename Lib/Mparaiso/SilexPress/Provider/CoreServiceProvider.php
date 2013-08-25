@@ -24,11 +24,11 @@ class CoreServiceProvider implements ServiceProviderInterface
             $mongo = new \MongoClient($app['config.server']);
             return $mongo->selectDB($app['config.database']);
         });
-        $app["sp.core.vars.collection.post"] = "posts"; // name of the posts collection
-        $app["sp.core.vars.model.post"] = 'Mparaiso\SilexPress\Core\Model\Post'; // post model class
+        $app["sp.core.collection.post"] = "posts"; // name of the posts collection
+        $app["sp.core.model.post"] = 'Mparaiso\SilexPress\Core\Model\Post'; // post model class
 
         $app["sp.core.service.post"] = $app->share(function ($app) {
-            return new Base($app["sp.core.db.connection"], $app["sp.core.vars.collection.post"], $app["sp.core.vars.model.post"]);
+            return new Base($app["sp.core.db.connection"], $app["sp.core.collection.post"], $app["sp.core.model.post"]);
         });
     }
 

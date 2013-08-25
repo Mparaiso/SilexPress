@@ -1,0 +1,5 @@
+<form action="" method="POST">
+    <img src="{{ url("sp.admin.media.serve",{id:attachment.guid,filename:attachment.post_name}) }}" alt="" style="max-width:500px;"/>
+    {{ form_widget(form) }}
+    <input type="submit" value="Edit"/>
+</form>

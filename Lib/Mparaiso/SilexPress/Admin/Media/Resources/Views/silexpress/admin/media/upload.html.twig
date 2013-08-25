@@ -1,9 +1,55 @@
-<ul>
-    {% for file in files %}
-        <h5>{{ file.file.name }}</h5>
-        <img height="100px" src="/admin/media/upload/{{ file.file._id }}" alt="{{ file.file.name }}"/>
-        <pre>
-{{ file|json_encode(constant('JSON_PRETTY_PRINT')) }}
-    </pre>
-    {% endfor %}
+<style type="text/css">
+    .inline {
+        list-style: none;
+    }
+
+    .inline li {
+        display: inline-block;
+    }
+</style>
+<h3>Media Library
+    <small><a href="{{ url("sp.admin.media.new") }}">Add new</a></small>
+</h3>
+<ul class="inline">
+    <li>All ({{ attachments|length }})</li>
+    <li>|</li>
+    <li>Images ({{ attachments|length }})</li>
+    <li>|</li>
+    <li>Unattached ({{ attachments|length }})</li>
 </ul>
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>File</th>
+        <th>Author</th>
+        <th>Uploaded to</th>
+        <th>Comments</th>
+        <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for  attachment in attachments %}
+        <tr>
+            <td><input type="checkbox" name="attachment[{{ loop0.index }}]" value="{{ attachment._id }}"/></td>
+            <td>
+                <a href="{{ url("sp.admin.media.edit",{id:attachment._id}) }}">
+                    <img height="100px"
+                         src="{{ url("sp.admin.media.serve",{id:attachment.guid,filename:attachment.post_name}) }}"
+                         alt="{{ attachment.post_title }}"/>
+                </a>
+            </td>
+            <td>
+                {{ attachment.post_name }}
+            </td>
+            <td>
+                {{ attachment.author }}
+            </td>
+            <td></td>
+            <td></td>
+            <td>{{ attachment.post_modified.sec|date() }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

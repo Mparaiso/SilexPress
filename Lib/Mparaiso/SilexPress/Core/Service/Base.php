@@ -66,7 +66,7 @@ class Base implements IService
      */
     function findAll()
     {
-        return $this->findBy(array());
+        return new Cursor($this->getCollection()->find(), $this->className);
     }
 
     /**
@@ -85,9 +85,14 @@ class Base implements IService
      */
     function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        $cursor = $this->getCollection()->find($criteria)->sort($orderBy)->skip((int)$limit * (int)$offset)->limit($limit);
-        if ($cursor)
-            return new Cursor($cursor, $this->className);
+        $cursor = $this->getCollection()->find($criteria);
+        if ($orderBy)
+            $cursor->sort($orderBy);
+        if ($limit && $offset)
+            $cursor->skip((int)$limit * (int)$offset);
+        if ($limit)
+            $cursor->limit($limit);
+        return new Cursor($cursor, $this->className);
     }
 
     /**
@@ -109,8 +114,14 @@ class Base implements IService
      */
     function persist($model)
     {
-        return $this->getCollection()->update(array("_id" => $model["_id"]), $model, array("upsert" => true));
+        if (isset($model["_id"])) {
+            $result = $this->getCollection()->update(array("_id" => $model["_id"]), $model, array("upsert" => true));
+        } else {
+            $result = $this->getCollection()->insert($model);
+        }
+        return $result;
     }
+
 
     /**
      * @param $model
@@ -118,7 +129,7 @@ class Base implements IService
      */
     function remove($model)
     {
-        return $this->getCollection()->remove(array("_id" => $model["_id"]));
+        return $this->getCollection()->remove(array("_id" => new MongoId($model["_id"])));
     }
 
     /**

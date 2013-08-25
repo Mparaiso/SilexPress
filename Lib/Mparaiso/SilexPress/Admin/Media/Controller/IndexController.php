@@ -2,6 +2,7 @@
 
 namespace Mparaiso\SilexPress\Admin\Media\Controller;
 
+use Mparaiso\SilexPress\Admin\Media\Form\Attachment;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -22,14 +23,15 @@ class IndexController implements \Silex\ControllerProviderInterface
             return new NotFoundHttpException("attachment not found");
         }
         /* @var \MongoGridFSFile $attachment */
-        $response = new Response($attachment->getBytes()
+        $response = $app->stream(
+            function()use($attachment){ return $attachment->getBytes(); }
             , 200, array(
                 "Content-Type" => $attachment->file["type"],
-                //"Cache-Control" => "s-maxage=10",
-            ));
+                )
+            );
 
-        $response->setTtl(100);
-        $response->setClientTtl(10);
+        $response->setTtl(5000);
+        $response->setClientTtl(1000);
         return $response;
     }
 
@@ -41,7 +43,7 @@ class IndexController implements \Silex\ControllerProviderInterface
     function upload(Application $app)
     {
         return $app["twig"]->render($app["sp.media.template.upload"],
-            array("files" => $app["sp.media.service.upload"]->findAll()));
+            array("attachments" => $app["sp.media.service.upload"]->findAll()));
     }
 
     /**
@@ -67,7 +69,30 @@ class IndexController implements \Silex\ControllerProviderInterface
         }
         return $app["twig"]->render($app['sp.media.template.new'], array(
             "form" => $form->createView(),
-        ));
+            ));
+    }
+
+    function update(Application $app, $id)
+    {
+        $model = $app["sp.media.service.attachement"]->find($id);
+        if (!$model) {
+            throw new NotFoundHttpException("attachment not found");
+        }
+        $formType = new Attachment();
+        $form = $app["form.factory"]->create($formType, $model);
+        if($app["request"]->getMethod()==="POST"){
+            $form->bind($app["request"]);
+            if($form->isValid()){
+                $app["sp.core.service.post"]->persist($model);
+                $app["session"]->getFlashBag()>add("success","post updated");
+                return $app->redirect($app["url_generator"]->generate("sp.admin.media.upload"));
+            }
+        }
+        return $app["twig"]->render($app['sp.media.template.edit'],
+            array(
+                "form" => $form->createView(),
+                "attachment"=>$model
+                ));
     }
 
     /**
@@ -82,8 +107,9 @@ class IndexController implements \Silex\ControllerProviderInterface
         $controllers = $app["sp.media.controllers"] = $app["controllers_factory"];
         /* @var ControllerCollection $controllers */
         $controllers->match("/new", array($this, "_new"))->bind("sp.admin.media.new");
-        $controllers->match("/upload/{id}", array($this, "serve"))->bind("sp.admin.media.serve");
+        $controllers->match("/upload/{id}/{filename}", array($this, "serve"))->bind("sp.admin.media.serve");
         $controllers->match("/upload", array($this, "upload"))->bind("sp.admin.media.upload");
+        $controllers->match("/edit/{id}", array($this, "update"))->bind("sp.admin.media.edit");
         return $controllers;
     }
 }

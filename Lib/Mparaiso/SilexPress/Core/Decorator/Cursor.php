@@ -3,7 +3,7 @@ namespace Mparaiso\SilexPress\Core\Decorator;
 
 use MongoCursor;
 
-class Cursor implements \Iterator, \Traversable
+class Cursor implements \Iterator
 {
     /**
      * @var MongoCursor
@@ -23,17 +23,10 @@ class Cursor implements \Iterator, \Traversable
     function __call($name, $arguments)
     {
         if (method_exists($this->cursor, $name))
-            return call_user_func_array($name, $this->cursor, $arguments);
+            return call_user_func_array(array($this->cursor, $name), $arguments);
     }
 
-
-    /**
-     * (PHP 5 &gt;= 5.0.0)<br/>
-     * Return the current element
-     * @link http://php.net/manual/en/iterator.current.php
-     * @return mixed Can return any type.
-     */
-    public function current()
+    function current()
     {
         return new $this->className($this->cursor->current());
     }
@@ -57,7 +50,7 @@ class Cursor implements \Iterator, \Traversable
      */
     public function key()
     {
-        $this->cursor->key();
+        return $this->cursor->key();
     }
 
     /**
@@ -69,7 +62,7 @@ class Cursor implements \Iterator, \Traversable
      */
     public function valid()
     {
-        $this->cursor->valid();
+        return $this->cursor->valid();
     }
 
     /**
@@ -81,20 +74,6 @@ class Cursor implements \Iterator, \Traversable
     public function rewind()
     {
         $this->cursor->rewind();
-    }
-
-    /**
-     * (PHP 5 &gt;= 5.1.0)<br/>
-     * Count elements of an object
-     * @link http://php.net/manual/en/countable.count.php
-     * @return int The custom count as an integer.
-     * </p>
-     * <p>
-     * The return value is cast to an integer.
-     */
-    public function count()
-    {
-        $this->cursor->count();
     }
 }
 

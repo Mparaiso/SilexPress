@@ -20,7 +20,7 @@ $autoload->add("", __DIR__ . "/../Lib");
 $debug = getenv("SILEXPRESS_ENV") == "development" ? true : false;
 
 $app = new \Silex\Application;
-//$app["debug"] = true;
+$app["debug"] = true;
 $app->register(new Config);
 
 $app['http_cache']->run();

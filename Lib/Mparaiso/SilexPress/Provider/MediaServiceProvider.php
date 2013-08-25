@@ -24,10 +24,19 @@ class MediaServiceProvider implements \Silex\ServiceProviderInterface
             return $app["sp.core.db.connection"];
         });
         /**
+         * Model
+         */
+        $app["sp.media.model.attachement"] = $app->share(function ($app) {
+            return $app["sp.core.model.post"];
+        });
+        /**
          * Services
          */
+        $app["sp.media.service.attachement"] = $app->share(function ($app) {
+            return $app["sp.core.service.post"];
+        });
         $app["sp.media.service.upload"] = $app->share(function ($app) {
-            return new Upload($app["sp.media.db.connection"], $app["sp.media.vars.upload_dir"]);
+            return new Upload($app["sp.media.db.connection"], $app["sp.media.vars.upload_dir"], $app["sp.media.service.attachement"], $app["sp.media.model.attachement"]);
         });
         // the form type instance for file upload
         $app["sp.media.form.upload"] = function ($app) {
@@ -38,10 +47,11 @@ class MediaServiceProvider implements \Silex\ServiceProviderInterface
             return new IndexController();
         };
         // template path
-        $app["sp.media.template.path"] = __DIR__ . "/Resources/Views";
+        $app["sp.media.template.path"] = __DIR__ . "/../Admin/Media/Resources/Views";
         // templates
         $app["sp.media.template.new"] = 'silexpress\admin\media\new.html.twig';
         $app["sp.media.template.upload"] = 'silexpress\admin\media\upload.html.twig';
+        $app["sp.media.template.edit"] = 'silexpress\admin\media\edit.html.twig';
         // route prefix
         $app["sp.media.route_prefix"] = "/admin/media";
 
