@@ -1,4 +1,9 @@
+{% extends app["sp.media.template.layout"] %}
+{% block content %}
+<div  class="span8">
 <form action="" enctype="multipart/form-data" method="POST">
     {{ form_widget(form) }}
-    <input type="submit" name="submit" value="Upload"/>
+    <input class="btn" type="submit" name="submit" value="Upload"/>
 </form>
+</div>
+{% endblock %}

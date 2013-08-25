@@ -20,7 +20,6 @@ class PostTest extends WebTestCase
     public function createApplication()
     {
         $app = Bootstrap::getApp();
-        $app["sp.core.vars.collection.post"] = "test_posts";
         return $app;
     }
 
@@ -79,6 +78,17 @@ class PostTest extends WebTestCase
         $results = $this->app["sp.core.service.post"]->findAll();
         /* @var Cursor $result */
         $this->assertEquals(2, $results->count());
+    }
+
+    function testCount()
+    {
+        $count = 3;
+        for ($i = 0; $i < 3; $i++) {
+            $this->app["sp.core.service.post"]->persist(new Post(array("post_content" => $this->post_content)));
+        }
+        $count_query_result = $this->app["sp.core.service.post"]->count();
+        $this->assertEquals($count, $count_query_result);
+
     }
 
     function tearDown()

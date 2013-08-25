@@ -230,7 +230,8 @@ class Config implements ServiceProviderInterface
          */
         $app->register(new CoreServiceProvider);
         $app->register(new MediaServiceProvider, array(
-            "sp.media.vars.upload_dir" => __DIR__ . "/../upload"
+            "sp.media.vars.upload_dir" => __DIR__ . "/../upload",
+            "sp.media.template.layout" => "admin/admin-layout.twig"
         ));
 
     }

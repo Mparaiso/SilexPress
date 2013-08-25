@@ -3,12 +3,18 @@
 namespace Mparaiso\SilexPress\Core\Service;
 
 use MongoCollection;
+use MongoCursor;
 use MongoDB;
 use MongoId;
 use Mparaiso\SilexPress\Core\Decorator\Cursor;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Base implements IService
 {
+    /**
+     * @var EventDispatcherInterface
+     */
+    public $dispatcher;
     /**
      * @var String
      */
@@ -36,6 +42,16 @@ class Base implements IService
         $this->className = $className;
         $this->collectionName = $collectionName;
         $this->connection = $connection;
+    }
+
+    function setEventDispatcher(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
+    function getEventDispatcher()
+    {
+        return $this->dispatcher;
     }
 
     /**
@@ -81,7 +97,7 @@ class Base implements IService
      * @param array|null $orderBy
      * @param int|null $limit
      * @param int|null $offset
-     * @return mixed The objects.
+     * @return MongoCursor
      */
     function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
@@ -140,5 +156,10 @@ class Base implements IService
     function getClassName()
     {
         return $this->className;
+    }
+
+    public function count(array $query = array())
+    {
+        return $this->getCollection()->count($query);
     }
 }

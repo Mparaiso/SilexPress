@@ -19,7 +19,6 @@ class MediaServiceProvider implements \Silex\ServiceProviderInterface
          * FR : le dossier de téléchargement par défaut
          */
         $app["sp.media.vars.upload_dir"] = sys_get_temp_dir();
-
         $app["sp.media.db.connection"] = $app->share(function ($app) {
             return $app["sp.core.db.connection"];
         });
@@ -49,6 +48,7 @@ class MediaServiceProvider implements \Silex\ServiceProviderInterface
         // template path
         $app["sp.media.template.path"] = __DIR__ . "/../Admin/Media/Resources/Views";
         // templates
+        $app["sp.media.template.layout"] = 'silexpress\admin\media\layout.html.twig'; // default layout
         $app["sp.media.template.new"] = 'silexpress\admin\media\new.html.twig';
         $app["sp.media.template.upload"] = 'silexpress\admin\media\upload.html.twig';
         $app["sp.media.template.edit"] = 'silexpress\admin\media\edit.html.twig';

@@ -1,6 +1,6 @@
 # unfortunatly makefiles use tabs instead of white spaces , so beware !
 
-github:
+commit:
 
 	git add .
 	git commit -am"update"
@@ -12,7 +12,7 @@ deploy:
 	git commit -am"deploy"
 	git push heroku master
 
-server:
+start:
 
 	php -S localhost:3000 -t web web\index.php
 
@@ -20,4 +20,12 @@ test:
 
 	phpunit
 
-.PHONY: github
+update:
+
+	composer update
+
+install:
+
+	composer install
+
+.PHONY: commit

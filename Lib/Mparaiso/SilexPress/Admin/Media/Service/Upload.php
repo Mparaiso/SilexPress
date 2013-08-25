@@ -9,6 +9,8 @@ class Upload extends BaseService
 
     protected $mongoDB;
     protected $tempDir;
+    protected $attachmentService;
+    protected $attachmentClass;
 
     function __construct(\MongoDB $mongoDB, $tempDir, BaseService $attachmentService, $attachmentClass)
     {
@@ -24,14 +26,15 @@ class Upload extends BaseService
         /* http://stackoverflow.com/questions/16150875/symfony-2-2-upload-files */
         $fileName = $file->getRealPath();
         $gridFS = $this->mongoDB->getGridFS();
-        $id = $gridFS->storeFile($fileName, array(
+        $post_meta = array(
             "type" => $file->getMimeType(),
             "extension" => $file->getExtension(),
             "name" => $file->getFilename(),
             "date" => $file->getCTime(),
             "size" => $file->getSize(),
             "owner" => $file->getOwner()
-        ));
+        );
+        $id = $gridFS->storeFile($fileName, $post_meta);
         $model = new $this->attachmentClass(
             array(
                 "post_title" => $file->getClientOriginalName(),
@@ -43,8 +46,8 @@ class Upload extends BaseService
                 "post_name" => $file->getClientOriginalName(),
                 "guid" => $id,
                 "post_type" => "attachment",
-                "post_mime_type" => $file->getClientMimeType()
-
+                "post_mime_type" => $file->getClientMimeType(),
+                "post_meta" => $post_meta
             )
         );
         $this->attachmentService->persist($model);
@@ -64,4 +67,5 @@ class Upload extends BaseService
     {
         return $this->mongoDB->getGridFS()->findOne(array("_id" => new \MongoId($id)));
     }
+
 }

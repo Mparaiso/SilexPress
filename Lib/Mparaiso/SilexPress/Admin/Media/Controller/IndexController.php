@@ -16,7 +16,7 @@ class IndexController implements \Silex\ControllerProviderInterface
     /**
      * Serve attachments by attachment name
      */
-    function serve(Application $app, $id)
+    function read(Application $app, $id)
     {
         $attachment = $app["sp.media.service.upload"]->serve($id);
         if (!$attachment) {
@@ -24,12 +24,19 @@ class IndexController implements \Silex\ControllerProviderInterface
         }
         /* @var \MongoGridFSFile $attachment */
         $response = $app->stream(
-            function()use($attachment){ return $attachment->getBytes(); }
+            function () use ($attachment) {
+                $stream = $attachment->getResource();
+                while (!feof($stream)) {
+                    echo fread($stream, 1024);
+                    flush();
+                }
+            }
             , 200, array(
                 "Content-Type" => $attachment->file["type"],
-                )
-            );
+            )
+        );
 
+        //$response=new Response($attachment->getBytes(),200,array("Content-Type" => $attachment->file["type"]));
         $response->setTtl(5000);
         $response->setClientTtl(1000);
         return $response;
@@ -40,7 +47,7 @@ class IndexController implements \Silex\ControllerProviderInterface
      * list all uploaded files
      * @param Application $app
      */
-    function upload(Application $app)
+    function index(Application $app)
     {
         return $app["twig"]->render($app["sp.media.template.upload"],
             array("attachments" => $app["sp.media.service.upload"]->findAll()));
@@ -58,18 +65,18 @@ class IndexController implements \Silex\ControllerProviderInterface
         if ($app["request"]->getMethod() == "POST") {
             $form->bind($app["request"]);
             if ($form->isValid()) {
-                $app["dispatcher"]->dispatch("sp.admin.media.before_upload", new GenericEvent($form), array("app" => $app));
                 /* @var $file UploadedFile */
                 $file = $form->get('file')->getData();
+                $app["dispatcher"]->dispatch("sp.event.media.before_create", new GenericEvent($form), array("app" => $app));
                 $app["sp.media.service.upload"]->upload($file);
-                $app["dispatcher"]->dispatch("sp.admin.media.after_upload", new GenericEvent($form), array("app" => $app, "file" => $file));
+                $app["dispatcher"]->dispatch("sp.event.media.after_create", new GenericEvent($form), array("app" => $app, "file" => $file));
                 $app["session"]->getFlashBag()->add("success", "File success fully uploaded!");
                 return $app->redirect($app["url_generator"]->generate("sp.admin.media.upload"));
             }
         }
         return $app["twig"]->render($app['sp.media.template.new'], array(
             "form" => $form->createView(),
-            ));
+        ));
     }
 
     function update(Application $app, $id)
@@ -80,19 +87,21 @@ class IndexController implements \Silex\ControllerProviderInterface
         }
         $formType = new Attachment();
         $form = $app["form.factory"]->create($formType, $model);
-        if($app["request"]->getMethod()==="POST"){
+        if ($app["request"]->getMethod() === "POST") {
             $form->bind($app["request"]);
-            if($form->isValid()){
+            if ($form->isValid()) {
+                $app["dispatcher"]->dispatch("sp.event.media.before_update", new GenericEvent($model));
                 $app["sp.core.service.post"]->persist($model);
-                $app["session"]->getFlashBag()>add("success","post updated");
+                $app["dispatcher"]->dispatch("sp.event.media.after_update", new GenericEvent($model));
+                $app["session"]->getFlashBag()->add("success", "post updated");
                 return $app->redirect($app["url_generator"]->generate("sp.admin.media.upload"));
             }
         }
         return $app["twig"]->render($app['sp.media.template.edit'],
             array(
                 "form" => $form->createView(),
-                "attachment"=>$model
-                ));
+                "attachment" => $model
+            ));
     }
 
     /**
@@ -107,8 +116,8 @@ class IndexController implements \Silex\ControllerProviderInterface
         $controllers = $app["sp.media.controllers"] = $app["controllers_factory"];
         /* @var ControllerCollection $controllers */
         $controllers->match("/new", array($this, "_new"))->bind("sp.admin.media.new");
-        $controllers->match("/upload/{id}/{filename}", array($this, "serve"))->bind("sp.admin.media.serve");
-        $controllers->match("/upload", array($this, "upload"))->bind("sp.admin.media.upload");
+        $controllers->match("/upload/{id}/{filename}", array($this, "read"))->bind("sp.admin.media.serve");
+        $controllers->match("/upload", array($this, "index"))->bind("sp.admin.media.upload");
         $controllers->match("/edit/{id}", array($this, "update"))->bind("sp.admin.media.edit");
         return $controllers;
     }

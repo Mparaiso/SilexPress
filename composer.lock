@@ -1,9 +1,9 @@
-w{
+{
     "_readme": [
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0bc42f86a27acf7a312b82c5f41f064b",
+    "hash": "58f155f2566bd155a9bbbe51dd7b191a",
     "packages": [
         {
             "name": "doctrine/common",
@@ -75,66 +75,6 @@ w{
             "time": "2012-09-20 05:55:18"
         },
         {
-            "name": "doctrine/mongodb",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/mongodb.git",
-                "reference": "531dc0025315055047997aeca497099c183db7e0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/mongodb/zipball/531dc0025315055047997aeca497099c183db7e0",
-                "reference": "531dc0025315055047997aeca497099c183db7e0",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/common": ">=2.1.0,<2.5-dev",
-                "ext-mongo": ">=1.2.12,<1.5-dev",
-                "php": ">=5.3.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Doctrine\\MongoDB": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bulat Shakirzyanov",
-                    "email": "mallluhuct@gmail.com",
-                    "homepage": "http://avalanche123.com"
-                },
-                {
-                    "name": "Jonathan H. Wage",
-                    "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/"
-                },
-                {
-                    "name": "Kris Wallsmith",
-                    "email": "kris.wallsmith@gmail.com",
-                    "homepage": "http://kriswallsmith.net/"
-                },
-                {
-                    "name": "Jeremy Mikola",
-                    "email": "jmikola@gmail.com",
-                    "homepage": "http://jmikola.net"
-                }
-            ],
-            "description": "Doctrine MongoDB Abstraction Layer",
-            "homepage": "http://www.doctrine-project.org",
-            "keywords": [
-                "database",
-                "mongodb",
-                "persistence"
-            ],
-            "time": "2013-04-23 15:15:35"
-        },
-        {
             "name": "monolog/monolog",
             "version": "1.6.0",
             "source": {
@@ -195,6 +135,47 @@ w{
                 "psr-3"
             ],
             "time": "2013-07-28 22:38:30"
+        },
+        {
+            "name": "mparaiso/crudserviceprovider",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mparaiso/crudserviceprovider.git",
+                "reference": "f20981966b94994d4c435939872d290be5d8ea96"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mparaiso/crudserviceprovider/zipball/f20981966b94994d4c435939872d290be5d8ea96",
+                "reference": "f20981966b94994d4c435939872d290be5d8ea96",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mparaiso": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "MParaiso",
+                    "email": "mparaiso@online.fr"
+                }
+            ],
+            "description": "CRUD helper Silex framework",
+            "homepage": "https://github.com/Mparaiso/crudserviceprovider",
+            "keywords": [
+                "extensions",
+                "silex"
+            ],
+            "time": "2013-07-23 16:42:53"
         },
         {
             "name": "pimple/pimple",
@@ -576,9 +557,9 @@ w{
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "mparaiso/crudserviceprovider": 20
+    },
     "platform": [
 
     ],

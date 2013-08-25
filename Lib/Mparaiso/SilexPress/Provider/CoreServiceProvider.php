@@ -24,6 +24,12 @@ class CoreServiceProvider implements ServiceProviderInterface
             $mongo = new \MongoClient($app['config.server']);
             return $mongo->selectDB($app['config.database']);
         });
+        $app["sp.core.collection.option"] = "options"; // name of the option collection
+        $app["sp.core.model.option"] = 'Mparaiso\SilexPress\Core\Model\Option'; // option model class
+        $app["sp.core.service.option"] = $app->share(function ($app) { //option manager
+            return new Base($app["sp.core.db.connection"], $app["sp.core.collection.option"], $app["sp.core.model.option"]);
+        });
+
         $app["sp.core.collection.post"] = "posts"; // name of the posts collection
         $app["sp.core.model.post"] = 'Mparaiso\SilexPress\Core\Model\Post'; // post model class
 
