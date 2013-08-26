@@ -5,8 +5,8 @@ namespace Mparaiso\SilexPress\Provider;
 
 use Mparaiso\CodeGeneration\Controller\CRUD;
 use Mparaiso\SilexPress\Core\Service\Base;
-use Mparaiso\SilexPress\Core\Service\Page as PageService;
 use Mparaiso\SilexPress\Core\Service\Post as PostService;
+use Mparaiso\SilexPress\Core\Service\Term as TermService;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -79,7 +79,54 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig"
             ));
         });
+
+        /**
+         *
+         * Terms
+         *
+         */
+
+        $app["sp.core.collection.term"] = "terms"; // name of the pages collection
+        $app["sp.core.model.term"] = 'Mparaiso\SilexPress\Core\Model\Term'; // page model class
+        $app["sp.core.form.term"] = 'Mparaiso\SilexPress\Core\Form\Term'; // page model class
+
+        // Categories
+
+        $app["sp.core.service.category"] = $app->share(function ($app) {
+            $service = new TermService($app["sp.core.db.connection"], $app["sp.core.collection.term"], $app["sp.core.model.page"]);
+            $service->setTaxonomy("category");
+            return $service;
+        });
+        $app["sp.core.crud.category"] = $app->share(function ($app) {
+            return new CRUD(array(
+                "entityClass" => $app["sp.core.model.term"],
+                "formClass" => $app["sp.core.form.term"],
+                "service" => $app["sp.core.service.category"],
+                "resourceName" => "category",
+                "collectionName" => "categories",
+                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig"
+            ));
+        });
+
+        // Tags
+
+        $app["sp.core.service.tag"] = $app->share(function ($app) {
+            $service = new TermService($app["sp.core.db.connection"], $app["sp.core.collection.term"], $app["sp.core.model.page"]);
+            $service->setTaxonomy("tag");
+            return $service;
+        });
+        $app["sp.core.crud.tag"] = $app->share(function ($app) {
+            return new CRUD(array(
+                "entityClass" => $app["sp.core.model.term"],
+                "formClass" => $app["sp.core.form.term"],
+                "service" => $app["sp.core.service.tag"],
+                "resourceName" => "tag",
+                "collectionName" => "tags",
+                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig"
+            ));
+        });
     }
+
 
     /**
      * Bootstraps the application.
@@ -88,12 +135,15 @@ class CoreServiceProvider implements ServiceProviderInterface
      * and should be used for "dynamic" configuration (whenever
      * a service must be requested).
      */
-    public function boot(Application $app)
+    public
+    function boot(Application $app)
     {
         // EN : add new folders to twig
         $app['twig.loader.filesystem']->addPath($app["sp.core.template.path"]);
         // add controllers
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.post"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.page"]);
+        $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.category"]);
+        $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.tag"]);
     }
 }
