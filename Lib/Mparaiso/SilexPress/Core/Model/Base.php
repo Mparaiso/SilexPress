@@ -11,6 +11,8 @@ namespace Mparaiso\SilexPress\Core\Model {
         {
             if (isset($this[$attr])) {
                 return $this[$attr];
+            } else {
+                return null;
             }
         }
 

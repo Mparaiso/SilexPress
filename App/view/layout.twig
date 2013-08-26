@@ -2,17 +2,22 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
-  {% include 'head.twig' %}
-  <script type="text/javascript" src="{{url('index.index')}}vendor/jquery/jquery.js">
-  </script>
+    {% include 'head.twig' %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ url('index.index') }}vendor/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ url('index.index') }}vendor/bootstrap/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="{{ url('index.index') }}css/style.css">
+    {% endblock %}
+    <script type="text/javascript" src="{{ url('index.index') }}vendor/jquery/jquery.js">
+    </script>
 </head>
 <body>
-  {% include "main-nav.twig"%}
-  <div class="container">
+{% include "main-nav.twig" %}
+<div class="container container-fluid">
     <noscript>
-      <div  class='alert-error'>
-        <h1>Please enable Javascript to have the best experience with that website. thank you.</h1>
-      </div> 
+        <div class='alert-error'>
+            <h1>Please enable Javascript to have the best experience with that website. thank you.</h1>
+        </div>
     </noscript>
     {% include 'flash-message.twig' %}
     {% block herounit %}
@@ -20,16 +25,15 @@
     {% block left_sidebar %}
     {% endblock %}
     {% block content %}
-    {%endblock%}
-    {% block right_sidebar %}
-    {% include 'sidebar.twig' %}
     {% endblock %}
-  </div>
-  <div class='well'>
-    {% include 'footer.twig'%}
-  </div>
-  <script type="text/javascript" src="{{url('index.index')}}vendor/bootstrap/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="{{url('index.index')}}css/style.css">
-  {% include 'analytics.twig' %}
+    {% block right_sidebar %}
+        {% include 'sidebar.twig' %}
+    {% endblock %}
+</div>
+<div class='well'>
+    {% include 'footer.twig' %}
+</div>
+<script type="text/javascript" src="{{ url('index.index') }}vendor/bootstrap/js/bootstrap.min.js"></script>
+{% include 'analytics.twig' %}
 </body>
 </html>

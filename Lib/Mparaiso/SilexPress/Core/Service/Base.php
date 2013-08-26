@@ -102,8 +102,21 @@ class Base implements IService
     function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
         $cursor = $this->getCollection()->find($criteria);
-        if ($orderBy)
+        if ($orderBy && is_array($orderBy)) {
+            // quick fix for crudserviceprovider
+            // @TODO find another solution
+            foreach ($orderBy as $key => $value) {
+                switch ($value) {
+                    case "DESC":
+                        $orderBy[$key] = -1;
+                        break;
+                    case "ASC":
+                        $orderBy[$key] = 1;
+                        break;
+                }
+            }
             $cursor->sort($orderBy);
+        }
         if ($limit && $offset)
             $cursor->skip((int)$limit * (int)$offset);
         if ($limit)
