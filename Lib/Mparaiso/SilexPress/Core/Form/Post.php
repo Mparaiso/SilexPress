@@ -2,6 +2,7 @@
 
 namespace Mparaiso\SilexPress\Core\Form;
 
+use Mparaiso\SilexPress\Core\Form\Extension\MetaToObjectDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -23,16 +24,20 @@ class Post extends AbstractType
     {
         parent::buildForm($builder, $options);
         $builder->add("post_title")
-            ->add("post_excerpt", "textarea")
+            ->add("post_excerpt", "textarea", array("required" => false))
             ->add("post_content", "textarea")
             ->add("post_name")
-            ->add("post_author")
+            ->add("post_author", null, array("required" => false))
             ->add("categories", "mongochoice", array(
                 "key" => "name", "collection" => "terms", "query" => array("taxonomy" => "category"),
                 "multiple" => true, "expanded" => true, "attr" => array("class" => "checkbox")
-            ));
-        /*->add("post_meta", "collection", array('type' => 'text',
-            "allow_add" => true, "allow_delete" => true
-        ));*/
+            ))
+            ->add("tags", "array", array("required" => false))
+            ->add("post_meta", "collection", array('type' => 'meta',
+                "allow_add" => true, "allow_delete" => true,
+                "options" => array(
+                    "label" => " ",
+                )
+            ))->get("post_meta")->addModelTransformer(new MetaToObjectDataTransformer);
     }
 }

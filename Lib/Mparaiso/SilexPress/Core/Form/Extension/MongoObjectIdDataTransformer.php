@@ -71,7 +71,7 @@ class MongoObjectIdDataTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        if (!$value) return;
+        if (!$value || !is_array($value)) return;
         $result = array();
         foreach ($value as $item) {
             $result[] = new \MongoId($item);

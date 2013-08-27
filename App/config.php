@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Controller\Admin\ArticleAdminController;
-use App\Controller\Admin\OptionAdminController;
 use App\Controller\Admin\UserAdminController;
 use App\Controller\ArticleController;
 use App\Controller\CommentController;
@@ -256,8 +254,6 @@ class Config implements ServiceProviderInterface
         $app->mount("/comment", new CommentController($app['spam_manager']));
         $app->mount('/user', new UserController($app['user_manager'], $app['spam_manager']));
         $app->mount('/admin/user', new UserAdminController());
-        $app->mount('/admin/article', new ArticleAdminController($app['article_manager']));
-        $app->mount('/admin/option', new OptionAdminController($app['options']));
 
     }
 }

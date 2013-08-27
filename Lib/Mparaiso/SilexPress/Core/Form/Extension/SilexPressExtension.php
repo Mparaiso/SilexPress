@@ -2,6 +2,8 @@
 
 namespace Mparaiso\SilexPress\Core\Form\Extension;
 
+use Mparaiso\SilexPress\Core\Form\Type\ArrayType;
+use Mparaiso\SilexPress\Core\Form\Type\MetaType;
 use Mparaiso\SilexPress\Core\Form\Type\MongoChoiceType;
 use Symfony\Component\Form\AbstractExtension;
 
@@ -18,15 +20,9 @@ class SilexPressExtension extends AbstractExtension
     {
         return array(
             new MongoChoiceType($this->mongoDB),
+            new ArrayType(),
+            new MetaType(),
         );
     }
 
-    /*
-    function loadTypeExtensions()
-    {
-        return array(
-            new MongoChoiceTypeExtension($this->mongoDB),
-        );
-    }
-    */
 }

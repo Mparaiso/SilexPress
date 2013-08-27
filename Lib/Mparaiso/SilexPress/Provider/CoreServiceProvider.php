@@ -56,6 +56,7 @@ class CoreServiceProvider implements ServiceProviderInterface
             return new CRUD(array(
                 "entityClass" => $app["sp.core.model.post"],
                 "formClass" => $app["sp.core.form.post"],
+                "formTemplate" => "/silexpress/admin/crud/includes/post-form.html.twig",
                 "service" => $app["sp.core.service.post"],
                 "resourceName" => "post",
                 "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
@@ -78,6 +79,7 @@ class CoreServiceProvider implements ServiceProviderInterface
             return new CRUD(array(
                 "entityClass" => $app["sp.core.model.page"],
                 "formClass" => $app["sp.core.form.page"],
+                "formTemplate" => "/silexpress/admin/crud/includes/post-form.html.twig",
                 "service" => $app["sp.core.service.page"],
                 "resourceName" => "page",
                 "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
@@ -146,8 +148,6 @@ class CoreServiceProvider implements ServiceProviderInterface
     function boot(Application $app)
     {
         // register new form type extension
-        $extensions = $app['form.type.extensions'];
-        $app['form.type.extensions'] = $extensions;
         $app['form.extensions'] = $app->share($app->extend("form.extensions", function ($extensions, $app) {
             $extensions[] = new SilexPressExtension($app["sp.core.db.connection"]);
             return $extensions;
