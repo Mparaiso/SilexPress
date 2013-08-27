@@ -9,6 +9,11 @@ use MongoId;
 use Mparaiso\SilexPress\Core\Decorator\Cursor;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * Class Base
+ * @package Mparaiso\SilexPress\Core\Service
+ * Base class for all database & model managers
+ */
 class Base implements IService
 {
     /**
@@ -174,5 +179,16 @@ class Base implements IService
     public function count(array $query = array())
     {
         return $this->getCollection()->count($query);
+    }
+
+    /* alias */
+    function save($entity)
+    {
+        return $this->persist($entity);
+    }
+    /* alias */
+    function delete($entity)
+    {
+        return $this->persist($entity);
     }
 }

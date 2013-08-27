@@ -1,7 +1,11 @@
 <?php
 
 namespace Mparaiso\SilexPress\Core\Service;
-
+/**
+ * Class Term
+ * @package Mparaiso\SilexPress\Core\Service
+ * Manage Term types
+ */
 class Term extends Base
 {
 

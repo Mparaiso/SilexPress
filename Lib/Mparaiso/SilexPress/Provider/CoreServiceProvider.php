@@ -4,11 +4,14 @@ namespace Mparaiso\SilexPress\Provider;
 
 
 use Mparaiso\CodeGeneration\Controller\CRUD;
+use Mparaiso\SilexPress\Core\Form\Extension\ServiceTypeExtension;
+use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;
 use Mparaiso\SilexPress\Core\Service\Base;
 use Mparaiso\SilexPress\Core\Service\Post as PostService;
 use Mparaiso\SilexPress\Core\Service\Term as TermService;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
+use Symfony\Component\Form\FormBuilder;
 
 class CoreServiceProvider implements ServiceProviderInterface
 {
@@ -55,14 +58,15 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "formClass" => $app["sp.core.form.post"],
                 "service" => $app["sp.core.service.post"],
                 "resourceName" => "post",
-                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig"
+                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
+                "propertyList" => array("post_title")
             ));
         });
 
         // PAGES vars
 
         $app["sp.core.collection.page"] = "posts"; // name of the pages collection
-        $app["sp.core.model.page"] = 'Mparaiso\SilexPress\Core\Model\Page'; // page model class
+        $app["sp.core.model.page"] = 'Mparaiso\SilexPress\Core\Model\Post'; // page model class
         $app["sp.core.form.page"] = 'Mparaiso\SilexPress\Core\Form\Page'; // page model class
         $app["sp.core.service.page"] = $app->share(function ($app) {
             $service = new PostService($app["sp.core.db.connection"], $app["sp.core.collection.page"], $app["sp.core.model.page"]);
@@ -76,7 +80,8 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "formClass" => $app["sp.core.form.page"],
                 "service" => $app["sp.core.service.page"],
                 "resourceName" => "page",
-                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig"
+                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
+                "propertyList" => array("post_title")
             ));
         });
 
@@ -93,7 +98,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         // Categories
 
         $app["sp.core.service.category"] = $app->share(function ($app) {
-            $service = new TermService($app["sp.core.db.connection"], $app["sp.core.collection.term"], $app["sp.core.model.page"]);
+            $service = new TermService($app["sp.core.db.connection"], $app["sp.core.collection.term"], $app["sp.core.model.term"]);
             $service->setTaxonomy("category");
             return $service;
         });
@@ -104,7 +109,8 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "service" => $app["sp.core.service.category"],
                 "resourceName" => "category",
                 "collectionName" => "categories",
-                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig"
+                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
+                "propertyList" => array("name")
             ));
         });
 
@@ -122,7 +128,8 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "service" => $app["sp.core.service.tag"],
                 "resourceName" => "tag",
                 "collectionName" => "tags",
-                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig"
+                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
+                "propertyList" => array("name")
             ));
         });
     }
@@ -138,6 +145,13 @@ class CoreServiceProvider implements ServiceProviderInterface
     public
     function boot(Application $app)
     {
+        // register new form type extension
+        $extensions = $app['form.type.extensions'];
+        $app['form.type.extensions'] = $extensions;
+        $app['form.extensions'] = $app->share($app->extend("form.extensions", function ($extensions, $app) {
+            $extensions[] = new SilexPressExtension($app["sp.core.db.connection"]);
+            return $extensions;
+        }));
         // EN : add new folders to twig
         $app['twig.loader.filesystem']->addPath($app["sp.core.template.path"]);
         // add controllers

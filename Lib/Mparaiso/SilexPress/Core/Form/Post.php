@@ -26,6 +26,13 @@ class Post extends AbstractType
             ->add("post_excerpt", "textarea")
             ->add("post_content", "textarea")
             ->add("post_name")
-            ->add("post_author");
+            ->add("post_author")
+            ->add("categories", "mongochoice", array(
+                "key" => "name", "collection" => "terms", "query" => array("taxonomy" => "category"),
+                "multiple" => true, "expanded" => true, "attr" => array("class" => "checkbox")
+            ));
+        /*->add("post_meta", "collection", array('type' => 'text',
+            "allow_add" => true, "allow_delete" => true
+        ));*/
     }
 }

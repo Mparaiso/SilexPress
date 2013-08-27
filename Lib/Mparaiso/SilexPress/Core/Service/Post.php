@@ -1,11 +1,14 @@
 <?php
 
 namespace Mparaiso\SilexPress\Core\Service;
-
+/**
+ * Class Post
+ * @package Mparaiso\SilexPress\Core\Service
+ * Manage Post types
+ */
 class Post extends Base
 {
     protected $posttype = "post";
-
 
     function persist($model)
     {
