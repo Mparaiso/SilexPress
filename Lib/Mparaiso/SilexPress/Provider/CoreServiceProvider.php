@@ -4,6 +4,7 @@ namespace Mparaiso\SilexPress\Provider;
 
 
 use Mparaiso\CodeGeneration\Controller\CRUD;
+use Mparaiso\SilexPress\Core\Controller\AdminController;
 use Mparaiso\SilexPress\Core\Form\Extension\ServiceTypeExtension;
 use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;
 use Mparaiso\SilexPress\Core\Service\Base;
@@ -37,11 +38,7 @@ class CoreServiceProvider implements ServiceProviderInterface
             $mongo = new \MongoClient($app['config.server']);
             return $mongo->selectDB($app['config.database']);
         });
-        $app["sp.core.collection.option"] = "options"; // name of the option collection
-        $app["sp.core.model.option"] = 'Mparaiso\SilexPress\Core\Model\Option'; // option model class
-        $app["sp.core.service.option"] = $app->share(function ($app) { //option manager
-            return new Base($app["sp.core.db.connection"], $app["sp.core.collection.option"], $app["sp.core.model.option"]);
-        });
+
 
         // POSTS vars
 
@@ -134,6 +131,20 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "propertyList" => array("name")
             ));
         });
+
+        // Options
+
+        $app["sp.core.collection.option"] = "options"; // name of the option collection
+        $app["sp.core.form.option.general"] = 'Mparaiso\SilexPress\Core\Form\GeneralSettings'; // name of the option collection
+        $app["sp.core.form.option.reading"] = 'Mparaiso\SilexPress\Core\Form\ReadingSettings'; // name of the option collection
+        $app["sp.core.form.option.writing"] = 'Mparaiso\SilexPress\Core\Form\WritingSettings'; // name of the option collection
+        $app["sp.core.model.option"] = 'Mparaiso\SilexPress\Core\Model\Option';
+        $app["sp.core.service.option"] = $app->share(function ($app) {
+            return new Base($app["sp.core.db.connection"], $app["sp.core.collection.option"], $app["sp.core.model.option"]);
+        });
+        $app["sp.core.controller.admin"] = $app->share(function ($app) {
+            return new AdminController();
+        });
     }
 
 
@@ -144,8 +155,7 @@ class CoreServiceProvider implements ServiceProviderInterface
      * and should be used for "dynamic" configuration (whenever
      * a service must be requested).
      */
-    public
-    function boot(Application $app)
+    public function boot(Application $app)
     {
         // register new form type extension
         $app['form.extensions'] = $app->share($app->extend("form.extensions", function ($extensions, $app) {
@@ -159,5 +169,6 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.page"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.category"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.tag"]);
+        $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.admin"]);
     }
 }

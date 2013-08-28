@@ -1,0 +1,11 @@
+{% extends  app["sp.core.template.admin.layout"] %}
+{% block content %}
+    <div class="span8">
+        <h3>{{ subtitle }}</h3>
+
+        <form class="form form-horizontal form-actions" action="" method="POST">
+            {{ form_widget(form) }}
+            <input type="submit" value="Submit"/>
+        </form>
+    </div>
+{% endblock %}

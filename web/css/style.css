@@ -4,6 +4,28 @@
 @import url(Hermes-Regular/fonts.css);
 @import url(Hermes-Bold/fonts.css);
 @import url(Hermes-Thin/fonts.css);
-body{
-	font-family: 'Hermes',Helvetica, Arial ,sans-serif;
+
+body {
+    font-family: 'Hermes', Helvetica, Arial, sans-serif;
+}
+
+
+.horizontal {
+    margin-bottom: 15px;
+
+    width: 100%;
+    clear: both;
+    float: left;
+}
+
+.horizontal input[type="radio"] {
+    display: inline-block;
+    float: left;
+    clear: left;
+}
+
+.horizontal label {
+    float: left;
+
+    margin-left: 10px;
 }
