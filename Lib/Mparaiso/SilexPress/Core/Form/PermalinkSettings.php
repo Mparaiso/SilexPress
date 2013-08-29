@@ -22,6 +22,13 @@ class PermalinkSettings extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-
+        $builder->add("permalink_setting", "choice", array(
+            "choices" => array(
+                "default", "day and name", "Month and Name",
+                "Numeric", "Post name"
+            ), "expanded" => true, "attr" => array("class" => "horizontal")
+        ));
+        $builder->add("category_base");
+        $builder->add("tag_base");
     }
 }

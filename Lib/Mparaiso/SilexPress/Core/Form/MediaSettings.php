@@ -2,11 +2,8 @@
 
 namespace Mparaiso\SilexPress\Core\Form;
 
-use MongoId;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 class MediaSettings extends AbstractType
 {
@@ -24,7 +21,10 @@ class MediaSettings extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
+        $attr = array("class" => "inline");
+        $builder->add("thumbnail_size", "imagedimension", array("attr" => $attr))
+            ->add("medium_size", "imagedimension")
+            ->add("large_size", "imagedimension");
 
     }
 }

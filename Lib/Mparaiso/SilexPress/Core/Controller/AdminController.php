@@ -16,7 +16,7 @@ class AdminController implements ControllerProviderInterface
     public $route_prefix = "options";
 
     /**
-     * EN : Generic method for updating options.
+     * EN : Generic method for updating settings.
      * FR : Option générique pour la mise à jour des options.
      * @param Application $app
      * @param Request $req
@@ -49,6 +49,12 @@ class AdminController implements ControllerProviderInterface
         ));
     }
 
+    /**
+     * General Settings
+     * @param Application $app
+     * @param Request $req
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     function general(Application $app, Request $req)
     {
         return $this->doUpdateOptions($app, $req,
@@ -58,6 +64,12 @@ class AdminController implements ControllerProviderInterface
             $app["url_generator"]->generate("sp.admin.settings.general"));
     }
 
+    /**
+     * Reading settings
+     * @param Application $app
+     * @param Request $req
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     function reading(Application $app, Request $req)
     {
         return $this->doUpdateOptions($app, $req, "Reading Settings", $app["sp.core.service.option"],
@@ -65,6 +77,32 @@ class AdminController implements ControllerProviderInterface
         );
     }
 
+    function writing(Application $app, Request $req)
+    {
+        return $this->doUpdateOptions($app, $req, "Reading Settings", $app["sp.core.service.option"],
+            $app["sp.core.model.option"], $app["sp.core.form.option.writing"], $app["url_generator"]->generate("sp.admin.settings.writing")
+        );
+    }
+
+    /**
+     * Media Settings
+     * @param Application $app
+     * @param Request $req
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    function media(Application $app, Request $req)
+    {
+        return $this->doUpdateOptions($app, $req, "Media Settings", $app["sp.core.service.option"], $app["sp.core.model.option"], $app["sp.core.form.option.media"], $app["url_generator"]->generate("sp.admin.settings.reading"));
+    }
+
+    function permalink(Application $app)
+    {
+        return $this->doUpdateOptions($app, $app["request"], "Permalink Settings", $app["sp.core.service.option"], $app["sp.core.model.option"], $app["sp.core.form.option.permalink"], $app["url_generator"]->generate("sp.admin.settings.permalink"));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     function connect(Application $app)
     {
         $route_prefix = $this->route_prefix;
@@ -74,6 +112,12 @@ class AdminController implements ControllerProviderInterface
             ->bind("sp.admin.settings.general");
         $controllers->match("/$route_prefix/reading", array($this, "reading"))
             ->bind("sp.admin.settings.reading");
+        $controllers->match("/$route_prefix/media", array($this, "media"))
+            ->bind("sp.admin.settings.media");
+        $controllers->match("/$route_prefix/permalink", array($this, "permalink"))
+            ->bind("sp.admin.settings.permalink");
+        $controllers->match("/$route_prefix/writing", array($this, "writing"))
+            ->bind("sp.admin.settings.writing");
         return $controllers;
     }
 }

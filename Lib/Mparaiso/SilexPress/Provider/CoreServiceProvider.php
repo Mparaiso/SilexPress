@@ -138,6 +138,8 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.form.option.general"] = 'Mparaiso\SilexPress\Core\Form\GeneralSettings'; // name of the option collection
         $app["sp.core.form.option.reading"] = 'Mparaiso\SilexPress\Core\Form\ReadingSettings'; // name of the option collection
         $app["sp.core.form.option.writing"] = 'Mparaiso\SilexPress\Core\Form\WritingSettings'; // name of the option collection
+        $app["sp.core.form.option.media"] = 'Mparaiso\SilexPress\Core\Form\MediaSettings'; // name of the option collection
+        $app["sp.core.form.option.permalink"] = 'Mparaiso\SilexPress\Core\Form\PermalinkSettings'; // name of the option collection
         $app["sp.core.model.option"] = 'Mparaiso\SilexPress\Core\Model\Option';
         $app["sp.core.service.option"] = $app->share(function ($app) {
             return new Base($app["sp.core.db.connection"], $app["sp.core.collection.option"], $app["sp.core.model.option"]);
