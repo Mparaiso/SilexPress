@@ -1,5 +1,7 @@
 # SilexPress!
 
+[![Build Status](https://travis-ci.org/Mparaiso/SilexPress.png?branch=master)](https://travis-ci.org/Mparaiso/SilexPress)
+
 ## A blog engine powered with Silex and MongoDB in php
 Check out the silex framework , by Fabien Potencier, author of Symfony,Twig,Simso,Pimple ...
 http://silex.sensiolabs.org
