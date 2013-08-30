@@ -1,15 +1,15 @@
+# travis configuration
 language: php
 php:
     - 5.3
 # variables d'envirronement
 env:
-    - SILEXPRESS_DBNAME=tests
-    - SILEXPRESS_DBSERVER=localhost
+    - SILEXPRESS_DBNAME=tests SILEXPRESS_DBSERVER=localhost
 
 # install les packages avec composer
 before_script:
     - composer install
-    - phpenv config-add php.ini
+    - phpenv config-add php.travis.ini
 
 # executer phpunit
 script: phpunit
