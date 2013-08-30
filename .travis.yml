@@ -9,6 +9,7 @@ env:
 # install les packages avec composer
 before_script:
     - composer install
+    - phpenv config-add php.ini
 
 # executer phpunit
 script: phpunit
