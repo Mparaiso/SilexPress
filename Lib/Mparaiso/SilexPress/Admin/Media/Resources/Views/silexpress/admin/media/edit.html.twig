@@ -1,11 +1,12 @@
 {% extends app["sp.media.template.layout"] %}
-s.layout"]  %}
 {% block content %}
-<div  class="span8">
-<form action="" method="POST">
-    <img src="{{ url("sp.admin.media.serve",{id:attachment.guid,filename:attachment.post_name}) }}" alt="" style="max-width:500px;"/>
-    {{ form_widget(form) }}
-    <input type="submit" value="Edit"/>
-</form>
-</div>
+    <div class="span8">
+        <form action="" method="POST">
+            <img src="{{ url("sp.admin.media.serve",{id:attachment.guid,filename:attachment.post_name}) }}" alt=""
+                 style="max-width:500px;"/>
+            {{ form_widget(form) }}
+            <input type="submit" value="Edit" class="btn"/>
+            <a class="btn" href="{{ url("sp.admin.media.upload") }}">Cancel</a>
+        </form>
+    </div>
 {% endblock %}

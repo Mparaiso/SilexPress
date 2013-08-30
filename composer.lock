@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "58f155f2566bd155a9bbbe51dd7b191a",
+    "hash": "e3abf8f2cae59eb6e2d1fb962bdb2677",
     "packages": [
         {
             "name": "doctrine/common",
@@ -137,17 +137,61 @@
             "time": "2013-07-28 22:38:30"
         },
         {
+            "name": "mparaiso/consoleserviceprovider",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mparaiso/consoleserviceprovider.git",
+                "reference": "affd0bbd30a2ded44b4b8f62e8b67ad86568cc18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mparaiso/consoleserviceprovider/zipball/affd0bbd30a2ded44b4b8f62e8b67ad86568cc18",
+                "reference": "affd0bbd30a2ded44b4b8f62e8b67ad86568cc18",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "silex/silex": "*@dev",
+                "symfony/console": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mparaiso": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "MParaiso",
+                    "email": "mparaiso@online.fr"
+                }
+            ],
+            "description": "Symfony Console integration for Silex",
+            "homepage": "https://github.com/Mparaiso/consoleserviceprovider",
+            "keywords": [
+                "console",
+                "silex",
+                "symfony"
+            ],
+            "time": "2013-06-28 00:51:30"
+        },
+        {
             "name": "mparaiso/crudserviceprovider",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mparaiso/crudserviceprovider.git",
-                "reference": "f20981966b94994d4c435939872d290be5d8ea96"
+                "reference": "39568f58d98ed8d2878446c745f72d374d2a101a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mparaiso/crudserviceprovider/zipball/f20981966b94994d4c435939872d290be5d8ea96",
-                "reference": "f20981966b94994d4c435939872d290be5d8ea96",
+                "url": "https://api.github.com/repos/Mparaiso/crudserviceprovider/zipball/39568f58d98ed8d2878446c745f72d374d2a101a",
+                "reference": "39568f58d98ed8d2878446c745f72d374d2a101a",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +219,7 @@
                 "extensions",
                 "silex"
             ],
-            "time": "2013-07-23 16:42:53"
+            "time": "2013-08-25 20:13:25"
         },
         {
             "name": "pimple/pimple",
@@ -394,16 +438,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.3.3",
+            "version": "v2.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "17aefe6c8ec9462dbfb3ef092f54c4e853861810"
+                "reference": "4fb225f4e315c11aa6d8935b1c0ceaf48ba39f1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/17aefe6c8ec9462dbfb3ef092f54c4e853861810",
-                "reference": "17aefe6c8ec9462dbfb3ef092f54c4e853861810",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/4fb225f4e315c11aa6d8935b1c0ceaf48ba39f1f",
+                "reference": "4fb225f4e315c11aa6d8935b1c0ceaf48ba39f1f",
                 "shasum": ""
             },
             "require": {
@@ -498,7 +542,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-08-07 17:11:16"
+            "time": "2013-08-27 08:58:24"
         },
         {
             "name": "twig/twig",
@@ -558,7 +602,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "mparaiso/crudserviceprovider": 20
+        "mparaiso/crudserviceprovider": 20,
+        "mparaiso/consoleserviceprovider": 20
     },
     "platform": [
 

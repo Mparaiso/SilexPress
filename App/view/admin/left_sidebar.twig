@@ -2,21 +2,16 @@
 {% if is_granted('ROLE_WRITER') %}
     <div class='well span2'>
         <ul class="nav nav-list">
-            <!-- <li class="nav-header">Dashboard</li> -->
-            <!-- <li class="active"><a href="#">Dashboard</a></li> -->
+            {# Dashboard #}
             <li class='nav-header'>Dashboard</li>
             <li><a href="">Home</a></li>
             <li><a href="">Update</a></li>
-            {#<li><a href="{{ path('admin.user.profile') }}">Profile</a></li>#}
-            {#<li><a href="#">Account</a></li>#}
-            {#<li><a href="{{ path('admin.article.dashboard') }}">Articles</a></li>#}
             <li class="divider"></li>
             {# POSTS #}
             <li class="nav-header">Posts</li>
             <li><a href="{{ path("mp_crud_post_index") }}">All Posts</a></li>
             <li><a href="{{ path("mp_crud_post_create") }}">Add New</a></li>
             <li><a href="{{ path("mp_crud_category_index") }}">Categories</a></li>
-            {#<li><a href="{{ path("mp_crud_tag_index") }}">Tags</a></li>#}
             <li class="divider"></li>
             {# PAGES #}
             <li class="nav-header">Pages</li>
@@ -24,8 +19,7 @@
             <li><a href="{{ path("mp_crud_page_create") }}">Add New</a></li>
             {# MEDIA #}
             <li class="nav-header">Media</li>
-            <li>
-                <a href="{{ path("sp.admin.media.upload") }}">Library</a>
+            <li>  <a href="{{ path("sp.admin.media.upload") }}">Library</a>
             </li>
             <li>
                 <a href="{{ path("sp.admin.media.new") }}">Add New</a>

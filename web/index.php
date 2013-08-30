@@ -1,8 +1,9 @@
 <?php
 
+use App\Config;
+
 // DIRECTIVE FOR PHP built-in server
 
-use App\Config;
 
 $filename = __DIR__ . preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
 if (php_sapi_name() === 'cli-server' && is_file($filename)) {
@@ -20,7 +21,9 @@ $autoload->add("", __DIR__ . "/../Lib");
 $debug = getenv("SILEXPRESS_ENV") == "development" ? true : false;
 
 $app = new \Silex\Application;
-$app["debug"] = true;
+
+$app["debug"] = $debug;
+
 $app->register(new Config);
 
 $app['http_cache']->run();

@@ -179,7 +179,8 @@ class Config implements ServiceProviderInterface
         );
         $app['spam_manager'] = $app->share(
             function (\Silex\Application $app) {
-                return new \App\Model\Manager\SpamManager($app['config.mongo'], $app['config.database'], $_SERVER["HTTP_HOST"], $app['config.akismet_apikey']);
+                // return new \App\Model\Manager\SpamManager($app['config.mongo'], $app['config.database'], $_SERVER["HTTP_HOST"], $app['config.akismet_apikey']);
+                return new \App\Model\Manager\SpamManager($app['config.mongo'], $app['config.database'], "", $app['config.akismet_apikey']);
             }
         );
         /** @var $app['option_manager'] App\Model\Manager\OptionManager * */

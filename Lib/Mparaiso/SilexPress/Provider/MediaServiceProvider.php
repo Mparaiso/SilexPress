@@ -3,6 +3,7 @@
 namespace Mparaiso\SilexPress\Provider;
 
 use Mparaiso\SilexPress\Admin\Media\Controller\IndexController;
+use Mparaiso\SilexPress\Admin\Media\Service\Attachment;
 use Mparaiso\SilexPress\Admin\Media\Service\Upload;
 use Silex\Application;
 
@@ -19,23 +20,31 @@ class MediaServiceProvider implements \Silex\ServiceProviderInterface
          * FR : le dossier de téléchargement par défaut
          */
         $app["sp.media.vars.upload_dir"] = sys_get_temp_dir();
+
+        // connection alias
         $app["sp.media.db.connection"] = $app->share(function ($app) {
             return $app["sp.core.db.connection"];
         });
         /**
          * Model
          */
+
+        /**
+         * Attachment Services
+         */
         $app["sp.media.model.attachement"] = $app->share(function ($app) {
             return $app["sp.core.model.post"];
         });
-        /**
-         * Services
-         */
-        $app["sp.media.service.attachement"] = $app->share(function ($app) {
-            return $app["sp.core.service.post"];
+        $app["sp.media.collection.attachement"] = 'posts';
+        $app["sp.media.service.attachment"] = $app->share(function ($app) {
+            $service = new Attachment($app["sp.media.db.connection"],
+                $app["sp.media.collection.attachement"],
+                $app["sp.media.model.attachement"]);
+            return $service;
         });
         $app["sp.media.service.upload"] = $app->share(function ($app) {
-            return new Upload($app["sp.media.db.connection"], $app["sp.media.vars.upload_dir"], $app["sp.media.service.attachement"], $app["sp.media.model.attachement"]);
+            return new Upload($app["sp.media.db.connection"], $app["sp.media.vars.upload_dir"],
+                $app["sp.media.service.attachment"], $app["sp.media.model.attachement"]);
         });
         // the form type instance for file upload
         $app["sp.media.form.upload"] = function ($app) {
