@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Entity;
+namespace Model\Entity;
 
 class Comment extends Base{
   protected $_id;

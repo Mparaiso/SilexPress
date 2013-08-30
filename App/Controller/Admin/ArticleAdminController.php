@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin{
+namespace Controller\Admin{
 
   use Silex\Application;
   use Silex\ControllerProviderInterface;
@@ -89,7 +89,7 @@ namespace App\Controller\Admin{
       $user = $app['user_manager']->getUser();
       $article->created_at = new \MongoDate();
       $article->type = "article";
-      $article->slug = \App\Controller\Helper\String::slug($articleDatas["title"]) . "-" . md5(date("r"));
+      $article->slug = \Controller\Helper\String::slug($articleDatas["title"]) . "-" . md5(date("r"));
       $article->update_count = 0;
       $article->title=$articleDatas['title'];
       $article->content=$articleDatas['content'];

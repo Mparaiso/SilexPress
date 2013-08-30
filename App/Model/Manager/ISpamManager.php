@@ -1,8 +1,8 @@
 <?php
-namespace App\Model\Manager{
+namespace Model\Manager{
   
-  use App\Model\Entity\Comment;
-  use App\Model\Entity\User;
+  use Model\Entity\Comment;
+  use Model\Entity\User;
 
   interface ISpamManager{
 

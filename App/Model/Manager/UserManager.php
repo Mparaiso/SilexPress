@@ -1,5 +1,5 @@
 <?php
-namespace App\Model\Manager{
+namespace Model\Manager{
 
   use Silex\Application;
   use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -7,7 +7,7 @@ namespace App\Model\Manager{
   use Symfony\Component\Security\Core\User\User;
   use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
   use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-  use App\Model\Entity\User as UserEntity ;
+  use Model\Entity\User as UserEntity ;
   use MongoId;
   use MongoDate;
   use Symfony\Component\Security\Core\SecurityContext;

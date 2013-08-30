@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Entity{
+namespace Model\Entity{
 	class Category extends Base{
 		protected $_id;
 		protected $_rev;

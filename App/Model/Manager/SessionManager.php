@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Manager;
+namespace Model\Manager;
 
 /**
 * @see http://php.net/manual/en/class.sessionhandlerinterface.php

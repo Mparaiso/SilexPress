@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller {
-    use App\Model\Entity\User;
-    use App\Model\Manager\ISpamManager;
-    use App\Model\Manager\IUserManager;
+namespace Controller {
+    use Model\Entity\User;
+    use Model\Manager\ISpamManager;
+    use Model\Manager\IUserManager;
     use Silex\Application;
     use Silex\ControllerProviderInterface;
     use Symfony\Component\Form\FormError;
@@ -42,7 +42,7 @@ namespace App\Controller {
 
         function login(Application $app, Request $request)
         {
-            $loginForm = $app['form.factory']->create(new \App\Form\Login());
+            $loginForm = $app['form.factory']->create(new \Form\Login());
             $form_error = $app['security.last_error']($request);
             $app['monolog']->addInfo($form_error);
             if ($form_error != null):
@@ -55,13 +55,13 @@ namespace App\Controller {
 
         function signUp(Application $app)
         {
-            $registrationForm = $app['form.factory']->create(new \App\Form\Register());
+            $registrationForm = $app['form.factory']->create(new \Form\Register());
             return $app['twig']->render('user/register.twig', array("registrationForm" => $registrationForm->createView()));
         }
 
         function doSignUp(Application $app)
         {
-            $registrationForm = $app['form.factory']->create(new \App\Form\Register());
+            $registrationForm = $app['form.factory']->create(new \Form\Register());
             $registrationForm->bind($app['request']);
             if ($registrationForm->isValid()) {
                 $datas = $registrationForm->getData();

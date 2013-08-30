@@ -1,5 +1,5 @@
 <?php
-namespace App\Model\Entity{
+namespace Model\Entity{
   class PostMeta extends Base
   {
         protected $meta_id;

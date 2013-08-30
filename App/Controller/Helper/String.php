@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Helper;
+namespace Controller\Helper;
 
 class String{
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Entity{
+namespace Model\Entity{
 
   class User extends Base{
 

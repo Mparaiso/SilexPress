@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller{
+namespace Controller{
 
   use Silex\Application;
   use Silex\ControllerProviderInterface;
@@ -8,7 +8,7 @@ namespace App\Controller{
   use Symfony\Component\HttpKernel\HttpKernelInterface;
   use Symfony\Component\Form\Form;
 
-  use App\Model\Manager\ISpamManager;
+  use Model\Manager\ISpamManager;
 
   use Net\Mpmedia\Akismet\Akismet;
 
@@ -46,7 +46,7 @@ namespace App\Controller{
           $commentManager = $app['comment_manager'];
           $commentDatas = $commentForm->getData();
           /** @var $comment App\Model\Entity\Comment **/
-          $comment = new \App\Model\Entity\Comment($commentDatas);
+          $comment = new \Model\Entity\Comment($commentDatas);
           $comment->ip  = $app['request']->getClientIp();
           if(false==$this->spamManager->ipIsSpammer($comment->ip)){
             // if comment is not a spam

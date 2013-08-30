@@ -1,5 +1,5 @@
 <?php
-namespace App\Model\Entity {
+namespace Model\Entity {
     class Post extends Base
     {
         protected $ID;

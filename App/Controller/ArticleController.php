@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller{
+namespace Controller{
 
   use Silex\Application;
   use Silex\ControllerProviderInterface;
@@ -8,8 +8,8 @@ namespace App\Controller{
   use Symfony\Component\HttpKernel\HttpKernelInterface;
   use Symfony\Component\Form\Form;
 
-  use App\Model\Manager\IArticleManager;
-  use App\Model\Manager\IUserManager;
+  use Model\Manager\IArticleManager;
+  use Model\Manager\IUserManager;
 
   class ArticleController implements ControllerProviderInterface {
 

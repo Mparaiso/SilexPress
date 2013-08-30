@@ -1,5 +1,5 @@
 <?php
-namespace App\Form\DataTransformer{
+namespace Form\DataTransformer{
 
   use Symfony\Component\Form\DataTransformerInterface;
   class TagsToArrayTransformer implements DataTransformerInterface{

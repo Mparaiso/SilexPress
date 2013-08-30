@@ -2,7 +2,7 @@
 /**
  * related to wordpress options
  */
-namespace App\Model\Entity{
+namespace Model\Entity{
   class Option extends Base{
     protected $option_id;
     protected $blog_id="silexblog";

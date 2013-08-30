@@ -1,9 +1,8 @@
 <?php
 
-use App\Config;
 
 $loader = require __DIR__ . '/../vendor/autoload.php';
-$loader->add('App', __DIR__ . "/../");
+$loader->add('', __DIR__ . "/../App");
 $loader->add('', __DIR__ . "/../Lib");
 
 class Bootstrap

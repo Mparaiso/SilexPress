@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Admin{
+namespace Controller\Admin{
   use Silex\ControllerProviderInterface;
   use Silex\Application;
   use Silex\ControllerCollection;

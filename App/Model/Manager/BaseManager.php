@@ -1,5 +1,5 @@
 <?php
-namespace App\Model\Manager;
+namespace Model\Manager;
 
 use \Silex\Application;
 

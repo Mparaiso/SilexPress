@@ -1,6 +1,6 @@
 <?php
-namespace App\Model\Manager{
-  use App\Model\Entity\Option;
+namespace Model\Manager{
+  use Model\Entity\Option;
   interface IOptionManager{
 
 

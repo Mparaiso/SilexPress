@@ -1,13 +1,11 @@
 <?php
 
-namespace App;
-
-use App\Controller\Admin\UserAdminController;
-use App\Controller\ArticleController;
-use App\Controller\CommentController;
-use App\Controller\IndexController;
-use App\Controller\UserController;
-use App\Model\Manager\SessionManager;
+use Controller\Admin\UserAdminController;
+use Controller\ArticleController;
+use Controller\CommentController;
+use Controller\IndexController;
+use Controller\UserController;
+use Model\Manager\SessionManager;
 use Mparaiso\Provider\CrudServiceProvider;
 use Mparaiso\SilexPress\Provider\CoreServiceProvider;
 use Mparaiso\SilexPress\Provider\MediaServiceProvider;
@@ -156,37 +154,37 @@ class Config implements ServiceProviderInterface
         # user manager
         $app['user_manager'] = $app->share(
             function ($app) {
-                return new \App\Model\Manager\UserManager($app['config.mongo'], $app['config.database'], $app);
+                return new Model\Manager\UserManager($app['config.mongo'], $app['config.database'], $app);
 
             }
         );
         $app['user_provider'] = $app->share(
             function ($app) {
-                return new \App\Model\Provider\UserProvider($app['user_manager']);
+                return new Model\Provider\UserProvider($app['user_manager']);
             }
         );
 # article manager
         $app['article_manager'] = $app->share(
             function ($app) {
-                return new \App\Model\Manager\ArticleManager($app['config.mongo'], $app['config.database']);
+                return new Model\Manager\ArticleManager($app['config.mongo'], $app['config.database']);
             }
         );
 # comment manager
         $app['comment_manager'] = $app->share(
             function (\Silex\Application $app) {
-                return new \App\Model\Manager\CommentManager($app["config.mongo"], $app["config.database"]);
+                return new Model\Manager\CommentManager($app["config.mongo"], $app["config.database"]);
             }
         );
         $app['spam_manager'] = $app->share(
             function (\Silex\Application $app) {
-                // return new \App\Model\Manager\SpamManager($app['config.mongo'], $app['config.database'], $_SERVER["HTTP_HOST"], $app['config.akismet_apikey']);
-                return new \App\Model\Manager\SpamManager($app['config.mongo'], $app['config.database'], "", $app['config.akismet_apikey']);
+                // return new Model\Manager\SpamManager($app['config.mongo'], $app['config.database'], $_SERVER["HTTP_HOST"], $app['config.akismet_apikey']);
+                return new Model\Manager\SpamManager($app['config.mongo'], $app['config.database'], "", $app['config.akismet_apikey']);
             }
         );
-        /** @var $app['option_manager'] App\Model\Manager\OptionManager * */
+        /** @var $app['option_manager'] Model\Manager\OptionManager * */
         $app['options'] = $app->share(
             function (Application $app) {
-                return new \App\Model\Manager\OptionManager($app['config.mongo'], $app['config.database']);
+                return new Model\Manager\OptionManager($app['config.mongo'], $app['config.database']);
             }
         );
         # FILTERS

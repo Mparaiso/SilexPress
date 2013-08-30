@@ -1,7 +1,7 @@
 <?php
-namespace App\Model\Manager{
+namespace Model\Manager{
 
-  use App\Model\Entity\User as UserEntity ;
+  use Model\Entity\User as UserEntity ;
 
   interface IUserManager{
 
