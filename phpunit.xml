@@ -8,9 +8,9 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
+         bootstrap="tests/bootstrap.php"
          syntaxCheck="true"
-         bootstrap="tests/Bootstrap.php"
-        >
+         >
     <testsuites>
         <testsuite name="Silex Test Suite">
             <directory>./tests</directory>
