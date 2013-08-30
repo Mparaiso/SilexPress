@@ -6,7 +6,7 @@
 Check out the silex framework , by Fabien Potencier, author of Symfony,Twig,Simso,Pimple ...
 http://silex.sensiolabs.org
 
-### LIVE DEMO : http://silex-mongoblog.herokuapp.com/
+### LIVE DEMO : http://silexpress.herokuapp.com/
 
 #### ChangeLog
 
