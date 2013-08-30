@@ -17,10 +17,6 @@ $autoload->add("", __DIR__ . "/../Lib");
 
 $debug = getenv("SILEXPRESS_ENV") == "development" ? true : false;
 
-$app = new \Silex\Application;
-
-$app["debug"] = $debug;
-
-$app->register(new Config);
+$app = new SilexPress(array("debug" => $debug));
 
 $app['http_cache']->run();
