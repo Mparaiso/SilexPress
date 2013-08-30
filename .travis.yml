@@ -9,7 +9,7 @@ env:
 # install les packages avec composer
 before_script:
     - composer install
-    
+
 # executer phpunit
 script: phpunit
 

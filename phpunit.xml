@@ -9,7 +9,7 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="true"
-         bootstrap="./tests/Bootstrap.php"
+         bootstrap="tests/Bootstrap.php"
         >
     <testsuites>
         <testsuite name="Silex Test Suite">
