@@ -24,7 +24,7 @@ use Silex\ServiceProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Config implements ServiceProviderInterface
+class Configuration implements ServiceProviderInterface
 {
     /**
      * Registers services on the given app.
