@@ -14,21 +14,23 @@
 <body>
 {% include "main-nav.twig" %}
 <div class="container container-fluid">
-    <noscript>
-        <div class='alert-error'>
-            <h1>Please enable Javascript to have the best experience with that website. thank you.</h1>
-        </div>
-    </noscript>
-    {% include 'flash-message.twig' %}
-    {% block herounit %}
-    {% endblock %}
-    {% block left_sidebar %}
-    {% endblock %}
-    {% block content %}
-    {% endblock %}
-    {% block right_sidebar %}
-        {% include 'sidebar.twig' %}
-    {% endblock %}
+    <div class="row">
+        <noscript>
+            <div class='alert-error'>
+                <h1>Please enable Javascript to have the best experience with that website. thank you.</h1>
+            </div>
+        </noscript>
+        {% include 'flash-message.twig' %}
+        {% block herounit %}
+        {% endblock %}
+        {% block left_sidebar %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+        {% block right_sidebar %}
+            {% include 'sidebar.twig' %}
+        {% endblock %}
+    </div>
 </div>
 <div class='well'>
     {% include 'footer.twig' %}

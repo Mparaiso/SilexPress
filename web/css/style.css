@@ -1,31 +1,72 @@
+@import url(Hermes-Regular/fonts.css);
+
+@import url(Hermes-Bold/fonts.css);
+
+@import url(Hermes-Thin/fonts.css);
 /**
 * main style sheet for the app
 */
-@import url(Hermes-Regular/fonts.css);
-@import url(Hermes-Bold/fonts.css);
-@import url(Hermes-Thin/fonts.css);
-
+.icon-32 {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  display: inline-block;
+  background-image: url('../assets/admin/images/icons32.png');
+}
+.icon-32.icon-index {
+  background-position: -137px -5px;
+}
+.icon-28 {
+  width: 28px;
+  height: 28px;
+  margin-top: -10px;
+  margin-left: -32px;
+  display: inline-block;
+  background-image: url('../assets/admin/images/menu.png');
+}
+.icon-28.icon-index {
+  background-position: -59px -33px;
+}
+.icon-28.icon-post {
+  background-position: -269px -1px;
+}
+.icon-28.icon-page {
+  background-position: -149px -33px;
+}
+.icon-28.icon-media {
+  background-position: -119px -33px;
+}
+.icon-28.icon-setting {
+  background-position: -239px -33px;
+}
+.icon-28.icon-link {
+  background-position: -149px -33px;
+}
+.icon-28.icon-comment {
+  background-position: -29px -1px;
+}
+.icon-28.icon-user {
+  background-position: -300px -33px;
+}
+input[type=text],
+textarea {
+  width: 100%;
+}
 body {
-    font-family: 'Hermes', Helvetica, Arial, sans-serif;
+  font-family: 'Hermes', Helvetica, Arial, sans-serif;
 }
-
-
 .horizontal {
-    margin-bottom: 15px;
-
-    width: 100%;
-    clear: both;
-    float: left;
+  margin-bottom: 15px;
+  width: 100%;
+  clear: both;
+  float: left;
 }
-
 .horizontal input[type="radio"] {
-    display: inline-block;
-    float: left;
-    clear: left;
+  display: inline-block;
+  float: left;
+  clear: left;
 }
-
 .horizontal label {
-    float: left;
-
-    margin-left: 10px;
+  float: left;
+  margin-left: 10px;
 }

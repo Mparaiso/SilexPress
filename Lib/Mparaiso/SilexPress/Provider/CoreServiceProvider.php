@@ -132,6 +132,13 @@ class CoreServiceProvider implements ServiceProviderInterface
             ));
         });
 
+        // Comments
+        $app["sp.core.model.comment"] = 'Mparaiso\SilexPress\Core\Model\Comment';
+        $app["sp.core.collection.comment"] = "comments";
+        $app["sp.core.service.comment"] = $app->share(function ($app) {
+            return new Base($app["sp.core.db.connection"], $app["sp.core.collection.comment"], $app["sp.core.model.comment"]);
+        });
+
         // Options
 
         $app["sp.core.collection.option"] = "options"; // name of the option collection

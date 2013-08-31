@@ -2,18 +2,50 @@
 
 namespace Mparaiso\SilexPress\Core\Controller;
 
-use Mparaiso\SilexPress\Core\Form\GeneralSettings;
+use Mparaiso\SilexPress\Core\Event\PostEvents;
+use Mparaiso\SilexPress\Core\Form\QuickPost;
 use Mparaiso\SilexPress\Core\Model\Base as BaseModel;
+use Mparaiso\SilexPress\Core\Model\Post;
 use Mparaiso\SilexPress\Core\Service\Base as BaseService;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdminController implements ControllerProviderInterface
 {
-    public $route_prefix = "options";
+    public $option_route_prefix = "options";
+
+    /**
+     * EN: show a dashboard to the authenticated user.
+     * FR: montre un dashboard à l'utilisateur authentifié.
+     * @param Application $app
+     */
+    function dashboard(Application $app)
+    {
+        $formType = new QuickPost();
+        $model = new Post();
+        $form = $app['form.factory']->create($formType, $model);
+        if ($app["request"]->getMethod() === "POST") {
+            $form->bind($app["request"]);
+            if ($form->isValid()) {
+                $app["dispatcher"]->dispatch(PostEvents::BEFORE_PERSIST, new GenericEvent($model, array("app" => $app)));
+                $app["sp.core.service.post"]->persist($model);
+                $app["dispatcher"]->dispatch(PostEvents::AFTER_PERSIST, new GenericEvent($model, array("app" => $app)));
+                $app["session"]->getFlashBag()->add("success", "Post successfully saved!.");
+                return $app->redirect($app["url_generator"]->generate("sp.admin.dashboard"));
+            }
+        }
+        return $app["twig"]->render("silexpress/admin/dashboard.html.twig", array(
+            "post_count" => $app["sp.core.service.post"]->count(),
+            "page_count" => $app["sp.core.service.page"]->count(),
+            "category_count" => $app["sp.core.service.category"]->count(),
+            "comment_count" => $app["sp.core.service.comment"]->count(),
+            "form" => $form->createView()
+        ));
+    }
 
     /**
      * EN : Generic method for updating settings.
@@ -105,18 +137,20 @@ class AdminController implements ControllerProviderInterface
      */
     function connect(Application $app)
     {
-        $route_prefix = $this->route_prefix;
+        $option_route_prefix = $this->option_route_prefix;
         $controllers = $app["controllers_factory"];
         /* @var ControllerCollection $controllers */
-        $controllers->match("/$route_prefix/general", array($this, "general"))
+        $controllers->match("/", array($this, "dashboard"))
+            ->bind("sp.admin.dashboard");
+        $controllers->match("/$option_route_prefix/general", array($this, "general"))
             ->bind("sp.admin.settings.general");
-        $controllers->match("/$route_prefix/reading", array($this, "reading"))
+        $controllers->match("/$option_route_prefix/reading", array($this, "reading"))
             ->bind("sp.admin.settings.reading");
-        $controllers->match("/$route_prefix/media", array($this, "media"))
+        $controllers->match("/$option_route_prefix/media", array($this, "media"))
             ->bind("sp.admin.settings.media");
-        $controllers->match("/$route_prefix/permalink", array($this, "permalink"))
+        $controllers->match("/$option_route_prefix/permalink", array($this, "permalink"))
             ->bind("sp.admin.settings.permalink");
-        $controllers->match("/$route_prefix/writing", array($this, "writing"))
+        $controllers->match("/$option_route_prefix/writing", array($this, "writing"))
             ->bind("sp.admin.settings.writing");
         return $controllers;
     }

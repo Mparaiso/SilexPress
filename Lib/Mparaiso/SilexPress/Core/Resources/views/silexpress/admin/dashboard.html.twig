@@ -1,0 +1,30 @@
+{% extends app['sp.core.template.admin.layout'] %}
+{% block content %}
+    <div class="span9">
+        <h3><i class="icon-index icon-32"></i>&nbsp;Dashboard</h3>
+
+        <div class="span2">
+            <h5>Right Now</h5>
+            <ul class="unstyled">
+                <li><a href="{{ url('mp_crud_post_index') }}">{{ post_count }} Post(s)</a></li>
+                <li><a href="{{ url('mp_crud_page_index') }}">{{ page_count }} Page(s)</a></li>
+                <li><a href="{{ url("mp_crud_category_index") }}">{{ category_count }} Category(s)</a></li>
+            </ul>
+        </div>
+        <div class="span2">
+            <h5>Discussion</h5>
+            <ul class="unstyled">
+                <li>{{ comment_count }} Comment(s)</li>
+                <li>{{ comment_count }} Approuved(s)</li>
+                <li>0 Pending(s)</li>
+            </ul>
+        </div>
+            <form class="span4" action="" method="POST" class="form form-action">
+            <fieldset>
+                <legend>QuickPress</legend>
+                {{ form_widget(form,{vars:{class:"input input-block-level"}}) }}
+                <input type="submit" class="btn" value="Submit"/>
+            </fieldset>
+            </form>
+    </div>
+{% endblock %}

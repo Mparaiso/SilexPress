@@ -3,22 +3,22 @@
     <div class='well span2'>
         <ul class="nav nav-list">
             {# Dashboard #}
-            <li class='nav-header'>Dashboard</li>
-            <li><a href="">Home</a></li>
+            <li class='nav-header'><i class="icon-28 icon-index"></i> Dashboard</li>
+            <li><a href="{{ url('sp.admin.dashboard') }}">Home</a></li>
             <li><a href="">Update</a></li>
             <li class="divider"></li>
             {# POSTS #}
-            <li class="nav-header">Posts</li>
+            <li class="nav-header"><i class="icon-28 icon-post"></i> Posts</li>
             <li><a href="{{ path("mp_crud_post_index") }}">All Posts</a></li>
             <li><a href="{{ path("mp_crud_post_create") }}">Add New</a></li>
             <li><a href="{{ path("mp_crud_category_index") }}">Categories</a></li>
             <li class="divider"></li>
             {# PAGES #}
-            <li class="nav-header">Pages</li>
+            <li class="nav-header"><i class="icon-28 icon-page"></i> Pages</li>
             <li><a href="{{ path("mp_crud_page_index") }}">All Pages</a></li>
             <li><a href="{{ path("mp_crud_page_create") }}">Add New</a></li>
             {# MEDIA #}
-            <li class="nav-header">Media</li>
+            <li class="nav-header"><i class="icon-28 icon-media"></i> Media</li>
             <li>  <a href="{{ path("sp.admin.media.upload") }}">Library</a>
             </li>
             <li>
@@ -31,12 +31,12 @@
             {#<li><a href="#">Comments</a></li>#}
             {#<li class="divider"></li>#}
             {#USERS#}
-            <li class="nav-header">Users</li>
+            <li class="nav-header"><i class="icon-28 icon-user"></i> Users</li>
             <li><a href="#">All Users</a></li>
             <li><a href="#">Add New</a></li>
             <li><a href="{{ path('admin.user.profile') }}">Your Profile</a></li>
             {# SETTINGS #}
-            <li class="nav-header">Settings</li>
+            <li class="nav-header"><i class="icon-28 icon-setting"></i> Settings</li>
             <li><a href="{{ url("sp.admin.settings.general") }}">General</a></li>
             <li><a href="{{ url("sp.admin.settings.reading") }}">Reading</a></li>
             <li><a href="{{ url("sp.admin.settings.writing") }}">Writing</a></li>

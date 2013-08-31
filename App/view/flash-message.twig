@@ -1,8 +1,22 @@
-{% macro display_alert(_class,message) %}
+{#{% macro display_alert(_class,message) %}
   {% if message  %}
       <div class='alert alert-{{_class|default('error')}}'><a class='close' data-dismiss='alert'>x</a>{{message}}</div>
   {% endif %}
 {% endmacro %}
-{# appel de macro #}
+<!-- appel de macro -->
 {{ _self.display_alert("error",app.session.getFlash('error') ) }}
 {{ _self.display_alert("success",app.session.flash("success")) }}
+#}
+<!-- flash messages -->
+<div class="row">
+    {% if app.session.flashBag.peekAll() |length > 0 %}
+        {% for type,messages in app.session.flashBag %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+</div>

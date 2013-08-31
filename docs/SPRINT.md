@@ -2,4 +2,7 @@
 
     1. Story : implementer les fonctionnalités de base de wordpress
 
-        + posts peuvent être crées , édités , éffacés.
+        + [X] posts peuvent être crées , édités , éffacés.
+        + [ ] une page dashboard donne un apercu des différents contenus et permet la
+              mise en ligne rapide d'articles.
+

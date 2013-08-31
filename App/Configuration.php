@@ -94,7 +94,7 @@ class Configuration implements ServiceProviderInterface
                         'form' => array(
                             'login_path' => "/user/login",
                             'check_path' => "/admin/user/dologin",
-                            "default_target_path" => "/admin/user/profile",
+                            "default_target_path" => "/admin",
                             "always_use_default_target_path" => true,
                             'username_parameter' => 'login[username]',
                             'password_parameter' => 'login[password]',
