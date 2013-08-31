@@ -1,8 +1,7 @@
 {% extends app['sp.core.template.admin.layout'] %}
 {% block content %}
-    <div class="span9">
+    <div class="span10">
         <h3><i class="icon-index icon-32"></i>&nbsp;Dashboard</h3>
-
         <div class="span2">
             <h5>Right Now</h5>
             <ul class="unstyled">
@@ -11,7 +10,7 @@
                 <li><a href="{{ url("mp_crud_category_index") }}">{{ category_count }} Category(s)</a></li>
             </ul>
         </div>
-        <div class="span2">
+        <div class="span3">
             <h5>Discussion</h5>
             <ul class="unstyled">
                 <li>{{ comment_count }} Comment(s)</li>
@@ -19,12 +18,12 @@
                 <li>0 Pending(s)</li>
             </ul>
         </div>
-            <form class="span4" action="" method="POST" class="form form-action">
+        <form class="span5" action="" method="POST" class="form form-action">
             <fieldset>
                 <legend>QuickPress</legend>
-                {{ form_widget(form,{vars:{class:"input input-block-level"}}) }}
+                {{ form_widget(form,{vars:{class:"input input-block-level" }}) }}
                 <input type="submit" class="btn" value="Submit"/>
             </fieldset>
-            </form>
+        </form>
     </div>
 {% endblock %}
