@@ -1,0 +1,29 @@
+{% extends "layout.twig" %}
+{% block herounit %}
+    <div class='hero-unit'>
+        <div class="page-header"><h1>Welcome to SilexPress!</h1>
+
+            <div>A show case app powered by PHP , Silex , Symfony , MongoDB and Twitter Bootstrap</div>
+            <div>Please register and write articles about anything you like</div>
+            <div><a target="_blank" href="https://github.com/Mparaiso/silexpress">Get the source here.</a></div>
+            <div>
+                <small>Design : M.Paraiso</small>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    {% for post in posts %}
+        {% if loop.index < 4 %}
+            <div class="span4">
+                {% include 'silexpress/front/post/preview.twig' with {post: post} only %}
+            </div>
+        {% else %}
+            <div class='span12'>
+                {% include 'silexpress/front/post/preview.twig' with {post: post} only %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+{% block sidebar %}
+{% endblock %}

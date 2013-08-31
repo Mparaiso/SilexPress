@@ -3,13 +3,12 @@
 use Controller\Admin\UserAdminController;
 use Controller\ArticleController;
 use Controller\CommentController;
-use Controller\IndexController;
 use Controller\UserController;
 use Model\Manager\SessionManager;
 use Mparaiso\Provider\CrudServiceProvider;
-use Mparaiso\SilexPress\Provider\CoreServiceProvider;
-use Mparaiso\SilexPress\Provider\MediaServiceProvider;
-use Net\Mpmedia\SilexExtension\Provider\GravatarServiceProvider;
+use Mparaiso\Provider\CoreServiceProvider;
+use Mparaiso\Provider\GravatarServiceProvider;
+use Mparaiso\Provider\MediaServiceProvider;
 use Silex\Application;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\HttpCacheServiceProvider;
@@ -132,7 +131,7 @@ class Configuration implements ServiceProviderInterface
                 'http_cache.esi' => null)
         );
         # Gravatar
-        $app->register(new GravatarServiceProvider());
+
         # CUSTOM SERVICES
         $app['config.server'] = getenv('SILEXPRESS_DBSERVER') ? getenv('SILEXPRESS_DBSERVER') : "localhost";
         $app['config.database'] = getenv("SILEXPRESS_DBNAME ") ? getenv("SILEXPRESS_DBNAME ") : "tests";
@@ -226,6 +225,7 @@ class Configuration implements ServiceProviderInterface
         /**
          * 3rd party service configurations
          */
+        $app->register(new GravatarServiceProvider);
         $app->register(new CrudServiceProvider);
         $app->register(new CoreServiceProvider);
         $app->register(new MediaServiceProvider, array(
@@ -247,9 +247,6 @@ class Configuration implements ServiceProviderInterface
 
 // EN : define main routes 
 // FR : définir les routes principales
-
-        $app->mount("/", new IndexController());
-        $app->mount("/article", new ArticleController($app['article_manager'], $app['user_manager']));
         $app->mount("/comment", new CommentController($app['spam_manager']));
         $app->mount('/user', new UserController($app['user_manager'], $app['spam_manager']));
         $app->mount('/admin/user', new UserAdminController());

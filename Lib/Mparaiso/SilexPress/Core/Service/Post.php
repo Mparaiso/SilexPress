@@ -12,8 +12,17 @@ class Post extends Base
 
     function persist($model)
     {
+        $model->setPostModified(new \MongoDate());
+        if ("NULL" === $model->getPostDate()) {
+            $model->setPostDate(new \MongoDate());
+        }
         $model->setPostType($this->posttype);
         return parent::persist($model);
+    }
+
+    function findByDateDesc($limit = null, $offset = null)
+    {
+        return $this->findBy(array(), array("post_date" => -1), $limit, $offset);
     }
 
     function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)

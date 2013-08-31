@@ -6,13 +6,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="{{path('index.index')}}"><strong>Silex Blog</strong></a>
+      <a class="brand" href="{{path('post.index')}}"><strong>Silex Blog</strong></a>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li {#class="active"#}><a href="{{path("index.index")}}">Home</a></li>
-          <li><a href="{{path("article.index")}}">Articles</a></li>
-          <li><a href="{{path('index.about')}}">About</a></li>
-          <li><a href="{{path('index.contact')}}">Contact</a></li>
+          <li {#class="active"#}><a href="{{path("post.index")}}">Home</a></li>
+          <li><a href="{{path("post.index")}}">Articles</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
           {% include 'user/user-menu.twig' %}
         </div><!--/.nav-collapse -->

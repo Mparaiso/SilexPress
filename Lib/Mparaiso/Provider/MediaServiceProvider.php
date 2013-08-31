@@ -1,6 +1,6 @@
 <?php
 
-namespace Mparaiso\SilexPress\Provider;
+namespace Mparaiso\Provider;
 
 use Mparaiso\SilexPress\Admin\Media\Controller\IndexController;
 use Mparaiso\SilexPress\Admin\Media\Service\Attachment;
@@ -55,7 +55,7 @@ class MediaServiceProvider implements \Silex\ServiceProviderInterface
             return new IndexController();
         };
         // template path
-        $app["sp.media.template.path"] = __DIR__ . "/../Admin/Media/Resources/Views";
+        $app["sp.media.template.path"] = __DIR__ . "/../SilexPress/Admin/Media/Resources/Views";
         // templates
         $app["sp.media.template.layout"] = 'silexpress\admin\media\layout.html.twig'; // default layout
         $app["sp.media.template.new"] = 'silexpress\admin\media\new.html.twig';

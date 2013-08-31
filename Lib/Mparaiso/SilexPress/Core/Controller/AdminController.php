@@ -48,6 +48,68 @@ class AdminController implements ControllerProviderInterface
     }
 
     /**
+     * General Settings
+     * @param Application $app
+     * @param Request $req
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    function general(Application $app, Request $req)
+    {
+        return $this->doUpdateOptions($app, $req,
+            "General Settings",
+            $app["sp.core.service.option"],
+            $app["sp.core.model.option"], $app["sp.core.form.option.general"],
+            $app["url_generator"]->generate("sp.admin.settings.general"));
+    }
+
+    /**
+     * Reading settings
+     * @param Application $app
+     * @param Request $req
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    function reading(Application $app, Request $req)
+    {
+        return $this->doUpdateOptions($app, $req, "Reading Settings", $app["sp.core.service.option"],
+            $app["sp.core.model.option"], $app["sp.core.form.option.reading"], $app["url_generator"]->generate("sp.admin.settings.reading")
+        );
+    }
+
+    /**
+     * Writing settings
+     * @param Application $app
+     * @param Request $req
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    function writing(Application $app, Request $req)
+    {
+        return $this->doUpdateOptions($app, $req, "Reading Settings", $app["sp.core.service.option"],
+            $app["sp.core.model.option"], $app["sp.core.form.option.writing"], $app["url_generator"]->generate("sp.admin.settings.writing")
+        );
+    }
+
+    /**
+     * Media Settings
+     * @param Application $app
+     * @param Request $req
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    function media(Application $app, Request $req)
+    {
+        return $this->doUpdateOptions($app, $req, "Media Settings", $app["sp.core.service.option"], $app["sp.core.model.option"], $app["sp.core.form.option.media"], $app["url_generator"]->generate("sp.admin.settings.reading"));
+    }
+
+    /**
+     * Permalink settings
+     * @param Application $app
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    function permalink(Application $app)
+    {
+        return $this->doUpdateOptions($app, $app["request"], "Permalink Settings", $app["sp.core.service.option"], $app["sp.core.model.option"], $app["sp.core.form.option.permalink"], $app["url_generator"]->generate("sp.admin.settings.permalink"));
+    }
+
+    /**
      * EN : Generic method for updating settings.
      * FR : Option générique pour la mise à jour des options.
      * @param Application $app
@@ -79,57 +141,6 @@ class AdminController implements ControllerProviderInterface
             "subtitle" => $optionPageTitle,
             "form" => $form->createView()
         ));
-    }
-
-    /**
-     * General Settings
-     * @param Application $app
-     * @param Request $req
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    function general(Application $app, Request $req)
-    {
-        return $this->doUpdateOptions($app, $req,
-            "General Settings",
-            $app["sp.core.service.option"],
-            $app["sp.core.model.option"], $app["sp.core.form.option.general"],
-            $app["url_generator"]->generate("sp.admin.settings.general"));
-    }
-
-    /**
-     * Reading settings
-     * @param Application $app
-     * @param Request $req
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    function reading(Application $app, Request $req)
-    {
-        return $this->doUpdateOptions($app, $req, "Reading Settings", $app["sp.core.service.option"],
-            $app["sp.core.model.option"], $app["sp.core.form.option.reading"], $app["url_generator"]->generate("sp.admin.settings.reading")
-        );
-    }
-
-    function writing(Application $app, Request $req)
-    {
-        return $this->doUpdateOptions($app, $req, "Reading Settings", $app["sp.core.service.option"],
-            $app["sp.core.model.option"], $app["sp.core.form.option.writing"], $app["url_generator"]->generate("sp.admin.settings.writing")
-        );
-    }
-
-    /**
-     * Media Settings
-     * @param Application $app
-     * @param Request $req
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    function media(Application $app, Request $req)
-    {
-        return $this->doUpdateOptions($app, $req, "Media Settings", $app["sp.core.service.option"], $app["sp.core.model.option"], $app["sp.core.form.option.media"], $app["url_generator"]->generate("sp.admin.settings.reading"));
-    }
-
-    function permalink(Application $app)
-    {
-        return $this->doUpdateOptions($app, $app["request"], "Permalink Settings", $app["sp.core.service.option"], $app["sp.core.model.option"], $app["sp.core.form.option.permalink"], $app["url_generator"]->generate("sp.admin.settings.permalink"));
     }
 
     /**

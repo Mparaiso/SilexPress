@@ -8,7 +8,6 @@
 {{ _self.display_alert("success",app.session.flash("success")) }}
 #}
 <!-- flash messages -->
-<div class="row">
     {% if app.session.flashBag.peekAll() |length > 0 %}
         {% for type,messages in app.session.flashBag %}
             {% for message in messages %}
@@ -19,4 +18,3 @@
             {% endfor %}
         {% endfor %}
     {% endif %}
-</div>

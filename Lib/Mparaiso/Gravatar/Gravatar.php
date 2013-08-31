@@ -1,6 +1,6 @@
 <?php
 
-namespace Net\Mpmedia\Gravatar{
+namespace Mparaiso\Gravatar{
 
   class Gravatar{
     /**

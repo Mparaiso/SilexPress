@@ -1,11 +1,11 @@
 <?php
 
-namespace Mparaiso\SilexPress\Provider;
+namespace Mparaiso\Provider;
 
 
 use Mparaiso\CodeGeneration\Controller\CRUD;
 use Mparaiso\SilexPress\Core\Controller\AdminController;
-use Mparaiso\SilexPress\Core\Form\Extension\ServiceTypeExtension;
+use Mparaiso\SilexPress\Core\Controller\PostController;
 use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;
 use Mparaiso\SilexPress\Core\Service\Base;
 use Mparaiso\SilexPress\Core\Service\Post as PostService;
@@ -29,7 +29,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         // vars
         $app["sp.core.vars.admin_route_prefix"] = "/admin";
         // templates
-        $app["sp.core.template.path"] = __DIR__ . "/../Core/Resources/views";
+        $app["sp.core.template.path"] = __DIR__ . "/../SilexPress/Core/Resources/views";
         $app["sp.core.template.admin.layout"] = 'admin\admin-layout.twig'; // default layout
 
         // \MongoDB
@@ -95,7 +95,6 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.form.term"] = 'Mparaiso\SilexPress\Core\Form\Term'; // page model class
 
         // Categories
-
         $app["sp.core.service.category"] = $app->share(function ($app) {
             $service = new TermService($app["sp.core.db.connection"], $app["sp.core.collection.term"], $app["sp.core.model.term"]);
             $service->setTaxonomy("category");
@@ -114,7 +113,6 @@ class CoreServiceProvider implements ServiceProviderInterface
         });
 
         // Tags
-
         $app["sp.core.service.tag"] = $app->share(function ($app) {
             $service = new TermService($app["sp.core.db.connection"], $app["sp.core.collection.term"], $app["sp.core.model.page"]);
             $service->setTaxonomy("tag");
@@ -139,8 +137,7 @@ class CoreServiceProvider implements ServiceProviderInterface
             return new Base($app["sp.core.db.connection"], $app["sp.core.collection.comment"], $app["sp.core.model.comment"]);
         });
 
-        // Options
-
+        # Options
         $app["sp.core.collection.option"] = "options"; // name of the option collection
         $app["sp.core.form.option.general"] = 'Mparaiso\SilexPress\Core\Form\GeneralSettings'; // name of the option collection
         $app["sp.core.form.option.reading"] = 'Mparaiso\SilexPress\Core\Form\ReadingSettings'; // name of the option collection
@@ -153,6 +150,13 @@ class CoreServiceProvider implements ServiceProviderInterface
         });
         $app["sp.core.controller.admin"] = $app->share(function ($app) {
             return new AdminController();
+        });
+
+        /**
+         * CONTROLLERS
+         */
+        $app["sp.core.controller.index"] = $app->share(function ($app) {
+            return new PostController();
         });
     }
 
@@ -174,6 +178,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         // EN : add new folders to twig
         $app['twig.loader.filesystem']->addPath($app["sp.core.template.path"]);
         // add controllers
+        $app->mount("/", $app["sp.core.controller.index"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.post"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.page"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.category"]);

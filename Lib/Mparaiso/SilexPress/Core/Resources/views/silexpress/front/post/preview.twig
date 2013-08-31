@@ -1,0 +1,29 @@
+{% set postUrl= path('post.get',{'id':post._id}) %}
+<h3>
+    <a style='color:#000;' href='{{ postUrl }}'>{{ post.post_title }}</a>
+</h3>
+<p class="author">
+    <small>
+        <i class="icon-user"></i>
+        {% set username = app.user_manager.getById(post.user_id).username %}
+        <a href="#">{{ username }}</a>
+        |
+        <i class="icon-calendar"></i>
+        {{ post.postdate.sec|date('m/d/Y') }}
+        |
+        <i class='icon-comment'></i>
+        <a href="{{ postUrl }}#comments">
+            {{ app['sp.core.service.comment'].count({"post_id":post._id})|length }}
+            Comments
+        </a>
+    </small>
+</p>
+{% autoescape false %}
+<p>{{ post.post_content|striptags('<a>,<b>,<u>,<small>,<strong>')|slice(0,300) }}...</p>
+{% endautoescape %}
+{% if post.tags is iterable %}
+    {% include 'silexpress/front/post/tags/index.twig' with {tags: post.tags} only %}
+{% endif %}
+</p>
+<p><a href='{{ postUrl }}' class="btn btn-info">Read more</a></p>
+<hr>
