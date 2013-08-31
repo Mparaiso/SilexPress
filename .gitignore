@@ -1,5 +1,5 @@
 temp/*
-vendor
+vendor/*
 TODO
 public/file.php
 .DS_Store
