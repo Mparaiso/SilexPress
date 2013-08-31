@@ -4,7 +4,7 @@ namespace Mparaiso\SilexPress\Core\Constant;
 
 class PostFormat
 {
-    static function get()
+    public static function get()
     {
         return array(
             "Standard",

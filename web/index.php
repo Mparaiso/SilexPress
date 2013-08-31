@@ -22,7 +22,7 @@ $debug = getenv("SILEXPRESS_ENV") == "development" ? true : false;
 $app = new SilexPress(array("debug" => $debug));
 $app->before(function (Request $request) use ($app) {
     if ($app["debug"] == true) {
-        $request->getSession()->getFlashBag()->add("warning", "You are in development mode,change SILEXPRESS_ENV to production for production settings.");
+        $request->getSession()->getFlashBag()->add("warning", "You are in development mode! , change SILEXPRESS_ENV server variable to 'production' for production settings.");
     }
 });
 $app['http_cache']->run();

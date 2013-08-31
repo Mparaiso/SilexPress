@@ -2,6 +2,7 @@
 
 namespace Mparaiso\SilexPress\Core\Form;
 
+use Mparaiso\SilexPress\Core\Constant\PostFormat;
 use Mparaiso\SilexPress\Core\Form\Extension\MetaToObjectDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,11 +34,12 @@ class Post extends AbstractType
                 "multiple" => true, "expanded" => true, "attr" => array("class" => "checkbox")
             ))
             ->add("tags", "array", array("required" => false))
+            ->add("post_format", "choice", array("choices" => PostFormat::get()))
             ->add("post_meta", "collection", array('type' => 'meta',
                 "allow_add" => true, "allow_delete" => true,
                 "options" => array(
                     "label" => " ",
-                )
+                ), "attr" => array("class" => "symfony-collection")
             ))->get("post_meta")->addModelTransformer(new MetaToObjectDataTransformer);
     }
 }

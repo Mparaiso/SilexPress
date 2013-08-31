@@ -2,7 +2,7 @@ var console = console || function(){};
 $(function(){
     "use strict";
     var i=0;
-    var $metadataHolder = $('#page_post_meta');
+    var $metadataHolder = $('.symfony-collection');
     /** @var metadataForm String **/
     var metadataForm = $metadataHolder.data('prototype').replace("__name__label__","").replace("","");
     var $addMetadataButton = $("<a>",{id:'addMetadataButton',text:'Add a new metadata',"class":'btn btn-small'});
