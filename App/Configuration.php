@@ -1,12 +1,11 @@
 <?php
 
 use Controller\Admin\UserAdminController;
-use Controller\ArticleController;
 use Controller\CommentController;
 use Controller\UserController;
 use Model\Manager\SessionManager;
-use Mparaiso\Provider\CrudServiceProvider;
 use Mparaiso\Provider\CoreServiceProvider;
+use Mparaiso\Provider\CrudServiceProvider;
 use Mparaiso\Provider\GravatarServiceProvider;
 use Mparaiso\Provider\MediaServiceProvider;
 use Silex\Application;
@@ -182,8 +181,8 @@ class Configuration implements ServiceProviderInterface
         );
         /** @var $app['option_manager'] Model\Manager\OptionManager * */
         $app['options'] = $app->share(
-            function (Application $app) {
-                return new Model\Manager\OptionManager($app['config.mongo'], $app['config.database']);
+            function ($app) {
+                return $app["sp.core.service.option"];
             }
         );
         # FILTERS

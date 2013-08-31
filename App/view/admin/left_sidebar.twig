@@ -1,6 +1,6 @@
 {# admin/left_sidebar.twig #}
 {% if is_granted('ROLE_WRITER') %}
-    <div class='well span2'>
+    <div class=' span2'>
         <ul class="nav nav-list">
             {# Dashboard #}
             <li class='nav-header'><i class="icon-28 icon-index"></i> Dashboard</li>
@@ -19,17 +19,16 @@
             <li><a href="{{ path("mp_crud_page_create") }}">Add New</a></li>
             {# MEDIA #}
             <li class="nav-header"><i class="icon-28 icon-media"></i> Media</li>
-            <li>  <a href="{{ path("sp.admin.media.upload") }}">Library</a>
+            <li><a href="{{ path("sp.admin.media.upload") }}">Library</a>
             </li>
             <li>
                 <a href="{{ path("sp.admin.media.new") }}">Add New</a>
             </li>
             <li class="divider"></li>
-
             {# COMMENTS #}
-            {#<li class="nav-header">Comments</li>#}
-            {#<li><a href="#">Comments</a></li>#}
-            {#<li class="divider"></li>#}
+            <li class="nav-header">Comments</li>
+            <li><a href="#">Comments</a></li>
+            <li class="divider"></li>
             {#USERS#}
             <li class="nav-header"><i class="icon-28 icon-user"></i> Users</li>
             <li><a href="#">All Users</a></li>

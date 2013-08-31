@@ -8,6 +8,7 @@ use Mparaiso\SilexPress\Core\Controller\AdminController;
 use Mparaiso\SilexPress\Core\Controller\PostController;
 use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;
 use Mparaiso\SilexPress\Core\Service\Base;
+use Mparaiso\SilexPress\Core\Service\Option as OptionService;
 use Mparaiso\SilexPress\Core\Service\Post as PostService;
 use Mparaiso\SilexPress\Core\Service\Term as TermService;
 use Silex\Application;
@@ -40,8 +41,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         });
 
 
-        // POSTS vars
-
+        // Post
         $app["sp.core.collection.post"] = "posts"; // name of the posts collection
         $app["sp.core.model.post"] = 'Mparaiso\SilexPress\Core\Model\Post'; // post model class
         $app["sp.core.form.post"] = 'Mparaiso\SilexPress\Core\Form\Post'; // post model class
@@ -61,8 +61,7 @@ class CoreServiceProvider implements ServiceProviderInterface
             ));
         });
 
-        // PAGES vars
-
+        // Page
         $app["sp.core.collection.page"] = "posts"; // name of the pages collection
         $app["sp.core.model.page"] = 'Mparaiso\SilexPress\Core\Model\Post'; // page model class
         $app["sp.core.form.page"] = 'Mparaiso\SilexPress\Core\Form\Page'; // page model class
@@ -94,7 +93,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.model.term"] = 'Mparaiso\SilexPress\Core\Model\Term'; // page model class
         $app["sp.core.form.term"] = 'Mparaiso\SilexPress\Core\Form\Term'; // page model class
 
-        // Categories
+        // Category
         $app["sp.core.service.category"] = $app->share(function ($app) {
             $service = new TermService($app["sp.core.db.connection"], $app["sp.core.collection.term"], $app["sp.core.model.term"]);
             $service->setTaxonomy("category");
@@ -112,7 +111,7 @@ class CoreServiceProvider implements ServiceProviderInterface
             ));
         });
 
-        // Tags
+        // Tag
         $app["sp.core.service.tag"] = $app->share(function ($app) {
             $service = new TermService($app["sp.core.db.connection"], $app["sp.core.collection.term"], $app["sp.core.model.page"]);
             $service->setTaxonomy("tag");
@@ -130,14 +129,14 @@ class CoreServiceProvider implements ServiceProviderInterface
             ));
         });
 
-        // Comments
+        // Comment
         $app["sp.core.model.comment"] = 'Mparaiso\SilexPress\Core\Model\Comment';
         $app["sp.core.collection.comment"] = "comments";
         $app["sp.core.service.comment"] = $app->share(function ($app) {
             return new Base($app["sp.core.db.connection"], $app["sp.core.collection.comment"], $app["sp.core.model.comment"]);
         });
 
-        # Options
+        # Option
         $app["sp.core.collection.option"] = "options"; // name of the option collection
         $app["sp.core.form.option.general"] = 'Mparaiso\SilexPress\Core\Form\GeneralSettings'; // name of the option collection
         $app["sp.core.form.option.reading"] = 'Mparaiso\SilexPress\Core\Form\ReadingSettings'; // name of the option collection
@@ -146,7 +145,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.form.option.permalink"] = 'Mparaiso\SilexPress\Core\Form\PermalinkSettings'; // name of the option collection
         $app["sp.core.model.option"] = 'Mparaiso\SilexPress\Core\Model\Option';
         $app["sp.core.service.option"] = $app->share(function ($app) {
-            return new Base($app["sp.core.db.connection"], $app["sp.core.collection.option"], $app["sp.core.model.option"]);
+            return new OptionService($app["sp.core.db.connection"], $app["sp.core.collection.option"], $app["sp.core.model.option"]);
         });
         $app["sp.core.controller.admin"] = $app->share(function ($app) {
             return new AdminController();

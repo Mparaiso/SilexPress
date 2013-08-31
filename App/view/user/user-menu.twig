@@ -2,7 +2,7 @@
 	{% if app.user_manager.isLoggedIn() %} 
 	{% set local_user = app.user_manager.getUser() %}
 	<li>
-		<a href='{{ path('admin.user.profile')}}' >
+		<a href='{{ url('sp.admin.dashboard')}}' >
 			Welcome back {{local_user.username|capitalize}}.
 		</a>
 	</li>

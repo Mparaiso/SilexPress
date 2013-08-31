@@ -1,8 +1,3 @@
-@import url(Hermes-Regular/fonts.css);
-
-@import url(Hermes-Bold/fonts.css);
-
-@import url(Hermes-Thin/fonts.css);
 /**
 * main style sheet for the app
 */
@@ -16,11 +11,14 @@
 .icon-32.icon-index {
   background-position: -137px -5px;
 }
+.icon-32.icon-setting {
+  width: 36px;
+  background-position: -492px -5px;
+}
 .icon-28 {
   width: 28px;
   height: 28px;
   margin-top: -10px;
-  margin-left: -32px;
   display: inline-block;
   background-image: url('../assets/admin/images/menu.png');
 }
@@ -55,7 +53,8 @@ textarea {
   width: 100%;
 }
 body {
-  font-family: 'Hermes', Helvetica, Arial, sans-serif;
+  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  color: #444;
 }
 .horizontal {
   margin-bottom: 15px;

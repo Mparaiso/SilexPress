@@ -2,14 +2,25 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
-    {% include 'head.twig' %}
-    {% block stylesheets %}
-        <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="/css/style.css">
+    {% block head %}
+        {# Head #}
+        {# @note @silex EN : get site base url with app.request.basepath #}
+        <meta charset="UTF-8">
+        <title>{{ app['options'].get('site_title') ~ " | " ~  app['options'].get('tagline') }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <!-- styles -->
+        {% block stylesheets %}
+            <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet'
+                  type='text/css'>
+            <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+            <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap-responsive.min.css">
+            <link rel="stylesheet" href="/css/style.css">
+        {% endblock %}
     {% endblock %}
-    <script type="text/javascript" src="/vendor/jquery/jquery.js">
-    </script>
 </head>
 <body>
 {% include "main-nav.twig" %}
@@ -40,7 +51,12 @@
 <div class='well'>
     {% include 'footer.twig' %}
 </div>
-<script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-{% include 'analytics.twig' %}
+{% block javascripts %}
+    <script type="text/javascript" src="/vendor/jquery/jquery.js">
+    </script>
+    <script type="text/javascript" src="{{ app.baseUrl }}/js/postMetadatas.js"></script>
+    <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    {% include 'analytics.twig' %}
+{% endblock %}
 </body>
 </html>

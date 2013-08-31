@@ -1,9 +1,9 @@
 /**
 * main style sheet for the app
 */
-@import url(Hermes-Regular/fonts.css);
-@import url(Hermes-Bold/fonts.css);
-@import url(Hermes-Thin/fonts.css);
+//@import url(Hermes-Regular/fonts.css);
+//@import url(Hermes-Bold/fonts.css);
+//@import url(Hermes-Thin/fonts.css);
 
 // an 32 px icon
 .icon-32 {
@@ -15,13 +15,17 @@
   &.icon-index {
     background-position: -137px -5px;
   }
+  &.icon-setting {
+    width: 36px;
+    background-position: -492px -5px;
+  }
 }
 
 .icon-28 {
   width: 28px;
   height: 28px;
-  margin-top:-10px;
-  margin-left:-32px;
+  margin-top: -10px;
+  //margin-left:-32px;
   display: inline-block;
   background-image: url('../assets/admin/images/menu.png');
   &.icon-index {
@@ -30,33 +34,33 @@
   &.icon-post {
     background-position: -269px -1px;
   }
-  &.icon-page{
+  &.icon-page {
     background-position: -149px -33px;
   }
-  &.icon-media{
+  &.icon-media {
     background-position: -119px -33px;
   }
-  &.icon-setting{
+  &.icon-setting {
     background-position: -239px -33px;
   }
-  &.icon-link{
+  &.icon-link {
     background-position: -149px -33px;
   }
-  &.icon-comment{
+  &.icon-comment {
     background-position: -29px -1px;
   }
-  &.icon-user{
+  &.icon-user {
     background-position: -300px -33px;
   }
 }
 
-
-input[type=text],input[type=email],input[type=url],textarea {
+input[type=text], input[type=email], input[type=url], textarea {
   width: 100%;
 }
 
 body {
-  font-family: 'Hermes', Helvetica, Arial, sans-serif;
+  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  color: #444;
 }
 
 .horizontal {
