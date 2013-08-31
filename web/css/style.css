@@ -49,6 +49,8 @@
   background-position: -300px -33px;
 }
 input[type=text],
+input[type=email],
+input[type=url],
 textarea {
   width: 100%;
 }

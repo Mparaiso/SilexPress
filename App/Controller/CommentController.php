@@ -39,7 +39,7 @@ namespace Controller{
 
     public function create(Application $app, $article_id) {
       $data = array("article_id" => $article_id);
-      $commentForm = $app["form.factory"]->create(new \App\Form\Comment(), $data);
+      $commentForm = $app["form.factory"]->create(new \Form\Comment(), $data);
       if("POST"===$app['request']->getMethod()){
         $commentForm->bindRequest($app["request"]);
         if($commentForm->isValid()){

@@ -40,7 +40,7 @@ namespace Mparaiso\SilexPress\Core\Controller {
             if ($post == null):
                 return $app->redirect($app["url_generator"]->generate("post.index"));
             endif;
-            return $app["twig"]->render("post/get.twig", array("post" => $post));
+            return $app["twig"]->render("silexpress/front/post/get.twig", array("post" => $post));
         }
 
 //        function getByTag(Application $app, $tag)
@@ -83,8 +83,8 @@ namespace Mparaiso\SilexPress\Core\Controller {
             $controllers = $app['controllers_factory'];
             $controllers->match("/", array($this, 'index'))->bind("post.index");
             $controllers->get("/{id}/{title}", array($this, "read"))
-            ->value("title","")
-            ->bind("post.get");
+                ->value("title", "")
+                ->bind("post.get");
             return $controllers;
         }
 
