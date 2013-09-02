@@ -6,6 +6,7 @@ namespace Mparaiso\Provider;
 use Mparaiso\CodeGeneration\Controller\CRUD;
 use Mparaiso\SilexPress\Core\Controller\AdminController;
 use Mparaiso\SilexPress\Core\Controller\PostController;
+use Mparaiso\SilexPress\Core\Controller\UserController;
 use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;
 use Mparaiso\SilexPress\Core\Service\Base;
 use Mparaiso\SilexPress\Core\Service\Option as OptionService;
@@ -157,6 +158,9 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.controller.index"] = $app->share(function ($app) {
             return new PostController();
         });
+        $app["sp.core.controller.user"]=$app->share(function($app){
+            return new UserController();
+        });
     }
 
 
@@ -177,11 +181,12 @@ class CoreServiceProvider implements ServiceProviderInterface
         // EN : add new folders to twig
         $app['twig.loader.filesystem']->addPath($app["sp.core.template.path"]);
         // add controllers
-        $app->mount("/", $app["sp.core.controller.index"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.post"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.page"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.category"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.tag"]);
+        $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.user"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.admin"]);
+        $app->mount("/", $app["sp.core.controller.index"]);
     }
 }

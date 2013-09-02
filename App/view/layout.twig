@@ -4,7 +4,7 @@
 <head>
     {% block head %}
         {# Head #}
-        {# @note @silex EN : get site base url with app.request.basepath #}
+        {# @note @silex EN : get site base url with app.request.baseurl #}
         <meta charset="UTF-8">
         <title>{{ app['options'].get('site_title') ~ " | " ~  app['options'].get('tagline') }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +14,11 @@
         <![endif]-->
         <!-- styles -->
         {% block stylesheets %}
-            <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet'
-                  type='text/css'>
-            <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-            <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap-responsive.min.css">
-            <link rel="stylesheet" href="/css/style.css">
+            <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet'>
+            <link rel="stylesheet" href="{{ app.request.getUriForPath('/vendor/bootstrap/css/bootstrap.min.css') }}">
+            <link rel="stylesheet"
+                  href="{{ app.request.getUriForPath('/vendor/bootstrap/css/bootstrap-responsive.min.css') }}">
+            <link rel="stylesheet" href="{{ app.request.getUriForPath('/css/style.css') }}">
         {% endblock %}
     {% endblock %}
 </head>
@@ -52,10 +52,11 @@
     {% include 'footer.twig' %}
 </div>
 {% block javascripts %}
-    <script type="text/javascript" src="/vendor/jquery/jquery.js">
+    <script type="text/javascript" src="{{ app.request.getUriForPath('/vendor/jquery/jquery.js') }}">
     </script>
-    <script type="text/javascript" src="{{ app.baseUrl }}/js/postMetadatas.js"></script>
-    <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ app.request.getUriForPath('/js/postMetadatas.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ app.request.getUriForPath('/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     {% include 'analytics.twig' %}
 {% endblock %}
 </body>

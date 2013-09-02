@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller\Admin;
+namespace Mparaiso\SilexPress\Core\Controller;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Gère les utilisateurs de l'application.
  */
-class UserAdminController implements ControllerProviderInterface
+class UserController implements ControllerProviderInterface
 {
 
     function connect(Application $app)

@@ -70,7 +70,7 @@ class Configuration implements ServiceProviderInterface
         # monolog
         $app->register(new MonologServiceProvider(), array(
                 'monolog.logfile' => ROOT . '/temp/' . date("Y-m-d") . '.log',
-                'monolog.name' => 'mongoblog',
+                'monolog.name' => 'silexpress',
                 /*'monolog.handler' => $app->share(
                     function (Application $app) {
                         return new MongoDBHandler($app['config.mongo'], $app['config.database'], "log");
@@ -88,7 +88,7 @@ class Configuration implements ServiceProviderInterface
                 'security.firewalls' => array(
                     'admin' => array(
                         'pattern' => '^/',
-                        "anonymous" => array(),
+                        "anonymous" => true,
                         'form' => array(
                             'login_path' => "/user/login",
                             'check_path' => "/admin/user/dologin",
@@ -103,9 +103,9 @@ class Configuration implements ServiceProviderInterface
                             'logout_path' => "/admin/user/logout",
                             "target" => '/',
                             "invalidate_session" => true,
-                            "delete_cookies" => array(
-                                "mongoblog.local" => array("domain" => "mongoblog.local", "path" => "/")
-                            )
+//                            "delete_cookies" => array(
+//                                "silexpress.local" => array("domain" => "silexpress.local", "path" => "/")
+//                            )
                         ),
                         'users' => function (Application $app) {
                             return $app['user_manager'];
@@ -114,7 +114,7 @@ class Configuration implements ServiceProviderInterface
                 ),
                 'security.access_rules' => array(
                     array('^/admin', 'ROLE_USER'),
-                    array('^/admin/option', 'ROLE_ADMIN'),
+//                    array('^/admin/option', 'ROLE_ADMIN'),
                 ),
                 'security.role_hierarchy' => array(
                     'ROLE_ADMIN' => array('ROLE_EDITOR'),
@@ -248,7 +248,6 @@ class Configuration implements ServiceProviderInterface
 // FR : définir les routes principales
         $app->mount("/comment", new CommentController($app['spam_manager']));
         $app->mount('/user', new UserController($app['user_manager'], $app['spam_manager']));
-        $app->mount('/admin/user', new UserAdminController());
 
     }
 }
