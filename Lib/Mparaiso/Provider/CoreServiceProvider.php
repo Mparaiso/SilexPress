@@ -36,6 +36,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.vars.api_route_prefix"] = "/api";
         // templates
         $app["sp.core.template.path"] = __DIR__ . "/../SilexPress/Core/Resources/views";
+        $app["sp.core.template.front.layout"] = "layout.twig";
         $app["sp.core.template.admin.layout"] = 'admin\admin-layout.twig'; // default layout
 
         // MongoDB

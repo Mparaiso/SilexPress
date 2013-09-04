@@ -38,9 +38,9 @@ namespace Mparaiso\SilexPress\Core\Controller {
         {
             $post = $app["sp.core.service.post"]->find($id);
             if ($post == null):
-                return $app->redirect($app["url_generator"]->generate("post.index"));
+                return $app->redirect($app["url_generator"]->generate("sp.front.post.read"));
             endif;
-            return $app["twig"]->render("silexpress/front/post/get.twig", array("post" => $post));
+            return $app["twig"]->render("silexpress/front/post/read.twig", array("post" => $post));
         }
 
 //        function getByTag(Application $app, $tag)
@@ -81,10 +81,10 @@ namespace Mparaiso\SilexPress\Core\Controller {
         {
             // créer un nouveau controller basé sur la route par défaut
             $controllers = $app['controllers_factory'];
-            $controllers->match("/", array($this, 'index'))->bind("post.index");
-            $controllers->get("/{id}/{title}", array($this, "read"))
+            $controllers->match("/", array($this, 'index'))->bind("sp.front.post.index");
+            $controllers->get("/post/{id}/{title}", array($this, "read"))
                 ->value("title", "")
-                ->bind("post.get");
+                ->bind("sp.front.post.read");
             return $controllers;
         }
 

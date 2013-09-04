@@ -1,4 +1,4 @@
-{% set postUrl= path('post.get',{'id':post._id,'title':post.getPostTitle()}) %}
+{% set postUrl= url('sp.front.post.read',{'id':post._id,'title':post.getPostTitle()}) %}
 <h3>
     <a style='color:#000;' href='{{ postUrl }}'>{{ post.post_title }}</a>
 </h3>

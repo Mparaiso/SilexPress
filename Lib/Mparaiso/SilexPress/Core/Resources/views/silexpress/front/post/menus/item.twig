@@ -13,7 +13,7 @@
         {% elseif value.menu_type=="link" %}
             <li><a href="{{ value.url }}" target="{{ value.target|default('') }}">{{ value.label }}</a></li>
         {% elseif value.menu_type=="page" %}
-            <li><a href="{{ url("post.get",{id:value.post_id}) }}">{{ value.label }}</a></li>
+            <li><a href="{{ url("sp.front.post.read",{id:value.post_id}) }}">{{ value.label }}</a></li>
         {% elseif value.menu_type=="category" %}
             <li><a href="#">{{ value.label }}</a></li>
         {% endif %}
