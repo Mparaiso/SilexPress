@@ -1,0 +1,14 @@
+{
+  "volo": {
+    "dependencies": {
+      "Ractive": "github:Rich-Harris/Ractive/v0.3.6",
+      "jquery": "github:jquery/jquery/2.0.3",
+      "backbone": "github:jashkenas/backbone/1.0.0",
+      "underscore": "github:jashkenas/underscore/1.5.1",
+      "jquery-ui": "github:jquery/jquery-ui/1.10.3",
+      "draggabilly": "github:desandro/draggabilly/v1.0.5",
+      "bootstrap": "github:twbs/bootstrap/v3.0.0",
+      "charge": "github:Mparaiso/charge.js/0.0.0"
+    }
+  }
+}

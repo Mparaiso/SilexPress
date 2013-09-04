@@ -1,0 +1,99 @@
+<!-- MENU BUILDER TEMPLATE -->
+<style type="text/css">
+    .hover:hover {
+        background-color: #EEE;
+    }
+
+    .mb-hidden {
+        opacity: 0;
+    }
+
+    .hover:hover .mb-hidden {
+        opacity: 1;
+    }
+</style>
+<div class="span4" intro="fade:fast">
+    <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#menus">Menus</a></li>
+        <li><a data-toggle="tab" href="#categories">Categories</a></li>
+        <li><a data-toggle="tab" href="#pages">Pages</a></li>
+        <li><a data-toggle="tab" href="#links">Links</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="menus" class="menus tab-pane active">
+            <h4>Menus</h4>
+            {{#menus}}
+                <label><input type="checkbox" name="{{selectedMenus}}" value="{{id}}"/>{{title}}</label>
+            {{/menus}}
+            <a href="javascript:" class="btn btn-mini  menu-add-page" proxy-click="selectAllSubMenus">Select All</a>
+            <a href="javascript:" class="btn btn-mini  menu-add-page" proxy-click="addSubMenuToMenu">Add to menu</a>
+        </div>
+        <div id="categories" class="menus tab-pane categories">
+            <h4>Categories</h4>
+            {{#categories}}
+                <label><input type="checkbox" name="{{selectedCategories}}" value="{{id}}"/> {{title}}</label>
+            {{/categories}}
+            <a href="javascript:;" class="btn btn-mini  menu-add-page" proxy-click="selectAllCategories">Select
+                All</a>
+            <a href="javascript:;" class="btn btn-mini menu-addcategory" proxy-click="addCategoryToMenu">Add
+                to Menu</a>
+        </div>
+        <div id="pages" class="pages menus tab-pane">
+            <h4>Pages</h4>
+            {{#pages}}
+                <label><input
+                        type="checkbox" name="{{selectedPages}}" value="{{id}}"/> {{title}}
+                </label>
+            {{/pages}}
+            <a href="javascript:;" class="btn btn-mini  menu-add-page" proxy-click="selectAllPages">Select
+                All</a>
+            <a href="javascript:;" class="btn btn-mini  menu-add-page" proxy-click="addPageToMenu">Add to
+                Menu</a>
+        </div>
+        <div id="links" class="menus tab-pane links">
+            <h4>Links</h4>
+            <ul class="unstyled">
+                {{#linkForm}}
+                    <li><label>URL</label><input type="text" name="link[url]" value="{{url}}"/></li>
+                    <li><label>Text</label><input type="text" name="link[text]" value="{{title}}"/></li>
+                    <li><label>Target</label><input type="text" name="link[text]" value="{{target}}"
+                                                    placeholder="_blank"/>
+                    </li>
+                {{/linkForm}}
+            </ul>
+            <a href="javascript:;" class="btn btn-mini  menu-add-link" proxy-click="addLinkToMenu">Add to
+                Menu</a>
+        </div>
+    </div>
+</div>
+<!--MENU-->
+<div class="span5">
+    <h4>Menu</h4>
+{{#menu}}
+    <form class="form" action="">
+        <label>Menu Structure</label>
+    <div class="structure">
+    <ol>
+    {{#items:i}}
+    <li class="hover" intro='fade' outro="fade">
+        <div>
+            {{title}} <span class="muted">{{menu_type}}</span>
+            <label class="inline">Label: <input type="text" style="width:auto;padding:0;"
+                                                value="{{label}}"/>
+            </label></div>
+        <div class="mb-hidden">
+            {{# i > 0 }}
+                <a proxy-click="up" href="javascript:;">Up</a> |
+            {{/i}}
+            {{# i < items.length-1 }}
+                <a href="javascript:;" proxy-click="down:{{i}}">Down</a> |
+            {{/i}}
+            <a proxy-click="remove:{{i}}" href="javascript:;">Remove</a>
+        </div>
+    </li>
+{{/items}}
+</ol>
+</div>
+</form>
+{{/menu}}
+</div>
