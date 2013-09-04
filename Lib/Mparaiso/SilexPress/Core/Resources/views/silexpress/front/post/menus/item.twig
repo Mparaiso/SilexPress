@@ -15,7 +15,8 @@
         {% elseif value.menu_type=="page" %}
             <li><a href="{{ url("sp.front.post.read",{id:value.post_id}) }}">{{ value.label }}</a></li>
         {% elseif value.menu_type=="category" %}
-            <li><a href="#">{{ value.label }}</a></li>
+            <li><a href="{{ url('sp.front.category.read',{id:value.post_id,name:value.title}) }}">{{ value.label }}</a>
+            </li>
         {% endif %}
     {% endfor %}
 </ul>

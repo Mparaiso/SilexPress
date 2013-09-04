@@ -19,6 +19,9 @@
   width: 36px;
   background-position: -492px -5px;
 }
+.mceLayout {
+  margin-bottom: 20px !important;
+}
 .icon-28 {
   width: 28px;
   height: 28px;

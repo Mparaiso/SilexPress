@@ -25,6 +25,20 @@ class Post extends Base
         return $this->findBy(array(), array("post_date" => -1), $limit, $offset);
     }
 
+    function byCategoryId($id, array $order = array("post_date" => -1))
+    {
+        return $this->findBy(
+            array("categories" => array('$in' => array(new \MongoId($id)))), $order
+        );
+    }
+
+    function byTagName($tagname, array $order = array("post_date" => -1))
+    {
+        return $this->findBy(
+            array("tags" => array('$in' => array($tagname))), $order
+        );
+    }
+
     function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
         $criteria["post_type"] = $this->posttype;

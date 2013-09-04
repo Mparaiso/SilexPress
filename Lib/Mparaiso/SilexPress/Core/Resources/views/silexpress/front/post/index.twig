@@ -1,0 +1,11 @@
+{% extends app['sp.core.template.front.layout'] %}
+{% block content %}
+    {% for post in posts %}
+        <div class='span12'>
+            <h2>{{ title|default("Posts")|capitalize }}</h2>
+            {% include 'silexpress/front/post/preview.twig' with {post: post} only %}
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block sidebar %}
+{% endblock %}

@@ -5,6 +5,7 @@ namespace Mparaiso\Provider;
 
 use Mparaiso\CodeGeneration\Controller\CRUD;
 use Mparaiso\SilexPress\Core\Controller\AdminController;
+use Mparaiso\SilexPress\Core\Controller\IndexController;
 use Mparaiso\SilexPress\Core\Controller\PostController;
 use Mparaiso\SilexPress\Core\Controller\UserController;
 use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;
@@ -193,7 +194,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         });
         //CONTROLLERS
         $app["sp.core.controller.index"] = $app->share(function ($app) {
-            return new PostController();
+            return new IndexController();
         });
         $app["sp.core.controller.user"] = $app->share(function ($app) {
             return new UserController();
