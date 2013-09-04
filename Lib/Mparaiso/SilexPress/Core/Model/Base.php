@@ -33,7 +33,7 @@ namespace Mparaiso\SilexPress\Core\Model {
          */
         public function jsonSerialize()
         {
-            return iterator_to_array($this, true);
+            return iterator_to_array($this);
         }
     }
 }

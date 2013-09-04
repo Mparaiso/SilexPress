@@ -2,6 +2,7 @@
 
 namespace Mparaiso\SilexPress\Core\Form;
 
+use Mparaiso\SilexPress\Core\Form\DataTransformer\StringToHashdDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -23,8 +24,10 @@ class Menu extends AbstractType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add("post_meta","hidden",array("required"=>false))
-            ->add("post_title","text",array("label"=>"title"))
-            ->add("post_content","textarea",array("label"=>"description","required"=>false));
+            ->add("post_meta", "hidden", array("required" => false))
+            ->add("post_title", "text", array("label" => "Title"))
+            ->add("post_content", "textarea", array("label" => "Description", "required" => false));
+
+        $builder->get("post_meta")->addModelTransformer(new StringToHashdDataTransformer);
     }
 }

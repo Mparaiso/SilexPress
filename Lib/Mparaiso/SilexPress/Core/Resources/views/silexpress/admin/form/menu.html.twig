@@ -1,16 +1,17 @@
 <link rel="help" href="{{ app.request.getUriForPath('/vendor/silexpressmenubuilder/src/menubuilder.mustache') }}"/>
 <div>
-    <h3><i class="icon-32 icon-setting"></i> {{ subtitle }}</h3>
+    {#<h3><i class="icon-32 icon-setting"></i> {{ subtitle }}</h3>#}
+    {{ form_widget(form) }}
+    <label>Menu Structure</label>
 
-    <form class="form form-horizontal form-actions" action="" method="POST" {{ form_enctype(form) }}>
-        {{ form_errors(form) }}
-        {{ form_row(form.post_title) }}
-        <div id="menuBuilder"></div>
-        {{ form_rest(form) }}
-        <input type="submit" class="btn" value="Submit"/>
-    </form>
+    <div class="row">
+        <div id="menuBuilder">
+            <h3 class="info span9 blink">Loading menu builder,please wait...</h3>
+        </div>
+    </div>
+    <hr>
 </div>
 <script type="text/javascript" src="{{ app.request.getUriForPath('/vendor/ractive.js') }}"></script>
 <script type="text/javascript"
-        src="{{ app.request.getUriForPath('/vendor/silexpressmenubuilder/src/menubuilder.js') }}">
-</script>
+        src="{{ app.request.getUriForPath('/vendor/silexpressmenubuilder/src/menubuilder.js') }}"></script>
+<script type="text/javascript" src="{{ app.request.getUriForPath('/js/menuBuilderInit.js') }}"></script>

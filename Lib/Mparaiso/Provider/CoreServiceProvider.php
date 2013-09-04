@@ -21,12 +21,7 @@ use Symfony\Component\Form\FormBuilder;
 class CoreServiceProvider implements ServiceProviderInterface
 {
     /**
-     * Registers services on the given app.
-     *
-     * This method should only be used to configure services and parameters.
-     * It should not get services.
-     *
-     * @param Application $app An Application instance
+     * {@inheritdoc}
      */
     public function register(Application $app)
     {
@@ -162,9 +157,14 @@ class CoreServiceProvider implements ServiceProviderInterface
         // Menus
         $app["sp.core.model.menu"] = 'Mparaiso\SilexPress\Core\Model\Post';
         $app["sp.core.form.menu"] = 'Mparaiso\SilexPress\Core\Form\Menu'; // page model class
-        $app["sp.core.collection.menu"] = "menus";
+        $app["sp.core.collection.menu"] = "posts";
         $app["sp.core.service.menu"] = $app->share(function ($app) {
             return new Menu($app["sp.core.db.connection"], $app["sp.core.collection.menu"], $app["sp.core.model.menu"]);
+        });
+        $app["sp.core.api.menu"] = $app->share(function ($app) {
+            return new ApiController(
+                array("resource" => "menu", "allow" => array("index", "read", "count"))
+            );
         });
         $app["sp.core.crud.menu"] = $app->share(function ($app) {
             return new CRUD(array(
@@ -206,11 +206,7 @@ class CoreServiceProvider implements ServiceProviderInterface
 
 
     /**
-     * Bootstraps the application.
-     *
-     * This method is called after all services are registered
-     * and should be used for "dynamic" configuration (whenever
-     * a service must be requested).
+     * {@inheritdoc}
      */
     public function boot(Application $app)
     {

@@ -13,13 +13,17 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <!-- styles -->
-        {% block stylesheets %}
-            <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet'>
-            <link rel="stylesheet" href="{{ app.request.getUriForPath('/vendor/bootstrap/css/bootstrap.min.css') }}">
-            <link rel="stylesheet"
-                  href="{{ app.request.getUriForPath('/vendor/bootstrap/css/bootstrap-responsive.min.css') }}">
-            <link rel="stylesheet" href="{{ app.request.getUriForPath('/css/style.css') }}">
-        {% endblock %}
+    {% block stylesheets %}
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ app.request.getUriForPath('/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ app.request.getUriForPath('/vendor/bootstrap/css/bootstrap-responsive.min.css') }}">
+    <link rel="stylesheet" href="{{ app.request.getUriForPath('/css/style.css') }}">
+    {% endblock %}
+    {% block jquery %}
+        <script type="text/javascript" src="{{ app.request.getUriForPath('/vendor/jquery/jquery.js') }}">
+        </script>
+    {% endblock %}
     {% endblock %}
 </head>
 <body>
@@ -35,7 +39,8 @@
         {% if app.debug==true %}
             <div class="span12 alert alert-{{ type }}">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                You are in development mode! , change SILEXPRESS_ENV server variable to 'production' for production settings.
+                You are in development mode! , change SILEXPRESS_ENV server variable to 'production' for production
+                settings.
             </div>
         {% endif %}
         <div class="span12">
@@ -59,8 +64,6 @@
     {% include 'footer.twig' %}
 </div>
 {% block javascripts %}
-    <script type="text/javascript" src="{{ app.request.getUriForPath('/vendor/jquery/jquery.js') }}">
-    </script>
     <script type="text/javascript" src="{{ app.request.getUriForPath('/js/postMetadatas.js') }}"></script>
     <script type="text/javascript"
             src="{{ app.request.getUriForPath('/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
