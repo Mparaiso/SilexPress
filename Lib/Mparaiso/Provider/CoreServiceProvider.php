@@ -163,7 +163,11 @@ class CoreServiceProvider implements ServiceProviderInterface
         });
         $app["sp.core.api.menu"] = $app->share(function ($app) {
             return new ApiController(
-                array("resource" => "menu", "allow" => array("index", "read", "count"))
+                array("resource" => "menu",
+                    "allow" => array("index", "read", "count"),
+                    "debug" => $app["debug"], "service" => $app["sp.core.service.menu"],
+                    "model" => $app["sp.core.model.menu"]
+                )
             );
         });
         $app["sp.core.crud.menu"] = $app->share(function ($app) {
@@ -225,8 +229,12 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.menu"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.user"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.admin"]);
+        /* admin category api */
         $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.category"]);
+        /* admin page api */
         $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.page"]);
+        /* admin menu api */
+        $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.menu"]);
         $app->mount("/", $app["sp.core.controller.index"]);
     }
 }
