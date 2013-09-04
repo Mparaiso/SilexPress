@@ -3,9 +3,8 @@
 namespace Mparaiso\SilexPress\Core\Model {
 
     use ArrayObject;
-    use JsonSerializable;
 
-    abstract class Base extends ArrayObject implements JsonSerializable
+    abstract class Base extends ArrayObject
     {
 
         function __get($attr)
