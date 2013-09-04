@@ -5,7 +5,7 @@ $(function () {
     "use strict";
     var pages, categories, menus, menuBuilderTemplate, menuBuilder, menu_post_meta, data, menu_post_title;
     menu_post_meta = $("#menu_post_meta");
-    // load pages
+    // load pages,cats,menus,and templates
     $.when($.getJSON("/admin/api/page"),
             $.getJSON("/admin/api/menu"),
             $.getJSON("/admin/api/category"),
