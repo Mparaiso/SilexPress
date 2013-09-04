@@ -1,4 +1,4 @@
-{% extends 'layout.twig' %}
+{% extends app["sp.core.template.front.layout"] %}
 {% block content %}
 {% include 'form/register.twig' with {'form': registrationForm, 'action': path('user.dosignup')} only %}
 {% endblock %}
