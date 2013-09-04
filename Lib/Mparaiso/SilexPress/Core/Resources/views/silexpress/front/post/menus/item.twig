@@ -1,0 +1,21 @@
+<ul class="{{ ulClass|default("nav") }}" role="{{ ulRole|default("navigation") }}"
+    aria-labelledby="{{ ulAria|default('') }}">
+    {% for key,value in items %}
+        {% if value.menu_type=="menu" %}
+            <li class="dropdown">
+                <a class="dropdown-toggle" href="#"
+                   data-toggle="dropdown">{{ value.label }} <b class="muted caret"></b>
+                </a>
+                {% include "silexpress/front/post/menus/item.twig" with
+                {items:app['sp.core.service.menu'].find(value.post_id).post_meta.items,
+                ulRole:"menu",ulClass:"dropdown-menu",ulAria:value.label ~ loop.index0 } only %}
+            </li>
+        {% elseif value.menu_type=="link" %}
+            <li><a href="{{ value.url }}" target="{{ value.target|default('') }}">{{ value.label }}</a></li>
+        {% elseif value.menu_type=="page" %}
+            <li><a href="{{ url("post.get",{id:value.post_id}) }}">{{ value.label }}</a></li>
+        {% elseif value.menu_type=="category" %}
+            <li><a href="#">{{ value.label }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>

@@ -31,17 +31,22 @@
 <div class="container">
     <div class="row">
         <noscript>
-            <div class='alert-error'>
-                <h1>Please enable Javascript to have the best experience with that website. thank you.</h1>
+            <div class="span12">
+                <div class='alert-warning alert'>
+                    <h1>Please enable Javascript to have the best experience with that website. thank you.</h1>
+                </div>
             </div>
         </noscript>
         {# development mode warning #}
         {% if app.debug==true %}
-            <div class="span12 alert alert-{{ type }}">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                You are in development mode! , change SILEXPRESS_ENV server variable to 'production' for production
-                settings.
+            <div class="span12">
+                <div class=" alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    You are in development mode! , change SILEXPRESS_ENV server variable to 'production' for production
+                    settings.
+                </div>
             </div>
+
         {% endif %}
         <div class="span12">
             {% include 'flash-message.twig' %}

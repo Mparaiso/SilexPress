@@ -18,6 +18,12 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Symfony\Component\Form\FormBuilder;
 
+/**
+ * Class CoreServiceProvider
+ * @package Mparaiso\Provider
+ *
+ * Silexpress core service configuration.
+ */
 class CoreServiceProvider implements ServiceProviderInterface
 {
     /**
@@ -32,13 +38,11 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.template.path"] = __DIR__ . "/../SilexPress/Core/Resources/views";
         $app["sp.core.template.admin.layout"] = 'admin\admin-layout.twig'; // default layout
 
-        // \MongoDB
-
+        // MongoDB
         $app["sp.core.db.connection"] = $app->share(function ($app) {
             $mongo = new \MongoClient($app['config.server']);
             return $mongo->selectDB($app['config.database']);
         });
-
 
         // Post
         $app["sp.core.collection.post"] = "posts"; // name of the posts collection
@@ -59,7 +63,6 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "propertyList" => array("post_title")
             ));
         });
-
         // Page
         $app["sp.core.collection.page"] = "posts"; // name of the pages collection
         $app["sp.core.model.page"] = 'Mparaiso\SilexPress\Core\Model\Post'; // page model class
@@ -90,17 +93,10 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "propertyList" => array("post_title")
             ));
         });
-
-        /**
-         *
-         * Terms
-         *
-         */
-
+        // Terms
         $app["sp.core.collection.term"] = "terms"; // name of the pages collection
         $app["sp.core.model.term"] = 'Mparaiso\SilexPress\Core\Model\Term'; // page model class
         $app["sp.core.form.term"] = 'Mparaiso\SilexPress\Core\Form\Term'; // page model class
-
         // Category
         $app["sp.core.service.category"] = $app->share(function ($app) {
             $service = new TermService($app["sp.core.db.connection"], $app["sp.core.collection.term"], $app["sp.core.model.term"]);
@@ -153,7 +149,6 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.service.comment"] = $app->share(function ($app) {
             return new Base($app["sp.core.db.connection"], $app["sp.core.collection.comment"], $app["sp.core.model.comment"]);
         });
-
         // Menus
         $app["sp.core.model.menu"] = 'Mparaiso\SilexPress\Core\Model\Post';
         $app["sp.core.form.menu"] = 'Mparaiso\SilexPress\Core\Form\Menu'; // page model class
@@ -166,7 +161,7 @@ class CoreServiceProvider implements ServiceProviderInterface
                 array("resource" => "menu",
                     "allow" => array("index", "read", "count"),
                     "debug" => $app["debug"], "service" => $app["sp.core.service.menu"],
-                    "model" => $app["sp.core.model.menu"]
+                    "model" => $app["sp.core.model.menu"],
                 )
             );
         });
@@ -181,7 +176,6 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
             ));
         });
-
         # Option
         $app["sp.core.collection.option"] = "options"; // name of the option collection
         $app["sp.core.form.option.general"] = 'Mparaiso\SilexPress\Core\Form\GeneralSettings'; // name of the option collection
@@ -196,10 +190,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.controller.admin"] = $app->share(function ($app) {
             return new AdminController();
         });
-
-        /**
-         * CONTROLLERS
-         */
+        //CONTROLLERS
         $app["sp.core.controller.index"] = $app->share(function ($app) {
             return new PostController();
         });

@@ -36,6 +36,10 @@ class Page extends Post
                     "_id" => array('$ne' => new MongoId($id)))));
         });
         parent::buildForm($builder, $options);
+        $builder->remove("categories");
+        $builder->remove("post_format");
+        $builder->remove("post_meta");
+        $builder->remove("tags");
 
     }
 }

@@ -9,13 +9,9 @@
             <a class="brand" href="{{ path('post.index') }}"><strong>{{ app['options'].get('site_title') }}</strong></a>
 
             <div class="nav-collapse collapse">
-                <ul class="nav">
-                    <li><a href="{{ path("post.index") }}">Home</a></li>
-                    <li><a href="{{ path("post.index") }}">Articles</a></li>
-                </ul>
+                {% include 'silexpress/front/post/menus/item.twig' with {items:app['sp.core.service.menu'].findOneBy({post_title:"main_nav"}).post_meta.items} only %}
                 {% include 'user/user-menu.twig' %}
             </div>
-            <!--/.nav-collapse -->
         </div>
     </div>
 </div>

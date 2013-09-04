@@ -1,1 +1,0 @@
-Cannot GET /index.php
