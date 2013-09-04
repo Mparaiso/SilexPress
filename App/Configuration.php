@@ -4,6 +4,7 @@ use Controller\Admin\UserAdminController;
 use Controller\CommentController;
 use Controller\UserController;
 use Model\Manager\SessionManager;
+use Mparaiso\Provider\ConsoleServiceProvider;
 use Mparaiso\Provider\CoreServiceProvider;
 use Mparaiso\Provider\CrudServiceProvider;
 use Mparaiso\Provider\GravatarServiceProvider;
@@ -61,6 +62,8 @@ class Configuration implements ServiceProviderInterface
                 }
             )
         ));
+        // console
+        $app->register(new ConsoleServiceProvider);
         # trans
         $app->register(new TranslationServiceProvider(), array("locale_fallback" => "en"));
         # url generator
@@ -156,11 +159,7 @@ class Configuration implements ServiceProviderInterface
 
             }
         );
-        $app['user_provider'] = $app->share(
-            function ($app) {
-                return new Model\Provider\UserProvider($app['user_manager']);
-            }
-        );
+
 # article manager
         $app['article_manager'] = $app->share(
             function ($app) {

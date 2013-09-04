@@ -1,6 +1,6 @@
 <?php
 
-namespace Mparaiso\SilexPress\Admin\Media\Form;
+namespace Mparaiso\SilexPress\Media\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 

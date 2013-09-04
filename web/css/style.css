@@ -50,10 +50,13 @@
 .icon-28.icon-user {
   background-position: -300px -33px;
 }
-input[type=text],
-input[type=email],
-input[type=url],
-textarea {
+.icon-28.icon-appearance {
+  background-position: 1px -33px;
+}
+.form-actions input[type=text],
+.form-actions input[type=email],
+.form-actions input[type=url],
+.form-actions textarea {
   width: 100%;
 }
 body {

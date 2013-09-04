@@ -1,5 +1,5 @@
 <?php
-namespace Mparaiso\SilexPress\Admin\Media\Service;
+namespace Mparaiso\SilexPress\Media\Service;
 
 use Mparaiso\SilexPress\Core\Service\Base as BaseService;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

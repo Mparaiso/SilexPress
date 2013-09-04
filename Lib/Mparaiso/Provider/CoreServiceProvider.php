@@ -9,9 +9,11 @@ use Mparaiso\SilexPress\Core\Controller\PostController;
 use Mparaiso\SilexPress\Core\Controller\UserController;
 use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;
 use Mparaiso\SilexPress\Core\Service\Base;
+use Mparaiso\SilexPress\Core\Service\Menu;
 use Mparaiso\SilexPress\Core\Service\Option as OptionService;
 use Mparaiso\SilexPress\Core\Service\Post as PostService;
 use Mparaiso\SilexPress\Core\Service\Term as TermService;
+use Mparaiso\SimpleRest\Controller\Controller as ApiController;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Symfony\Component\Form\FormBuilder;
@@ -30,6 +32,7 @@ class CoreServiceProvider implements ServiceProviderInterface
     {
         // vars
         $app["sp.core.vars.admin_route_prefix"] = "/admin";
+        $app["sp.core.vars.api_route_prefix"] = "/api";
         // templates
         $app["sp.core.template.path"] = __DIR__ . "/../SilexPress/Core/Resources/views";
         $app["sp.core.template.admin.layout"] = 'admin\admin-layout.twig'; // default layout
@@ -71,6 +74,15 @@ class CoreServiceProvider implements ServiceProviderInterface
             $service->setPosttype("page");
             return $service;
         });
+        // page API
+        $app["sp.core.api.page"] = $app->share(function ($app) {
+            return new ApiController(array(
+                "resource" => "page",
+                "model" => $app["sp.core.model.page"],
+                "service" => $app["sp.core.service.page"],
+                "allow" => array("read", "index", "count")
+            ));
+        });
         // page admin controller
         $app["sp.core.crud.page"] = $app->share(function ($app) {
             return new CRUD(array(
@@ -111,7 +123,17 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "propertyList" => array("name")
             ));
         });
-
+        // category API
+        $app["sp.core.api.category"] = $app->share(function ($app) {
+            return new ApiController(array(
+                "debug" => $app["debug"],
+                "resource" => "category",
+                "resourcePluralize" => "categories",
+                "model" => $app["sp.core.model.term"],
+                "service" => $app["sp.core.service.category"],
+                "allow" => array("read", "index", "count")
+            ));
+        });
         // Tag
         $app["sp.core.service.tag"] = $app->share(function ($app) {
             $service = new TermService($app["sp.core.db.connection"], $app["sp.core.collection.term"], $app["sp.core.model.page"]);
@@ -137,6 +159,25 @@ class CoreServiceProvider implements ServiceProviderInterface
             return new Base($app["sp.core.db.connection"], $app["sp.core.collection.comment"], $app["sp.core.model.comment"]);
         });
 
+        // Menus
+        $app["sp.core.model.menu"] = 'Mparaiso\SilexPress\Core\Model\Post';
+        $app["sp.core.form.menu"] = 'Mparaiso\SilexPress\Core\Form\Menu'; // page model class
+        $app["sp.core.collection.menu"] = "menus";
+        $app["sp.core.service.menu"] = $app->share(function ($app) {
+            return new Menu($app["sp.core.db.connection"], $app["sp.core.collection.menu"], $app["sp.core.model.menu"]);
+        });
+        $app["sp.core.crud.menu"] = $app->share(function ($app) {
+            return new CRUD(array(
+                "entityClass" => $app["sp.core.model.menu"],
+                "formClass" => $app["sp.core.form.menu"],
+                "service" => $app["sp.core.service.menu"],
+                "formTemplate" => 'silexpress/admin/form/menu.html.twig',
+                "resourceName" => "menu",
+                "collectionName" => "menus",
+                "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
+            ));
+        });
+
         # Option
         $app["sp.core.collection.option"] = "options"; // name of the option collection
         $app["sp.core.form.option.general"] = 'Mparaiso\SilexPress\Core\Form\GeneralSettings'; // name of the option collection
@@ -158,7 +199,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.controller.index"] = $app->share(function ($app) {
             return new PostController();
         });
-        $app["sp.core.controller.user"]=$app->share(function($app){
+        $app["sp.core.controller.user"] = $app->share(function ($app) {
             return new UserController();
         });
     }
@@ -185,8 +226,11 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.page"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.category"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.tag"]);
+        $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.menu"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.user"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.admin"]);
+        $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.category"]);
+        $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.page"]);
         $app->mount("/", $app["sp.core.controller.index"]);
     }
 }

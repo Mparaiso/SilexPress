@@ -2,9 +2,9 @@
 
 namespace Mparaiso\Provider;
 
-use Mparaiso\SilexPress\Admin\Media\Controller\IndexController;
-use Mparaiso\SilexPress\Admin\Media\Service\Attachment;
-use Mparaiso\SilexPress\Admin\Media\Service\Upload;
+use Mparaiso\SilexPress\Media\Controller\IndexController;
+use Mparaiso\SilexPress\Media\Service\Attachment;
+use Mparaiso\SilexPress\Media\Service\Upload;
 use Silex\Application;
 
 class MediaServiceProvider implements \Silex\ServiceProviderInterface
@@ -48,14 +48,14 @@ class MediaServiceProvider implements \Silex\ServiceProviderInterface
         });
         // the form type instance for file upload
         $app["sp.media.form.upload"] = function ($app) {
-            return new \Mparaiso\SilexPress\Admin\Media\Form\Upload;
+            return new \Mparaiso\SilexPress\Media\Form\Upload;
         };
         // controllers
         $app["sp.media.controller.index"] = function ($app) {
             return new IndexController();
         };
         // template path
-        $app["sp.media.template.path"] = __DIR__ . "/../SilexPress/Admin/Media/Resources/Views";
+        $app["sp.media.template.path"] = __DIR__ . "/../SilexPress/Media/Resources/Views";
         // templates
         $app["sp.media.template.layout"] = 'silexpress\admin\media\layout.html.twig'; // default layout
         $app["sp.media.template.new"] = 'silexpress\admin\media\new.html.twig';

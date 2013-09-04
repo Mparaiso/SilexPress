@@ -1,0 +1,7 @@
+{
+  "volo": {
+    "dependencies": {
+      "Ractive": "github:Rich-Harris/Ractive/v0.3.6"
+    }
+  }
+}

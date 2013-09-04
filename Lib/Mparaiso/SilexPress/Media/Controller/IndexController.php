@@ -1,8 +1,8 @@
 <?php
 
-namespace Mparaiso\SilexPress\Admin\Media\Controller;
+namespace Mparaiso\SilexPress\Media\Controller;
 
-use Mparaiso\SilexPress\Admin\Media\Form\Attachment;
+use Mparaiso\SilexPress\Media\Form\Attachment;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Symfony\Component\EventDispatcher\GenericEvent;

@@ -3,8 +3,9 @@
 namespace Mparaiso\SilexPress\Core\Model {
 
     use ArrayObject;
+    use JsonSerializable;
 
-    abstract class Base extends ArrayObject
+    abstract class Base extends ArrayObject implements JsonSerializable
     {
 
         function __get($attr)
@@ -27,5 +28,12 @@ namespace Mparaiso\SilexPress\Core\Model {
         }
 
 
+        /**
+         * {@inheritdoc}
+         */
+        public function jsonSerialize()
+        {
+            return iterator_to_array($this, true);
+        }
     }
 }

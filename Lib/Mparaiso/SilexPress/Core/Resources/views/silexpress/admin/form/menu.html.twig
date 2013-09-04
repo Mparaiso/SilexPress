@@ -1,0 +1,16 @@
+<link rel="help" href="{{ app.request.getUriForPath('/vendor/silexpressmenubuilder/src/menubuilder.mustache') }}"/>
+<div>
+    <h3><i class="icon-32 icon-setting"></i> {{ subtitle }}</h3>
+
+    <form class="form form-horizontal form-actions" action="" method="POST" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+        {{ form_row(form.post_title) }}
+        <div id="menuBuilder"></div>
+        {{ form_rest(form) }}
+        <input type="submit" class="btn" value="Submit"/>
+    </form>
+</div>
+<script type="text/javascript" src="{{ app.request.getUriForPath('/vendor/ractive.js') }}"></script>
+<script type="text/javascript"
+        src="{{ app.request.getUriForPath('/vendor/silexpressmenubuilder/src/menubuilder.js') }}">
+</script>

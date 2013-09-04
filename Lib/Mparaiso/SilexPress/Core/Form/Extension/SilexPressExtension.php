@@ -3,6 +3,7 @@
 namespace Mparaiso\SilexPress\Core\Form\Extension;
 
 use Mparaiso\SilexPress\Core\Form\Type\ArrayType;
+use Mparaiso\SilexPress\Core\Form\Type\HashType;
 use Mparaiso\SilexPress\Core\Form\Type\ImageDimensionType;
 use Mparaiso\SilexPress\Core\Form\Type\MetaType;
 use Mparaiso\SilexPress\Core\Form\Type\MongoChoiceType;
@@ -23,6 +24,7 @@ class SilexPressExtension extends AbstractExtension
             new MongoChoiceType($this->mongoDB),
             new ArrayType(),
             new MetaType(),
+            new HashType(),
             new ImageDimensionType(),
         );
     }
