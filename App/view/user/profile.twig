@@ -1,11 +1,11 @@
-{% extends app["sp.core.template.front.layout"] %}
+{% extends app["sp.core.template.admin.layout"] %}
 {% block content %}
 <div class="span8">
   <div class="page-header"><h1>User profile</h1></div>
   <div class="well">
     <div class='row'>
       <div class='span3'>
-       <img src="{{app.gravatar.getGravatar(user.email,100)|default(url('index.index')~'/img/default.gif')}}" alt="avatar" title='{{user.username}}'><br/>
+       <img src="{{app.gravatar.getGravatar(user.email,100)|default('/img/default.gif')}}" alt="avatar" title='{{user.username}}'><br/>
        <adress>
         <strong>{{user.username|capitalize}}</strong><br/>
         {{user.firstname ~" "~user.lastname|capitalize}}<br/>
