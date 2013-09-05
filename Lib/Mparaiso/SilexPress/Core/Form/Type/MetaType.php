@@ -28,8 +28,8 @@ class MetaType extends AbstractType
         parent::buildForm($builder, $options);
         $builder
             ->add("name", "text",
-                array("label" => " Name : ", "constraints" => array(new Regex('/\S+/'))))
+                array("label" => " ","attr"=>array("placeholder"=>"Name"),  "constraints" => array(new Regex('/\S+/'))))
             ->add("value", "text",
-                array("label" => " Value :", "constraints" => array(new NotNull())));
+                array("label" => " ","attr"=>array("placeholder"=>"Value"), "constraints" => array(new NotNull())));
     }
 }

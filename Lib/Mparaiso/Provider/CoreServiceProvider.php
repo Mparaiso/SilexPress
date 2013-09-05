@@ -8,6 +8,8 @@ use Mparaiso\SilexPress\Core\Controller\AdminController;
 use Mparaiso\SilexPress\Core\Controller\IndexController;
 use Mparaiso\SilexPress\Core\Controller\PostController;
 use Mparaiso\SilexPress\Core\Controller\UserController;
+use Mparaiso\SilexPress\Core\Event\PostEventListener;
+use Mparaiso\SilexPress\Core\Event\PostEvents;
 use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;
 use Mparaiso\SilexPress\Core\Service\Base;
 use Mparaiso\SilexPress\Core\Service\Menu;
@@ -92,7 +94,9 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "service" => $app["sp.core.service.page"],
                 "resourceName" => "page",
                 "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
-                "propertyList" => array("post_title")
+                "propertyList" => array("post_title"),
+                "beforeCreateEvent" => PostEvents::BEFORE_PERSIST,
+                "beforeUpdateEvent" => PostEvents::BEFORE_PERSIST
             ));
         });
         // Terms
@@ -199,6 +203,10 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.controller.user"] = $app->share(function ($app) {
             return new UserController();
         });
+
+        $app["sp.core.listener.post"] = $app->share(function ($app) {
+            return new PostEventListener($app["logger"]);
+        });
     }
 
 
@@ -207,6 +215,8 @@ class CoreServiceProvider implements ServiceProviderInterface
      */
     public function boot(Application $app)
     {
+        // register events
+        $app["dispatcher"]->addSubscriber($app["sp.core.listener.post"]);
         // register new form type extension
         $app['form.extensions'] = $app->share($app->extend("form.extensions", function ($extensions, $app) {
             $extensions[] = new SilexPressExtension($app["sp.core.db.connection"]);

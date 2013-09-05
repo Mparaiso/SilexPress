@@ -1,6 +1,5 @@
 <?php
 
-use Controller\Admin\UserAdminController;
 use Controller\CommentController;
 use Controller\UserController;
 use Model\Manager\SessionManager;
