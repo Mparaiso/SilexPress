@@ -9,7 +9,7 @@
         <a href="#">{{ username }}</a>
         |
         <i class="icon-calendar"></i>
-        {{ post.postdate.sec|date('m/d/Y') }}
+        {{ post.getPostDate()|date(app["sp.core.service.option"].get('date_format')|default("Y-m-d")) }}
         |
         <i class='icon-comment'></i>
         <a href="{{ postUrl }}#comments">
@@ -18,8 +18,8 @@
         </a>
     </small>
 </p>
-{% autoescape false %}
-<p>{{ post.post_content|striptags('<a>,<b>,<u>,<small>,<strong>')|slice(0,300) }}...</p>
+{% autoescape true %}
+<p>{{ post.post_content|striptags|slice(0,300) }}...</p>
 {% endautoescape %}
 {% if post.tags is iterable %}
     {% include 'silexpress/front/post/tags/index.twig' with {tags: post.tags} only %}

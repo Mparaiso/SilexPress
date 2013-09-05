@@ -32,7 +32,7 @@ class Post extends Base
         );
     }
 
-    function byTagName($tagname, array $order = array("post_date" => -1))
+    function byTag($tagname, array $order = array("post_date" => -1))
     {
         return $this->findBy(
             array("tags" => array('$in' => array($tagname))), $order

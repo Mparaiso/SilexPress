@@ -35,11 +35,11 @@ namespace Mparaiso\SilexPress\Core\Controller {
             return $app["twig"]->render("silexpress/front/post/index.twig", array("posts" => $posts, "title" => "Category: $name"));
         }
 
-//        function getByTag(Application $app, $tag)
-//        {
-//            $posts = $this->postManager->getByTag($tag);
-//            return $app['twig']->render("post/getbytag.twig", array("tag" => $tag, 'posts' => $posts));
-//        }
+        function byTag(Application $app, $name)
+        {
+            $posts = $app['sp.core.service.post']->byTag($name);
+            return $app["twig"]->render("silexpress/front/post/index.twig", array("posts" => $posts, "title" => "Tag: $name"));
+        }
 
 //        function paginator($items, $current_page = null, $item_per_page = 5)
 //        {
@@ -75,11 +75,11 @@ namespace Mparaiso\SilexPress\Core\Controller {
             $controllers = $app['controllers_factory'];
 
             $controllers->match("/", array($this, 'index'))->bind("sp.front.post.index");
-
+            $controllers->get("/tag/{name}", array($this, 'byTag'))
+                ->bind('sp.front.tag.read');
             $controllers->get("/category/{id}/{name}", array($this, "byCategoryId"))
                 ->value("name", "")
                 ->bind("sp.front.category.read");
-
             $controllers->get("/post/{id}/{title}", array($this, "read"))
                 ->value("title", "")
                 ->bind("sp.front.post.read");

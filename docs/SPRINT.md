@@ -5,6 +5,6 @@
         + [X] posts peuvent être crées , édités , éffacés.
         + [X] une page dashboard donne un apercu des différents contenus et permet la
               mise en ligne rapide d'articles.
-        + [ ] des menus peuvent être crées , édités , effacés.
+        + [X] des menus peuvent être crées , édités , effacés.
         + [ ] les données peuvent être exportées et importées au format wordpress
 

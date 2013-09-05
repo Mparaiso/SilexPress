@@ -1,4 +1,4 @@
-{% extends app['sp.core.template.front.layout']  %}
+{% extends app['sp.core.template.front.layout'] %}
 {% block content %}
     <div class="span12">
         <h2>{{ post.getPostTitle() }}</h2>
@@ -12,17 +12,17 @@
                 <a href="{#{path('article.getbyusername',{username: username})}#}">{{ username }}</a>
                 |
                 <i class="icon-calendar"></i>
-                {{ article.created_at.sec|date('m/d/Y') }}
+                {{ post.getPostDate()|date(app["sp.core.service.option"].get('date_format')|default("Y-m-d")) }}
                 |
                 <i class="icon-comment"></i><a
                         href='#comments'>{{ app['comment_manager'].getCommentsByArticleId(article._id)|length }}
                     Comments</a></small>
         </p>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {% set user = app['user_manager'].getUser() %}
-            {% if app['article_manager'].belongsTo(article._id,user._id) %}
-                <a class='btn btn-small' href="{{ path('admin.article.edit',{id: article._id}) }}">Edit</a>
-            {% endif %}
+            {#{% set user = app['user_manager'].getUser() %}#}
+            {#{% if app['article_manager'].belongsTo(article._id,user._id) %}#}
+            <a class='btn btn-small' href="{{ url('mp_crud_post_update',{id:post.getId()}) }}">Edit</a>
+            {#{% endif %}#}
         {% endif %}
         <div>
             {% autoescape false %}

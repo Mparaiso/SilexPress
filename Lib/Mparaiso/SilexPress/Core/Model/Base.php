@@ -26,7 +26,6 @@ namespace Mparaiso\SilexPress\Core\Model {
             return $this->_id;
         }
 
-
         /**
          * {@inheritdoc}
          */

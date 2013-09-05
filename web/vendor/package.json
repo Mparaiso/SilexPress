@@ -1,7 +1,9 @@
 {
   "volo": {
     "dependencies": {
-      "Ractive": "github:Rich-Harris/Ractive/v0.3.6"
+      "Ractive": "github:Rich-Harris/Ractive/v0.3.6",
+      "jquery-autocomplete": "github:dyve/jquery-autocomplete/2.2.0",
+      "jQuery-Tags-Input": "github:xoxco/jQuery-Tags-Input/v1.3.2"
     }
   }
 }
