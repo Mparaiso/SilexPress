@@ -1,6 +1,8 @@
 <?php
 
 namespace Mparaiso\SilexPress\Core\Service;
+use MongoId;
+
 /**
  * Class Post
  * @package Mparaiso\SilexPress\Core\Service
@@ -13,7 +15,7 @@ class Post extends Base
     function persist($model)
     {
         $model->setPostModified(new \MongoDate());
-        if ("NULL" === $model->getPostDate()) {
+        if (NULL == $model->getPostDate()) {
             $model->setPostDate(new \MongoDate());
         }
         $model->setPostType($this->posttype);
@@ -22,7 +24,7 @@ class Post extends Base
 
     function findByDateDesc($limit = null, $offset = null)
     {
-        return $this->findBy(array(), array("post_date" => -1), $limit, $offset);
+        return $this->findBy(array(), array("post_date" => 1), $limit, $offset);
     }
 
     function byCategoryId($id, array $order = array("post_date" => -1))
@@ -59,6 +61,12 @@ class Post extends Base
     function setPosttype($posttype)
     {
         $this->posttype = $posttype;
+    }
+
+    function setPostAuthor($post, $user)
+    {
+        $post->setPostAuthor(new MongoId($user->getId()));
+        return $post;
     }
 
 

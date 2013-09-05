@@ -5,6 +5,7 @@ namespace Mparaiso\SilexPress\Core\Event;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class PostEventListener implements EventSubscriberInterface
 {
@@ -45,6 +46,14 @@ class PostEventListener implements EventSubscriberInterface
 
     function beforePersist(GenericEvent $event)
     {
-        $this->logger->info("BLOOOOP!");
+        $post = $event->getSubject();
+        if (!$post->getPostAuthor()) {
+            $app = $event->getArgument("app");
+            $security = $app["security"];
+            /* @var SecurityContext $security */
+            $securityUser = $security->getToken()->getUser();
+            $user = $app['user_manager']->getByUsername($securityUser->getUsername());
+            $app["sp.core.service.post"]->setPostAuthor($post, $user);
+        }
     }
 }

@@ -30,9 +30,8 @@ class Post extends AbstractType
         parent::buildForm($builder, $options);
         $builder->add("post_title")
 //            ->add("post_excerpt", "textarea", array("required" => false, "attr" => array('rows' => 5, "class" => $this->dClass)))
-            ->add("post_content", "textarea", array("attr" => array('rows' => 10, "class" => $this->dClass,"style"=>"height:500px;")))
+            ->add("post_content", "textarea", array("attr" => array('rows' => 10, "class" => $this->dClass, "style" => "height:500px;")))
             ->add("post_name", null, array("required" => false))
-            ->add("post_author", null, array("required" => false))
             ->add("categories", "mongochoice", array(
                 "key" => "name", "collection" => "terms", "query" => array("taxonomy" => "category"),
                 "multiple" => true, "expanded" => true, "attr" => array("class" => "checkbox")

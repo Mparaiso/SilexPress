@@ -136,7 +136,9 @@ class Post extends Base
 
     public function getPostDate()
     {
-        return $this->__get("post_date");
+        $d = $this->__get("post_date");
+        if ($d)
+            return $d->sec;
     }
 
     public function setPostDateGmt($post_date_gmt)

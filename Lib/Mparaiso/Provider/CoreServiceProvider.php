@@ -3,25 +3,7 @@
 namespace Mparaiso\Provider;
 
 
-use Mparaiso\CodeGeneration\Controller\CRUD;
-use Mparaiso\SilexPress\Core\Controller\AdminController;
-use Mparaiso\SilexPress\Core\Controller\IndexController;
-use Mparaiso\SilexPress\Core\Controller\PostController;
-use Mparaiso\SilexPress\Core\Controller\UserController;
-use Mparaiso\SilexPress\Core\Event\PostEventListener;
-use Mparaiso\SilexPress\Core\Event\PostEvents;
-use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;
-use Mparaiso\SilexPress\Core\Service\Base;
-use Mparaiso\SilexPress\Core\Service\Menu;
-use Mparaiso\SilexPress\Core\Service\Option as OptionService;
-use Mparaiso\SilexPress\Core\Service\Post as PostService;
-use Mparaiso\SilexPress\Core\Service\Term as TermService;
-use Mparaiso\SimpleRest\Controller\Controller as ApiController;
-use Silex\Application;
-use Silex\ServiceProviderInterface;
-use Symfony\Component\Form\FormBuilder;
-
-/**
+use Mparaiso\CodeGeneration\Controller\CRUD;use Mparaiso\SilexPress\Core\Controller\AdminController;use Mparaiso\SilexPress\Core\Controller\IndexController;use Mparaiso\SilexPress\Core\Controller\PostController;use Mparaiso\SilexPress\Core\Controller\UserController;use Mparaiso\SilexPress\Core\Event\PostEventListener;use Mparaiso\SilexPress\Core\Event\PostEvents;use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;use Mparaiso\SilexPress\Core\Service\Base;use Mparaiso\SilexPress\Core\Service\Menu;use Mparaiso\SilexPress\Core\Service\Option as OptionService;use Mparaiso\SilexPress\Core\Service\Post as PostService;use Mparaiso\SilexPress\Core\Service\Term as TermService;use Mparaiso\SimpleRest\Controller\Controller as ApiController;use Silex\Application;use Silex\ServiceProviderInterface;use Symfony\Component\Form\FormBuilder;/**
  * Class CoreServiceProvider
  * @package Mparaiso\Provider
  *
@@ -64,7 +46,9 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "service" => $app["sp.core.service.post"],
                 "resourceName" => "post",
                 "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
-                "propertyList" => array("post_title")
+                "propertyList" => array("post_title"),
+                "beforeCreateEvent" => PostEvents::BEFORE_PERSIST,
+                "beforeUpdateEvent" => PostEvents::BEFORE_PERSIST
             ));
         });
         // Page
@@ -95,8 +79,6 @@ class CoreServiceProvider implements ServiceProviderInterface
                 "resourceName" => "page",
                 "templateLayout" => "silexpress/admin/crud/crud-layout.html.twig",
                 "propertyList" => array("post_title"),
-                "beforeCreateEvent" => PostEvents::BEFORE_PERSIST,
-                "beforeUpdateEvent" => PostEvents::BEFORE_PERSIST
             ));
         });
         // Terms

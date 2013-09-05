@@ -4,10 +4,11 @@
 </h3>
 <p class="author">
     <small>
-        <i class="icon-user"></i>
-        {% set username = app.user_manager.getById(post.user_id).username %}
-        <a href="#">{{ username }}</a>
-        |
+        {% if post.getPostAuthor() is not null %}
+            <i class="icon-user"></i>
+            <a href="#">{{ app.user_manager.getById(post.getPostAuthor()).getUsername() }}</a>
+            |
+        {% endif %}
         <i class="icon-calendar"></i>
         {{ post.getPostDate()|date(app["sp.core.service.option"].get('date_format')|default("Y-m-d")) }}
         |
