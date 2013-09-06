@@ -28,6 +28,6 @@ class MediaServiceTest extends WebTestCase
         $this->app->boot();
         $routes = $this->app["routes"];
         /* @var RouteCollection $routes */
-        $this->assertNotNull($routes->get("sp.admin.media.new"));
+        $this->assertNotNull($routes->get("sp.admin.media.index"));
     }
 }

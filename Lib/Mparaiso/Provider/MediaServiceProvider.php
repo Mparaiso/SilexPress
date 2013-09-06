@@ -57,7 +57,9 @@ class MediaServiceProvider implements \Silex\ServiceProviderInterface
         // template path
         $app["sp.media.template.path"] = __DIR__ . "/../SilexPress/Media/Resources/Views";
         // templates
-        $app["sp.media.template.layout"] = 'silexpress\admin\media\layout.html.twig'; // default layout
+        $app["sp.media.template.layout"] = $app->share(function($app){
+            return  $app["sp.core.template.admin.layout"];
+        });
         $app["sp.media.template.new"] = 'silexpress\admin\media\new.html.twig';
         $app["sp.media.template.upload"] = 'silexpress\admin\media\upload.html.twig';
         $app["sp.media.template.edit"] = 'silexpress\admin\media\edit.html.twig';

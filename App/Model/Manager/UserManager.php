@@ -2,7 +2,7 @@
 namespace Model\Manager {
 
     use Exception;
-    use Model\Entity\User as UserEntity;
+    use Mparaiso\SilexPress\Core\Model\User as UserEntity;
     use MongoDate;
     use MongoId;
     use Mparaiso\SilexPress\Core\Constant\Roles;
@@ -125,7 +125,7 @@ namespace Model\Manager {
 
         function supportsClass($class)
         {
-            return $class === 'App\Model\Entity\User';
+            return $class === '\Mparaiso\SilexPress\Core\Model\User';
         }
 
     }

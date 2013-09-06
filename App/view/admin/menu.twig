@@ -19,10 +19,10 @@
             <li><a href="{{ path("mp_crud_page_create") }}">Add New</a></li>
             {# MEDIA #}
             <li class="nav-header"><i class="icon-28 icon-media"></i> Media</li>
-            <li><a href="{{ path("sp.admin.media.upload") }}">Library</a>
+            <li><a href="{{ path("sp.admin.media.index") }}">Library</a>
             </li>
             <li>
-                <a href="{{ path("sp.admin.media.new") }}">Add New</a>
+                <a href="{{ path("sp.admin.media.create") }}">Add New</a>
             </li>
             <li class="divider"></li>
             {# COMMENTS #}
@@ -34,8 +34,12 @@
             <li><a href="{{ url("mp_crud_menu_index") }}">Menus</a></li>
             {#USERS#}
             <li class="nav-header"><i class="icon-28 icon-user"></i> Users</li>
+            {# can create list #}
             {% if is_granted( app['sp.core.roles'].ROLE_LIST_USERS ) %}
                 <li><a href="#">All Users</a></li>
+            {% endif %}
+            {# can create users #}
+            {% if is_granted(app['sp.core.roles'].ROLE_CREATE_USERS ) %}
                 <li><a href="#">Add New</a></li>
             {% endif %}
             <li><a href="{{ path('admin.user.profile') }}">Your Profile</a></li>

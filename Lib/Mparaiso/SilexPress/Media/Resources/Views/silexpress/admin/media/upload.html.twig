@@ -2,14 +2,14 @@
 {% block content %}
     <div class="span8">
         <h3>Media Library
-            <small><a href="{{ url("sp.admin.media.new") }}">Add new</a></small>
+            <small><a href="{{ url("sp.admin.media.create") }}">Add new</a></small>
         </h3>
         <ul class="inline">
-            <li>All ( {{ app['sp.media.service.attachment'].count() }} )</li>
+            <li>All ( {{ attachment_count }} )</li>
             <li>|</li>
-            <li>Images ( {{ app['sp.media.service.attachment'].count() }} )</li>
+            <li>Images ( {{ attachment_count }} )</li>
             <li>|</li>
-            <li>Unattached ( {{ app['sp.media.service.attachment'].count() }} )</li>
+            <li>Unattached ( {{ attachment_count }} )</li>
         </ul>
         <table class="table table-bordered">
             <thead>
@@ -26,7 +26,7 @@
             <tbody>
             {% for  attachment in attachments %}
                 <tr>
-                    <td><input type="checkbox" name="attachment[{{ loop0.index }}]" value="{{ attachment._id }}"/></td>
+                    <td><input type="checkbox" name="attachment[]" value="{{ attachment._id }}"/></td>
                     <td>
                         <a href="{{ url("sp.admin.media.edit",{id:attachment._id}) }}">
                             <img height="100px" style="height:100px";
@@ -38,7 +38,7 @@
                         {{ attachment.post_name }}
                     </td>
                     <td>
-                        {{ attachment.author }}
+                        {{ attachment.post_author|default("") }}
                     </td>
                     <td></td>
                     <td></td>

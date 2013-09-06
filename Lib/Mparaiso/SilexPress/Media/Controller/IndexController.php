@@ -35,7 +35,6 @@ class IndexController implements \Silex\ControllerProviderInterface
                 "Content-Type" => $attachment->file["type"],
             )
         );
-
         //$response=new Response($attachment->getBytes(),200,array("Content-Type" => $attachment->file["type"]));
         $response->setTtl(5000);
         $response->setClientTtl(1000);
@@ -50,7 +49,10 @@ class IndexController implements \Silex\ControllerProviderInterface
     function index(Application $app)
     {
         return $app["twig"]->render($app["sp.media.template.upload"],
-            array("attachments" => $app["sp.media.service.upload"]->findAll()));
+            array(
+                "attachments" => $app["sp.media.service.upload"]->findAll()
+            , "attachment_count" => $app["sp.media.service.attachment"]->count())
+        );
     }
 
     /**
@@ -114,9 +116,9 @@ class IndexController implements \Silex\ControllerProviderInterface
     {
         $controllers = $app["sp.media.controllers"] = $app["controllers_factory"];
         /* @var ControllerCollection $controllers */
-        $controllers->match("/new", array($this, "create"))->bind("sp.admin.media.new");
+        $controllers->match("/new", array($this, "create"))->bind("sp.admin.media.create");
         $controllers->match("/upload/{id}/{filename}", array($this, "read"))->bind("sp.admin.media.serve");
-        $controllers->match("/upload", array($this, "index"))->bind("sp.admin.media.upload");
+        $controllers->match("/upload", array($this, "index"))->bind("sp.admin.media.index");
         $controllers->match("/edit/{id}", array($this, "update"))->bind("sp.admin.media.edit");
         return $controllers;
     }

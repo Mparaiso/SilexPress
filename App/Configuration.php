@@ -47,7 +47,7 @@ class Configuration implements ServiceProviderInterface
                  * FR : ajouter des templates personalisés au tableau de templates
                  */
                 "twig.form.templates" => array('form_div_layout.html.twig', "form/form_div_layout.twig"),
-                'twig.options' => array('cache' => ROOT . '/temp/twig',/* 'strict_variables' => false */)
+                'twig.options' => array('cache' => ROOT . '/temp/twig', /* 'strict_variables' => false */)
             )
         );
         # form
@@ -135,7 +135,7 @@ class Configuration implements ServiceProviderInterface
         # Gravatar
         $app->register(new GravatarServiceProvider);
         $app['config.server'] = getenv('SILEXPRESS_DBSERVER') ? getenv('SILEXPRESS_DBSERVER') : "localhost";
-        $app['config.database'] = getenv("SILEXPRESS_DBNAME ") ? getenv("SILEXPRESS_DBNAME ") : "tests";
+        $app['config.database'] = getenv("SILEXPRESS_DBNAME ") ? getenv("SILEXPRESS_DBNAME") : "tests";
         $app['config.akismet_apikey'] = getenv('AKISMET_APIKEY');
         $app['config.site_title'] = "Mongo Blog";
         $app['config.default_user_role'] = "ROLE_WRITER";
@@ -230,7 +230,7 @@ class Configuration implements ServiceProviderInterface
 
 
         $app->register(new WebProfilerServiceProvider(), array(
-            "profiler.cache_dir" => __DIR__ . "/../temp/",
+            "profiler.cache_dir" => __DIR__ . "/../temp/profiler",
         ));
     }
 

@@ -2,7 +2,7 @@
 namespace Model\Manager{
   
   use Model\Entity\Comment;
-  use Model\Entity\User;
+  use Mparaiso\SilexPress\Core\Model\User;
 
   interface ISpamManager{
 

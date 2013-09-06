@@ -11,6 +11,7 @@
         "symfony/monolog-bridge": "2.3.*",
         "mparaiso/crudserviceprovider": "*@dev",
         "mparaiso/consoleserviceprovider": "*@dev",
-        "mparaiso/silex-simplerest": "*@dev"
+        "mparaiso/silex-simplerest": "*@dev",
+        "doctrine/mongodb": "*"
     }
 }

@@ -7,3 +7,4 @@ public/file.php
 *.sublime-project
 *.sublime-workspace
 .idea
+composer.lock

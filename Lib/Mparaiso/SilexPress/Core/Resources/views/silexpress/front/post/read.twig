@@ -8,14 +8,13 @@
         <p class="author">
             <i class="icon-user"></i>
             <small>
-                {% set username = app.user_manager.getById(article.user_id).username %}
-                <a href="{#{path('article.getbyusername',{username: username})}#}">{{ username }}</a>
+                <a href="{#{path('article.getbyusername',{username: username})}#}">{{ app.user_manager.getById(post.post_author).username|default('') }}</a>
                 |
                 <i class="icon-calendar"></i>
                 {{ post.getPostDate()|date(app["sp.core.service.option"].get('date_format')|default("Y-m-d")) }}
                 |
                 <i class="icon-comment"></i><a
-                        href='#comments'>{{ app['comment_manager'].getCommentsByArticleId(article._id)|length }}
+                        href='#comments'>{{ app['comment_manager'].getCommentsByArticleId(post._id)|length }}
                     Comments</a></small>
         </p>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}

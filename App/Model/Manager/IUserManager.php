@@ -1,7 +1,7 @@
 <?php
 namespace Model\Manager{
 
-  use Model\Entity\User as UserEntity ;
+  use Mparaiso\SilexPress\Core\Model\User as UserEntity ;
 
   interface IUserManager{
 

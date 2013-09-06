@@ -1,11 +1,11 @@
 <?php
 
-namespace Model\Entity;
+namespace Mparaiso\SilexPress\Core\Model;
 
+use Model\Entity\Base as EntityBase;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Security\Core\User\Role;
 
-class User extends Base implements AdvancedUserInterface
+class User extends EntityBase implements AdvancedUserInterface
 {
 
     protected $isCredentialsNonExpired = true;
@@ -21,10 +21,6 @@ class User extends Base implements AdvancedUserInterface
     protected $address;
     protected $email;
     protected $roles;
-//    protected $enabled = true;
-//    protected $userNonExpired = true;
-//    protected $credentialsNonExpired = true;
-//    protected $userNonLocked = true;
     protected $ip;
 
 

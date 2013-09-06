@@ -1,7 +1,7 @@
 
-{% if app.session.getFlash('comment_errors') %}
+{% if app.session.getFlashBag().get('comment_errors') %}
   <div class="alert alert-error">
-  {{app.session.getFlash('comment_errors')}}
+  {{app.session.getFlashBag().get('comment_errors')}}
 </div>
 {% endif %}
 <form  action="{{ path("comment.create",{article_id: article_id})}} " method="post">
