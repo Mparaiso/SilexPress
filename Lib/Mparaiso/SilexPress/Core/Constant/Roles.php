@@ -69,13 +69,22 @@ class Roles
     const ROLE_ADMINISTRATOR = "ROLE_ADMINISTRATOR";
     const ROLE_SUPER_ADMIN = "ROLE_SUPER_ADMIN";
 
+    function __call($name, $arguments)
+    {
+
+        try {
+            if (defined("self::$name"))
+                return constant("self::$name");
+        } catch (\Exception $e) {
+            // do something
+        }
+    }
 
     public static function getRoles()
     {
         return array(
             self::ROLE_SUPER_ADMIN => array(
                 self::ROLE_ADMINISTRATOR,
-                self::ROLE_MANAGE_OPTIONS
             ),
             self::ROLE_ADMINISTRATOR => array(
                 self::ROLE_EDITOR,

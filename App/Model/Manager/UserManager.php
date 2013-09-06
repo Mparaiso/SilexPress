@@ -5,10 +5,10 @@ namespace Model\Manager {
     use Model\Entity\User as UserEntity;
     use MongoDate;
     use MongoId;
+    use Mparaiso\SilexPress\Core\Constant\Roles;
     use Silex\Application;
     use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
     use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-    use Symfony\Component\Security\Core\User\User;
     use Symfony\Component\Security\Core\User\UserInterface;
     use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -79,6 +79,9 @@ namespace Model\Manager {
             endif;
             $user['created_at'] = new MongoDate();
             $user['updated_at'] = new MongoDate();
+            if (!isset($user["roles"])) {
+                $user["roles"] = array(Roles::ROLE_ADMINISTRATOR);
+            }
             $userToCommit = $user->toArray();
             unset($userToCommit['_id']);
             $status = $this->_collection->insert($userToCommit, array('safe' => true));
@@ -104,16 +107,17 @@ namespace Model\Manager {
         function loadUserByUsername($username)
         {
             $_user = $this->_collection->findone(array("username" => $username));
-            if (empty($_user)):
-                throw new UsernameNotFoundException(sprintf("User %s does not exist", $username)); else:
+            if (empty($_user)) {
+                throw new UsernameNotFoundException(sprintf("User %s does not exist", $username));
+            } else {
                 $user = new UserEntity($_user);
-            endif;
-            return new User($user['username'], $user['password'], $user['roles'], $user['enabled'], $user['userNonExpired'], $user['credentialsNonExpired'], $user['userNonLocked']);
+                return $user;
+            }
         }
 
         function refreshUser(UserInterface $user)
         {
-            if (!$user instanceof User) {
+            if (!$user instanceof UserEntity) {
                 throw new UnsupportedUserException(sprintf('Instance of "%s" are not supported'), get_class($user));
             }
             return $this->loadUserByUsername($user->getUsername());
@@ -121,7 +125,7 @@ namespace Model\Manager {
 
         function supportsClass($class)
         {
-            return $class === 'Symfony\Component\Security\Core\User\User';
+            return $class === 'App\Model\Entity\User';
         }
 
     }

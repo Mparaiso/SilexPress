@@ -34,17 +34,19 @@
             <li><a href="{{ url("mp_crud_menu_index") }}">Menus</a></li>
             {#USERS#}
             <li class="nav-header"><i class="icon-28 icon-user"></i> Users</li>
-            <li><a href="#">All Users</a></li>
-            <li><a href="#">Add New</a></li>
+            {% if is_granted( app['sp.core.roles'].ROLE_LIST_USERS ) %}
+                <li><a href="#">All Users</a></li>
+                <li><a href="#">Add New</a></li>
+            {% endif %}
             <li><a href="{{ path('admin.user.profile') }}">Your Profile</a></li>
             {# SETTINGS #}
-            {%  if is_granted( app['sp.core.roles'].ROLE_MANAGE_OPTIONS ) %}
-            <li class="nav-header"><i class="icon-28 icon-setting"></i> Settings</li>
-            <li><a href="{{ url("sp.admin.settings.general") }}">General</a></li>
-            <li><a href="{{ url("sp.admin.settings.reading") }}">Reading</a></li>
-            <li><a href="{{ url("sp.admin.settings.writing") }}">Writing</a></li>
-            <li><a href="{{ url("sp.admin.settings.media") }}">Media</a></li>
-            <li><a href="{{ url("sp.admin.settings.permalink") }}">Permalinks</a></li>
+            {% if is_granted( app['sp.core.roles'].ROLE_MANAGE_OPTIONS ) %}
+                <li class="nav-header"><i class="icon-28 icon-setting"></i> Settings</li>
+                <li><a href="{{ url("sp.admin.settings.general") }}">General</a></li>
+                <li><a href="{{ url("sp.admin.settings.reading") }}">Reading</a></li>
+                <li><a href="{{ url("sp.admin.settings.writing") }}">Writing</a></li>
+                <li><a href="{{ url("sp.admin.settings.media") }}">Media</a></li>
+                <li><a href="{{ url("sp.admin.settings.permalink") }}">Permalinks</a></li>
             {% endif %}
         </ul>
     </div>

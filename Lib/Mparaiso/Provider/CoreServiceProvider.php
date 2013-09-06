@@ -50,7 +50,7 @@ class CoreServiceProvider implements ServiceProviderInterface
         });
         // User
         $app["sp.core.roles"] = $app->share(function () {
-            return Roles::getRoles();
+            return new Roles;
         });
         // Post
         $app["sp.core.collection.post"] = "posts"; // name of the posts collection

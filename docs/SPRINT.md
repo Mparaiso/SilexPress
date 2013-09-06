@@ -7,4 +7,6 @@
               mise en ligne rapide d'articles.
         + [X] des menus peuvent être crées , édités , effacés.
         + [ ] les données peuvent être exportées et importées au format wordpress
+        + [ ] les roles et capabilites de wordpress sont implémentés
+              ( http://codex.wordpress.org/Roles_and_Capabilities )
 

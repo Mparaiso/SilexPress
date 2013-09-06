@@ -3,6 +3,7 @@
 namespace Mparaiso\SilexPress\Core\Controller;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 

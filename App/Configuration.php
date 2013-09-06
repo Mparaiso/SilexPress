@@ -47,7 +47,7 @@ class Configuration implements ServiceProviderInterface
                  * FR : ajouter des templates personalisés au tableau de templates
                  */
                 "twig.form.templates" => array('form_div_layout.html.twig', "form/form_div_layout.twig"),
-                'twig.options' => array('cache' => ROOT . '/temp/twig', 'strict_variables' => false)
+                'twig.options' => array('cache' => ROOT . '/temp/twig',/* 'strict_variables' => false */)
             )
         );
         # form

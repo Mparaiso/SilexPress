@@ -2,21 +2,29 @@
 
 namespace Model\Entity;
 
-class User extends Base
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\Role;
+
+class User extends Base implements AdvancedUserInterface
 {
 
-    protected $_id = null;
-    protected $username = null;
-    protected $firstname = null;
-    protected $lastname = null;
-    protected $password = null;
-    protected $address = null;
-    protected $email = null;
-    protected $roles = array('ROLE_WRITER');
-    protected $enabled = true;
-    protected $userNonExpired = true;
-    protected $credentialsNonExpired = true;
-    protected $userNonLocked = true;
+    protected $isCredentialsNonExpired = true;
+    protected $isEnabled = true;
+    protected $isAccountNonLocked = true;
+    protected $isAccountNonExpired = true;
+    protected $salt;
+    protected $_id;
+    protected $username;
+    protected $firstname;
+    protected $lastname;
+    protected $password;
+    protected $address;
+    protected $email;
+    protected $roles;
+//    protected $enabled = true;
+//    protected $userNonExpired = true;
+//    protected $credentialsNonExpired = true;
+//    protected $userNonLocked = true;
     protected $ip;
 
 
@@ -40,5 +48,118 @@ class User extends Base
         $this->username = $username;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function isAccountNonExpired()
+    {
+        return $this->isAccountNonExpired;
+    }
+
+    /**
+     * {{@inheritdoc}
+     */
+    public function isAccountNonLocked()
+    {
+        return $this->isAccountNonLocked;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isCredentialsNonExpired()
+    {
+        return $this->isCredentialsNonExpired;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isEnabled()
+    {
+        return $this->isEnabled;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     *
+     * @return void
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+    public function getIsAccountNonExpired()
+    {
+        return $this->isAccountNonExpired;
+    }
+
+    public function setIsAccountNonExpired($isAccountNonExpired)
+    {
+        $this->isAccountNonExpired = $isAccountNonExpired;
+    }
+
+    public function getIsAccountNonLocked()
+    {
+        return $this->isAccountNonLocked;
+    }
+
+    public function setIsAccountNonLocked($isAccountNonLocked)
+    {
+        $this->isAccountNonLocked = $isAccountNonLocked;
+    }
+
+    public function getIsEnabled()
+    {
+        return $this->isEnabled;
+    }
+
+    public function setIsEnabled($isEnabled)
+    {
+        $this->isEnabled = $isEnabled;
+    }
+
+    public function getIsCredentialsNonExpired()
+    {
+        return $this->isCredentialsNonExpired;
+    }
+
+    public function setIsCredentialsNonExpired($isCredentialsNonExpired)
+    {
+        $this->isCredentialsNonExpired = $isCredentialsNonExpired;
+    }
 }
 
