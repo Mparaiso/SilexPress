@@ -228,10 +228,11 @@ class Configuration implements ServiceProviderInterface
             }),
         ));
 
-
-        $app->register(new WebProfilerServiceProvider(), array(
-            "profiler.cache_dir" => __DIR__ . "/../temp/profiler",
-        ));
+        if($app["debug"]===TRUE){
+            $app->register(new WebProfilerServiceProvider(), array(
+                "profiler.cache_dir" => __DIR__ . "/../temp/profiler",
+            ));
+        }
     }
 
     /**
