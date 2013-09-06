@@ -32,19 +32,19 @@ class MediaServiceProvider implements \Silex\ServiceProviderInterface
         /**
          * Attachment Services
          */
-        $app["sp.media.model.attachement"] = $app->share(function ($app) {
+        $app["sp.media.model.attachment"] = $app->share(function ($app) {
             return $app["sp.core.model.post"];
         });
-        $app["sp.media.collection.attachement"] = 'posts';
+        $app["sp.media.collection.attachment"] = 'posts';
         $app["sp.media.service.attachment"] = $app->share(function ($app) {
             $service = new Attachment($app["sp.media.db.connection"],
-                $app["sp.media.collection.attachement"],
-                $app["sp.media.model.attachement"]);
+                $app["sp.media.collection.attachment"],
+                $app["sp.media.model.attachment"]);
             return $service;
         });
         $app["sp.media.service.upload"] = $app->share(function ($app) {
             return new Upload($app["sp.media.db.connection"], $app["sp.media.vars.upload_dir"],
-                $app["sp.media.service.attachment"], $app["sp.media.model.attachement"]);
+                $app["sp.media.service.attachment"], $app["sp.media.model.attachment"]);
         });
         // the form type instance for file upload
         $app["sp.media.form.upload"] = function ($app) {

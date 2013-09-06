@@ -56,9 +56,8 @@ class IndexController implements \Silex\ControllerProviderInterface
     /**
      * /admin/media/new<br>
      * manages file upload through a form
-     *
      */
-    function _new(Application $app)
+    function create(Application $app)
     {
         $form = $app["form.factory"]->create($app["sp.media.form.upload"]);
         /* @var $form Form */
@@ -81,7 +80,7 @@ class IndexController implements \Silex\ControllerProviderInterface
 
     function update(Application $app, $id)
     {
-        $model = $app["sp.media.service.attachement"]->find($id);
+        $model = $app["sp.media.service.attachment"]->find($id);
         if (!$model) {
             throw new NotFoundHttpException("attachment not found");
         }
@@ -115,7 +114,7 @@ class IndexController implements \Silex\ControllerProviderInterface
     {
         $controllers = $app["sp.media.controllers"] = $app["controllers_factory"];
         /* @var ControllerCollection $controllers */
-        $controllers->match("/new", array($this, "_new"))->bind("sp.admin.media.new");
+        $controllers->match("/new", array($this, "create"))->bind("sp.admin.media.new");
         $controllers->match("/upload/{id}/{filename}", array($this, "read"))->bind("sp.admin.media.serve");
         $controllers->match("/upload", array($this, "index"))->bind("sp.admin.media.upload");
         $controllers->match("/edit/{id}", array($this, "update"))->bind("sp.admin.media.edit");
