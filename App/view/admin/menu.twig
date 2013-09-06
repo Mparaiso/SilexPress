@@ -1,5 +1,5 @@
 {# admin/left_sidebar.twig #}
-{% if is_granted('ROLE_WRITER') %}
+{% if is_granted(app["sp.core.roles"].ROLE_SUBSCRIBER) %}
     <div class=' span2'>
         <ul class="nav nav-list">
             {# Dashboard #}

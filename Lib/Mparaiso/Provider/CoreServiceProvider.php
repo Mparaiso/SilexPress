@@ -3,7 +3,26 @@
 namespace Mparaiso\Provider;
 
 
-use Mparaiso\CodeGeneration\Controller\CRUD;use Mparaiso\SilexPress\Core\Controller\AdminController;use Mparaiso\SilexPress\Core\Controller\IndexController;use Mparaiso\SilexPress\Core\Controller\PostController;use Mparaiso\SilexPress\Core\Controller\UserController;use Mparaiso\SilexPress\Core\Event\PostEventListener;use Mparaiso\SilexPress\Core\Event\PostEvents;use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;use Mparaiso\SilexPress\Core\Service\Base;use Mparaiso\SilexPress\Core\Service\Menu;use Mparaiso\SilexPress\Core\Service\Option as OptionService;use Mparaiso\SilexPress\Core\Service\Post as PostService;use Mparaiso\SilexPress\Core\Service\Term as TermService;use Mparaiso\SimpleRest\Controller\Controller as ApiController;use Silex\Application;use Silex\ServiceProviderInterface;use Symfony\Component\Form\FormBuilder;/**
+use Mparaiso\CodeGeneration\Controller\CRUD;
+use Mparaiso\SilexPress\Core\Constant\Roles;
+use Mparaiso\SilexPress\Core\Controller\AdminController;
+use Mparaiso\SilexPress\Core\Controller\CommentController;
+use Mparaiso\SilexPress\Core\Controller\IndexController;
+use Mparaiso\SilexPress\Core\Controller\UserController;
+use Mparaiso\SilexPress\Core\Event\PostEventListener;
+use Mparaiso\SilexPress\Core\Event\PostEvents;
+use Mparaiso\SilexPress\Core\Form\Extension\SilexPressExtension;
+use Mparaiso\SilexPress\Core\Service\Base;
+use Mparaiso\SilexPress\Core\Service\Menu;
+use Mparaiso\SilexPress\Core\Service\Option as OptionService;
+use Mparaiso\SilexPress\Core\Service\Post as PostService;
+use Mparaiso\SilexPress\Core\Service\Term as TermService;
+use Mparaiso\SimpleRest\Controller\Controller as ApiController;
+use Silex\Application;
+use Silex\ServiceProviderInterface;
+use Symfony\Component\Form\FormBuilder;
+
+/**
  * Class CoreServiceProvider
  * @package Mparaiso\Provider
  *
@@ -29,7 +48,10 @@ class CoreServiceProvider implements ServiceProviderInterface
             $mongo = new \MongoClient($app['config.server']);
             return $mongo->selectDB($app['config.database']);
         });
-
+        // User
+        $app["sp.core.roles"] = $app->share(function () {
+            return Roles::getRoles();
+        });
         // Post
         $app["sp.core.collection.post"] = "posts"; // name of the posts collection
         $app["sp.core.model.post"] = 'Mparaiso\SilexPress\Core\Model\Post'; // post model class
@@ -175,20 +197,24 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app["sp.core.service.option"] = $app->share(function ($app) {
             return new OptionService($app["sp.core.db.connection"], $app["sp.core.collection.option"], $app["sp.core.model.option"]);
         });
+        // other controllers
         $app["sp.core.controller.admin"] = $app->share(function ($app) {
             return new AdminController();
         });
-        //CONTROLLERS
         $app["sp.core.controller.index"] = $app->share(function ($app) {
             return new IndexController();
         });
         $app["sp.core.controller.user"] = $app->share(function ($app) {
             return new UserController();
         });
-
+        $app["sp.core.controller.comment"] = $app->share(function ($app) {
+            return new CommentController($app['spam_manager']);
+        });
+        // listeners
         $app["sp.core.listener.post"] = $app->share(function ($app) {
             return new PostEventListener($app["logger"]);
         });
+
     }
 
 
@@ -197,7 +223,7 @@ class CoreServiceProvider implements ServiceProviderInterface
      */
     public function boot(Application $app)
     {
-        // register events
+        // register event listeners
         $app["dispatcher"]->addSubscriber($app["sp.core.listener.post"]);
         // register new form type extension
         $app['form.extensions'] = $app->share($app->extend("form.extensions", function ($extensions, $app) {
@@ -212,7 +238,6 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.category"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.tag"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.menu"]);
-        $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.user"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.admin"]);
         /* admin category api */
         $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.category"]);
@@ -220,6 +245,13 @@ class CoreServiceProvider implements ServiceProviderInterface
         $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.page"]);
         /* admin menu api */
         $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.menu"]);
+        // index
         $app->mount("/", $app["sp.core.controller.index"]);
+        // comment
+        $app->mount("/", $app["sp.core.controller.comment"]);
+        // user controller
+        $app->mount("/", $app["sp.core.controller.user"]);
+
+
     }
 }

@@ -1,13 +1,12 @@
 <?php
 
-use Controller\CommentController;
-use Controller\UserController;
 use Model\Manager\SessionManager;
 use Mparaiso\Provider\ConsoleServiceProvider;
 use Mparaiso\Provider\CoreServiceProvider;
 use Mparaiso\Provider\CrudServiceProvider;
 use Mparaiso\Provider\GravatarServiceProvider;
 use Mparaiso\Provider\MediaServiceProvider;
+use Mparaiso\SilexPress\Core\Constant\Roles;
 use Silex\Application;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\HttpCacheServiceProvider;
@@ -80,6 +79,7 @@ class Configuration implements ServiceProviderInterface
                 ),*/
             )
         );
+        # security
         /** Security
          * EN : note : all the app must be behind the firewall
          * the firewall must allow anonymous users
@@ -115,15 +115,11 @@ class Configuration implements ServiceProviderInterface
                     )
                 ),
                 'security.access_rules' => array(
-                    array('^/admin', 'ROLE_USER'),
-//                    array('^/admin/option', 'ROLE_ADMIN'),
+                    array('^/admin', 'ROLE_SUBSCRIBER'),
                 ),
-                'security.role_hierarchy' => array(
-                    'ROLE_ADMIN' => array('ROLE_EDITOR'),
-                    "ROLE_EDITOR" => array('ROLE_WRITER'),
-                    "ROLE_WRITER" => array('ROLE_USER'),
-                    "ROLE_USER" => array("ROLE_SUSCRIBER"),
-                ),
+                'security.role_hierarchy' => $app->share(function ($app) {
+                    return Roles::getRoles();
+                })
             )
         );
         # cache
@@ -212,10 +208,6 @@ class Configuration implements ServiceProviderInterface
         # using symfony reverse proxy
         #Request::trustProxyData();
 
-        $app['silexblog.url'] = function ($app) {
-            return $app['url_generator']->generate('index.index');
-        };
-
         /** allowed tags for content rendering in the view **/
         $app['silexblog.config.allowedTags'] = '<a>,<b>,<u>,<small>,<strong>,<li>,<ol>,<ul>,<img>,<h3>,<h4>,<h5>,<h6>,<p>';
 
@@ -227,9 +219,10 @@ class Configuration implements ServiceProviderInterface
         $app->register(new CoreServiceProvider);
         $app->register(new MediaServiceProvider, array(
             "sp.media.vars.upload_dir" => __DIR__ . "/../upload",
-            "sp.media.template.layout" => "admin/admin-layout.twig"
+            "sp.media.template.layout" => $app->share(function ($app) {
+                return $app["sp.core.template.admin.layout"];
+            }),
         ));
-
     }
 
     /**
@@ -239,13 +232,9 @@ class Configuration implements ServiceProviderInterface
      * and should be used for "dynamic" configuration (whenever
      * a service must be requested).
      */
-    public function boot(Application $app)
+    public
+    function boot(Application $app)
     {
-
-// EN : define main routes 
-// FR : définir les routes principales
-        $app->mount("/comment", new CommentController($app['spam_manager']));
-        $app->mount('/user', new UserController($app['user_manager'], $app['spam_manager']));
 
     }
 }

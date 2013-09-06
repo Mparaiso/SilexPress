@@ -1,4 +1,10 @@
 {% extends app["sp.core.template.front.layout"] %}
 {% block content %}
-{% include 'form/register.twig' with {'form': registrationForm, 'action': path('user.dosignup')} only %}
+    <div class="span12">
+        <form action="" method="post">
+            <legend>Register</legend>
+            {{ form_widget(form) }}
+            <input class="btn" type="submit" name="submit">
+        </form>
+    </div>
 {% endblock %}
