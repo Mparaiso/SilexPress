@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "require": {
         "silex/silex": "1.*",
+        "silex/web-profiler": "*@dev",
         "twig/twig": "*",
         "monolog/monolog": "*",
         "symfony/symfony": "2.3.3",

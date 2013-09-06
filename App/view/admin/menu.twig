@@ -38,15 +38,13 @@
             <li><a href="#">Add New</a></li>
             <li><a href="{{ path('admin.user.profile') }}">Your Profile</a></li>
             {# SETTINGS #}
+            {%  if is_granted( app['sp.core.roles'].ROLE_MANAGE_OPTIONS ) %}
             <li class="nav-header"><i class="icon-28 icon-setting"></i> Settings</li>
             <li><a href="{{ url("sp.admin.settings.general") }}">General</a></li>
             <li><a href="{{ url("sp.admin.settings.reading") }}">Reading</a></li>
             <li><a href="{{ url("sp.admin.settings.writing") }}">Writing</a></li>
             <li><a href="{{ url("sp.admin.settings.media") }}">Media</a></li>
             <li><a href="{{ url("sp.admin.settings.permalink") }}">Permalinks</a></li>
-            {% if is_granted('ROLE_EDITOR') %}
-            {% endif %}
-            {% if is_granted('ROLE_ADMIN') %}
             {% endif %}
         </ul>
     </div>

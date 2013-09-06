@@ -75,6 +75,7 @@ class Roles
         return array(
             self::ROLE_SUPER_ADMIN => array(
                 self::ROLE_ADMINISTRATOR,
+                self::ROLE_MANAGE_OPTIONS
             ),
             self::ROLE_ADMINISTRATOR => array(
                 self::ROLE_EDITOR,

@@ -12,11 +12,13 @@ use Silex\Provider\FormServiceProvider;
 use Silex\Provider\HttpCacheServiceProvider;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
+use Silex\Provider\ServiceControllerServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
+use Silex\Provider\WebProfilerServiceProvider;
 use Silex\ServiceProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -127,9 +129,11 @@ class Configuration implements ServiceProviderInterface
             array('http_cache.cache_dir' => ROOT . '/temp/http',
                 'http_cache.esi' => null)
         );
-        # Gravatar
+        $app->register(new ServiceControllerServiceProvider());
 
         # CUSTOM SERVICES
+        # Gravatar
+        $app->register(new GravatarServiceProvider);
         $app['config.server'] = getenv('SILEXPRESS_DBSERVER') ? getenv('SILEXPRESS_DBSERVER') : "localhost";
         $app['config.database'] = getenv("SILEXPRESS_DBNAME ") ? getenv("SILEXPRESS_DBNAME ") : "tests";
         $app['config.akismet_apikey'] = getenv('AKISMET_APIKEY');
@@ -218,10 +222,15 @@ class Configuration implements ServiceProviderInterface
         $app->register(new CrudServiceProvider);
         $app->register(new CoreServiceProvider);
         $app->register(new MediaServiceProvider, array(
-            "sp.media.vars.upload_dir" => __DIR__ . "/../upload",
-            "sp.media.template.layout" => $app->share(function ($app) {
+            "sp . media . vars . upload_dir" => __DIR__ . " /../upload",
+            "sp . media . template . layout" => $app->share(function ($app) {
                 return $app["sp.core.template.admin.layout"];
             }),
+        ));
+
+
+        $app->register(new WebProfilerServiceProvider(), array(
+            "profiler.cache_dir" => __DIR__ . "/../temp/",
         ));
     }
 

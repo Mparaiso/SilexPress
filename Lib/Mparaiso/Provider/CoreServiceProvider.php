@@ -233,20 +233,21 @@ class CoreServiceProvider implements ServiceProviderInterface
         // EN : add new folders to twig
         $app['twig.loader.filesystem']->addPath($app["sp.core.template.path"]);
         // add controllers
+        // index
+        $app->mount("/", $app["sp.core.controller.index"]);
+        // admin
+        $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.admin"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.post"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.page"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.category"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.tag"]);
         $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.crud.menu"]);
-        $app->mount($app["sp.core.vars.admin_route_prefix"], $app["sp.core.controller.admin"]);
         /* admin category api */
         $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.category"]);
         /* admin page api */
         $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.page"]);
         /* admin menu api */
         $app->mount($app["sp.core.vars.admin_route_prefix"] . $app["sp.core.vars.api_route_prefix"], $app["sp.core.api.menu"]);
-        // index
-        $app->mount("/", $app["sp.core.controller.index"]);
         // comment
         $app->mount("/", $app["sp.core.controller.comment"]);
         // user controller
