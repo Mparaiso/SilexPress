@@ -2,20 +2,24 @@
 
 
 use Doctrine\MongoDB\Database;
-
-class DoctrineMongoDBTest extends \PHPUnit_Framework_TestCase
+use Silex\WebTestCase;
+/**
+ * 
+ * @author mark prades
+ * Doctrine ODM integration test
+ */
+class DoctrineMongoDBTest extends WebTestCase
 {
-    protected $c;
+
     /**
+     * 
      * @var Database
      */
     protected $db;
     protected $collection = "silexpress_test_collection";
-
-    function setUp()
-    {
-        parent::setUp();
-        $this->c = Bootstrap::getContainer();
+   
+    function createApplication(){
+        return Bootstrap::getApp();
     }
 
     function provider()
@@ -38,8 +42,8 @@ class DoctrineMongoDBTest extends \PHPUnit_Framework_TestCase
      */
     function testDatabase($books)
     {
-        $this->assertNotNull($this->c['mongo.database']);
-        $db = $this->c["mongo.database"];
+        $this->assertNotNull($this->app['mp.mongo']);
+        $db = $this->app['mp.mongo'];
         $this->db = $db;
         /* @var Database $db */
         $bookCollection = $db->selectCollection($this->collection);
@@ -56,7 +60,7 @@ class DoctrineMongoDBTest extends \PHPUnit_Framework_TestCase
     function tearDown()
     {
         parent::tearDown();
-        $this->c = Bootstrap::getContainer();
+        $this->db=$this->app['mp.mongo'];
         $this->db->dropCollection($this->collection);
     }
 

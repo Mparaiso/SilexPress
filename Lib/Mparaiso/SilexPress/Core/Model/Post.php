@@ -59,15 +59,6 @@ class Post extends Base
         return $this->__get("guid");
     }
 
-    public function setId($id)
-    {
-        $this->__set("_id", $id);
-    }
-
-    public function getId()
-    {
-        return $this->__get("_id");
-    }
 
     public function setMenuOrder($menu_order)
     {

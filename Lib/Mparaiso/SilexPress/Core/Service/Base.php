@@ -8,6 +8,9 @@ use MongoDB;
 use MongoId;
 use Mparaiso\SilexPress\Core\Decorator\Cursor;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Doctrine\MongoDB\Database;
+use Doctrine\MongoDB\Collection;
+use Mparaiso\SilexPress\Core\Model\Base as ModelBase;
 
 /**
  * Class Base
@@ -25,7 +28,7 @@ class Base implements IService
      */
     protected $className;
     /**
-     * @var MongoDB
+     * @var \MongoDB
      */
     protected $connection;
     /**
@@ -33,7 +36,7 @@ class Base implements IService
      */
     protected $collectionName;
     /**
-     * @var MongoCollection
+     * @var \MongoCollection
      */
     protected $collection;
 
@@ -146,10 +149,10 @@ class Base implements IService
      * @param $model
      * @return bool
      */
-    function persist($model)
+    function persist(ModelBase $model)
     {
-        if (isset($model["_id"])) {
-            $result = $this->getCollection()->update(array("_id" => $model["_id"]), $model, array("upsert" => true));
+        if ($model->getId()) {
+            $result = $this->getCollection()->update(array("_id" => $model->getId()), $model, array("upsert" => true));
         } else {
             $result = $this->getCollection()->insert($model);
         }
@@ -161,9 +164,9 @@ class Base implements IService
      * @param $model
      * @return mixed
      */
-    function remove($model)
+    function remove(ModelBase $model)
     {
-        return $this->getCollection()->remove(array("_id" => new MongoId($model["_id"])));
+        return $this->getCollection()->remove(array("_id" => new MongoId($model->getId())));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Mparaiso\SilexPress\Core\Service;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Mparaiso\CodeGeneration\Service\ICRUDService;
+use Mparaiso\SilexPress\Core\Model\Base as ModelBase;
 
 /**
  * Class IService
@@ -12,9 +13,9 @@ use Mparaiso\CodeGeneration\Service\ICRUDService;
  */
 interface IService extends ObjectRepository, ICRUDService
 {
-    function remove($model);
+    function remove(ModelBase $model);
 
-    function persist($model);
+    function persist(ModelBase $model);
 
     function count(array $query = array());
 }

@@ -35,8 +35,6 @@
             this.on({
                 /** add pages to menu **/
                 addSubMenuToMenu: function (event) {
-                    var elements, i;
-                    i = event.context.menu.items.length;
                     event.context.menus.filter(function (item) {
                         return event.context.selectedMenus.indexOf(item.id) >= 0;
                     }).map(function (item) {
@@ -69,11 +67,8 @@
                 },
                 /** add category to menu **/
                 addCategoryToMenu: function () {
-                    var i, category, categories, selectedCategories, items, self;
-                    self = this;
-                    categories = this.get("categories");
+                    var i, category, selectedCategories;
                     selectedCategories = this.get("selectedCategories");
-                    items = this.get("menu.items");
                     for (i = 0; i < selectedCategories.length; i++) {
                         category = this.getCategoryById(selectedCategories[i]);
                         this.get("menu.items").push({post_id: category.id, label: category.title, title: category.title, menu_type: "category"});
@@ -116,7 +111,7 @@
                 selectAllSubMenus: function (event) {
                     console.log(arguments);
                     event.context.selectedSubMenus = event.context.menus.map(function (item) {
-                        return item.id
+                        return item.id;
                     });
                 }
             });

@@ -1,6 +1,6 @@
 <?php
-
-namespace Mparaiso\SilexPress\Core\Model {
+namespace Mparaiso\SilexPress\Core\Model
+{
 
     use ArrayObject;
 
@@ -27,11 +27,22 @@ namespace Mparaiso\SilexPress\Core\Model {
         }
 
         /**
-         * {@inheritdoc}
+         * @ERROR!!!
          */
         public function jsonSerialize()
         {
             return iterator_to_array($this);
+        }
+
+        function getId()
+        {
+            if (isset($this["_id"]))
+                return $this["_id"];
+        }
+
+        function setId($id)
+        {
+            $this["_id"] = $id instanceof \MongoId ? $id : new MongoId($id);
         }
     }
 }

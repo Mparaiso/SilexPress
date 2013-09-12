@@ -2,6 +2,7 @@
 
 namespace Mparaiso\SilexPress\Core\Service;
 use MongoId;
+use Mparaiso\SilexPress\Core\Model\Base as ModelBase;
 
 /**
  * Class Post
@@ -12,7 +13,7 @@ class Post extends Base
 {
     protected $posttype = "post";
 
-    function persist($model)
+    function persist(ModelBase $model)
     {
         $model->setPostModified(new \MongoDate());
         if (NULL == $model->getPostDate()) {
@@ -68,6 +69,7 @@ class Post extends Base
         $post->setPostAuthor(new MongoId($user->getId()));
         return $post;
     }
-
+    
+    
 
 }

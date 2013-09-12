@@ -6,10 +6,12 @@
         <h1>&nbsp;</h1>
 
         <p class="author">
+            {% if post.post_author is defined %}
             <i class="icon-user"></i>
             <small>
                 <a href="{#{path('article.getbyusername',{username: username})}#}">{{ app.user_manager.getById(post.post_author).username|default('') }}</a>
                 |
+            {% endif %}
                 <i class="icon-calendar"></i>
                 {{ post.getPostDate()|date(app["sp.core.service.option"].get('date_format')|default("Y-m-d")) }}
                 |

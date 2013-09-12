@@ -1,6 +1,8 @@
 <?php
 
 namespace Mparaiso\SilexPress\Core\Service;
+
+use Mparaiso\SilexPress\Core\Model\Base as ModelBase;
 /**
  * Class Term
  * @package Mparaiso\SilexPress\Core\Service
@@ -11,7 +13,7 @@ class Term extends Base
 
     protected $taxonomy;
 
-    function persist($model)
+    function persist(ModelBase $model)
     {
         $model->setTaxonomy($this->taxonomy);
         return parent::persist($model);

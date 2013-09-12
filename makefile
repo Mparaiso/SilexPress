@@ -8,8 +8,6 @@ commit:
 
 deploy:
 
-#	git add .
-#	git commit -am"deploy"
 	git push heroku master -f
 
 start:
@@ -27,5 +25,9 @@ update:
 install:
 
 	composer install
+
+open:
+	
+	heroku open
 
 .PHONY: commit
